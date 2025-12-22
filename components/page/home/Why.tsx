@@ -67,16 +67,36 @@ const Why = ({ title, bodyHtml, cards }: WhyProps) => {
                       const Dynamic = (Lucide as Record<string, any>)[pascal];
                       return Dynamic || Shuffle;
                     })();
+
+                    // Per-icon responsive sizes (mobile first)
+                    const iconSizeClass = (() => {
+                      switch (card.iconKey) {
+                        case 'shuffle':
+                          // smaller on mobile, larger on md+
+                          return 'h-8 w-8 md:h-12 md:w-12';
+                        case 'zap':
+                          return 'h-8 w-8 md:h-10 md:w-10';
+                        case 'scaling':
+                          return 'h-8 w-8 md:h-8 md:w-8';
+                        default:
+                          return 'h-8 w-8 md:h-10 md:w-10';
+                      }
+                    })();
+
+                    // Reduce left padding for the last (third) card only
+                    // Apply smaller left padding on mobile and md+
+                    const leftPad = idx === data.length - 1 ? 'pl-4 md:pl-2' : '';
+
                     const isWide = idx === data.length - 1; // last card spans columns when 3 fallback cards
                     return (
                       <div
                         key={idx}
-                        className={`bg-background flex flex-col items-start justify-between gap-4 rounded-lg p-3 ${
+                        className={`bg-background flex flex-col items-start justify-between gap-4 rounded-lg p-3 ${leftPad} ${
                           isWide ? 'md:col-span-2 md:flex-row md:items-center' : 'md:flex-row md:items-center'
                         }`}
                       >
                         <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-6">
-                          <Icon className="text-primary h-10 w-10" strokeWidth={1.5} />
+                          <Icon className={`text-primary ${iconSizeClass}`} strokeWidth={1.5} />
                           <p className="max-w-72 text-base leading-none font-bold tracking-tight md:text-xl">
                             {card.title}
                           </p>
