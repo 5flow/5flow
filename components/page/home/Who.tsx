@@ -1,9 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
 import Image from 'next/image';
-import { ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowDown } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 
@@ -37,62 +35,45 @@ interface WhoProps {
 const DEFAULT_CLIENTS: WhoClient[] = CLIENT_IMAGE_FILENAMES.map(name => ({ imageUrl: name }));
 
 const Who = ({ path = 'home', clients = DEFAULT_CLIENTS, title }: WhoProps) => {
-  const logosRef = useRef<HTMLDivElement | null>(null);
-
-  const scrollByAmount = (direction: 'left' | 'right') => {
-    const el = logosRef.current;
-    if (!el) return;
-
-    const amount = direction === 'left' ? -el.clientWidth : el.clientWidth;
-    el.scrollBy({ left: amount, behavior: 'smooth' });
-  };
+  // Duplicate clients for seamless infinite scroll
+  const duplicatedClients = [...clients, ...clients];
 
   return (
     <div className="flex w-full flex-col gap-4 md:gap-8">
-      <FullBleedLines className="flex flex-col justify-between gap-8 md:flex-row">
-        <div className="flex items-center gap-8 px-4 sm:px-8">
-          <ArrowDown className="text-accent1 hidden h-16 w-16 sm:h-24 sm:w-24 md:block md:h-32 md:w-32" aria-hidden />
-          <p className="font-heading w-full text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[64px]">
+      <FullBleedLines>
+        <div className="flex items-center justify-center gap-2 px-4 sm:gap-8 sm:px-8">
+          <ArrowDown className="text-accent1 h-16 w-16 shrink-0 sm:h-20 sm:w-20 md:h-28 md:w-28" aria-hidden />
+          <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-[64px]">
             <InlineHighlight>{(title || 'Who Do We Solve It For?').split(' ')[0]}</InlineHighlight>{' '}
             {(title || 'Who Do We Solve It For?').split(' ').slice(1).join(' ')}
           </p>
         </div>
-
-        <div className="flex items-center justify-center gap-3 self-stretch px-2 sm:gap-8 sm:px-2">
-          <Button
-            className="bg-primary hover:ring-primary/50 hover:ring-offset-background size-16 origin-center cursor-pointer rounded-none transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6 sm:size-20"
-            onClick={() => scrollByAmount('left')}
-            aria-label="Scroll left"
-          >
-            <ArrowLeft className="size-7 sm:size-8" />
-          </Button>
-          <Button
-            className="bg-primary hover:ring-primary/50 hover:ring-offset-background size-16 origin-center cursor-pointer rounded-none transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6 sm:size-20"
-            onClick={() => scrollByAmount('right')}
-            aria-label="Scroll right"
-          >
-            <ArrowRight className="size-7 sm:size-8" />
-          </Button>
-        </div>
       </FullBleedLines>
 
       <FullBleedLines>
-        <div ref={logosRef} className="bg-background scrollbar-none flex gap-2 overflow-x-auto p-2">
-          {clients.map((item, i) => (
-            <div
-              className="bg-background flex h-32 min-w-50 flex-col items-center justify-center rounded-2xl p-2 md:h-38 md:min-w-76"
-              key={i}
-            >
-              <div className="flex w-full items-center justify-center p-8">
-                <Image
-                  src={item.imageUrl?.startsWith('http') ? item.imageUrl : `/${path}/${item.imageUrl}`}
-                  alt={item.altText || 'Client Logo'}
-                  width={150}
-                  height={75}
-                />
+        <div className="group relative overflow-hidden">
+          {/* Left fade gradient */}
+          <div className="pointer-events-none absolute top-0 left-0 z-10 h-full w-[50px] bg-gradient-to-r from-white to-transparent" />
+          {/* Right fade gradient */}
+          <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-[50px] bg-gradient-to-l from-white to-transparent" />
+
+          <div className="animate-marquee flex w-max gap-2 group-hover:[animation-play-state:paused]">
+            {duplicatedClients.map((item, i) => (
+              <div
+                className="bg-background flex h-32 min-w-50 flex-col items-center justify-center rounded-2xl p-2 md:h-38 md:min-w-76"
+                key={i}
+              >
+                <div className="flex w-full items-center justify-center p-8">
+                  <Image
+                    src={item.imageUrl?.startsWith('http') ? item.imageUrl : `/${path}/${item.imageUrl}`}
+                    alt={item.altText || 'Client Logo'}
+                    width={150}
+                    height={75}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </FullBleedLines>
     </div>

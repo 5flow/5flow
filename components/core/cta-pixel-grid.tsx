@@ -22,14 +22,15 @@ export interface PixelGridProps {
   className?: string;
 }
 
-const CtaPixelGrid = ({ pattern, pixelSize = '7.5rem', className }: PixelGridProps) => {
+const CtaPixelGrid = ({ pattern, pixelSize = '7.5rem', icon, className }: PixelGridProps) => {
   if (!pattern.length) return null;
 
-  const columnCount = pattern[0]?.length ?? 0;
-  const style: (CSSProperties & { ['--pixel-size']?: string }) | undefined = columnCount
+  // Find the maximum column count across all rows
+  const maxColumnCount = Math.max(...pattern.map((row) => row.length));
+  const style: (CSSProperties & { ['--pixel-size']?: string }) | undefined = maxColumnCount
     ? {
         '--pixel-size': pixelSize,
-        gridTemplateColumns: `repeat(${columnCount}, var(--pixel-size))`,
+        gridTemplateColumns: `repeat(${maxColumnCount}, var(--pixel-size))`,
         gridAutoRows: 'var(--pixel-size)',
       }
     : undefined;
@@ -38,8 +39,8 @@ const CtaPixelGrid = ({ pattern, pixelSize = '7.5rem', className }: PixelGridPro
     <div className={cn('grid w-fit', className)} style={style}>
       {pattern.flatMap((row, rowIdx) =>
         row.map((color, colIdx) => {
-          const background = colorVarMap[color] ?? 'transparent';
-          // const isIconCell = icon && icon.row === rowIdx && icon.col === colIdx;
+          const background = color === 'background' ? 'transparent' : (colorVarMap[color] ?? 'transparent');
+          const isIconCell = icon && icon.row === rowIdx && icon.col === colIdx;
 
           return (
             <Pixel
@@ -47,7 +48,9 @@ const CtaPixelGrid = ({ pattern, pixelSize = '7.5rem', className }: PixelGridPro
               size="var(--pixel-size)"
               background={background}
               className="flex items-center justify-center"
-            />
+            >
+              {isIconCell && icon.element}
+            </Pixel>
           );
         })
       )}

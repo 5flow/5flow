@@ -2,118 +2,100 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Linkedin, Youtube } from 'lucide-react';
-import { Separator } from '../ui/separator';
-
-const pageLinks = [
-  { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact' },
-];
+import { Instagram, Twitter, Github } from 'lucide-react';
 
 const socialLinks = [
   { href: 'https://www.instagram.com/5flow_gmbh/', label: 'Instagram', Icon: Instagram },
-  { href: 'https://www.linkedin.com/company/5flow-wave/', label: 'Linkedin', Icon: Linkedin },
-  { href: 'https://www.youtube.com/@5flowgmbh', label: 'Youtube', Icon: Youtube },
+  { href: 'https://twitter.com/5flow', label: 'Twitter', Icon: Twitter },
+  { href: 'https://github.com/5flow', label: 'Github', Icon: Github },
 ];
 
-const legalLinks = [
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/disclaimer', label: 'Disclaimer' },
-  { href: '/imprint', label: 'Imprint' },
+const visitUsLinks = [
+  { href: 'https://propelis.com/', label: 'propelis.com' },
+  { href: 'https://makemarks.com/', label: 'makemarks.com' },
+  { href: 'https://equator-design.com/', label: 'equator-design.com' },
+  { href: 'https://sgxgraphics.com/', label: 'sgxgraphics.com' },
+  { href: 'https://timetocollide.com/', label: 'timetocollide.com' },
 ];
 
-const policyLinks = [
+const infosLinks = [
   { href: '/terms', label: 'Terms of Service' },
-  { href: '/sitemap', label: 'Sitemap' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/cookies', label: 'Cookie Policy' },
+  { href: '/disclaimer', label: 'Disclaimer' },
   { href: '/quality', label: 'Quality' },
 ];
 
-const otherLinks = [
-  { href: 'https://propelis.com/', label: 'Propelis' },
-  { href: 'https://makemarks.com/', label: 'MakeMarks' },
-  { href: 'https://timetocollide.com/', label: 'TimeToCollide' },
-  { href: 'https://equator-design.com/', label: 'EquatorDesign' },
-];
-
 export function Footer() {
-  const footerLink =
-    'inline-block w-auto text-background/80 hover:text-success transition-all duration-500 ease-[var(--easing-smooth)] text-sm sm:text-sm md:text-base';
+  const linkClass =
+    'text-background/80 hover:text-success transition-all duration-500 ease-[var(--easing-smooth)] text-sm';
 
   return (
-    <footer className="bg-primary px-4 py-8 sm:px-6 sm:py-16 md:px-48 md:py-24">
-      <div className="mx-auto flex flex-col gap-8 md:gap-12">
-        {/* Product Links */}
-        <div className="flex flex-col justify-between gap-6 tracking-tight md:flex-row">
-          <div className="flex min-w-36 flex-1 flex-col gap-6">
-            <span className="text-background font-bold">Jump In</span>
-            <div className="flex flex-col items-start gap-4">
-              {pageLinks.map(l => (
-                <Link key={l.href} href={l.href} className={footerLink}>
-                  {l.label}
-                </Link>
-              ))}
+    <footer className="bg-primary px-4 py-12 sm:px-6 sm:py-16 md:px-36 md:py-20">
+      <div className="mx-auto flex flex-col gap-12">
+        {/* Main Content */}
+        <div className="flex flex-col justify-between gap-12 md:flex-row">
+          {/* Left Side - Logo & Social */}
+          <div className="flex flex-col gap-12">
+            <Image src="/brand-mini.svg" alt="5Flow Logo" width={32} height={32} className="h-8 w-8" />
+            <div className="flex flex-col gap-4">
+              <span className="text-background font-bold">Stay Connected</span>
+              <div className="flex gap-4">
+                {socialLinks.map(s => {
+                  const Icon = s.Icon;
+                  return (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      aria-label={s.label}
+                      className="text-background/80 hover:text-success transition-all duration-500 ease-[var(--easing-smooth)]"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon size={20} />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
-          <div className="flex min-w-36 flex-1 flex-col gap-6">
-            <span className="text-background font-bold">Stay Connected</span>
-            <div className="flex gap-4">
-              {socialLinks.map(s => {
-                const Icon = s.Icon;
-                return (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    aria-label={s.label}
-                    className="text-background/80 hover:text-success inline-block transition-all duration-500 ease-[var(--easing-smooth)]"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span className="inline-block scale-90 transform sm:scale-95 md:scale-100">
-                      <Icon />
-                    </span>
+
+          {/* Right Side - Links */}
+          <div className="flex gap-16 md:gap-24">
+            <div className="flex flex-col gap-4">
+              <span className="text-background font-bold tracking-wide uppercase">Visit Us</span>
+              <div className="flex flex-col gap-3">
+                {visitUsLinks.map(link => (
+                  <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                    {link.label}
                   </a>
-                );
-              })}
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <span className="text-background font-bold tracking-wide uppercase">Infos</span>
+              <div className="flex flex-col gap-3">
+                {infosLinks.map(link => (
+                  <Link key={link.href} href={link.href} className={linkClass}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        <Separator />
-
-        {/* Other Links */}
-        <div className="flex flex-col justify-between gap-6 tracking-tight md:flex-row">
-          <div className="flex-1">
-            <div className="inline-block scale-90 transform sm:scale-95 md:scale-100">
-              <Image src="/brand-mini.svg" alt="5Flow Secondary Logo" width={32} height={32} className="h-8 w-8" />
-            </div>
-          </div>
-          <div className="flex min-w-36 flex-1 flex-col items-start gap-4">
-            {legalLinks.map(l => (
-              <Link key={l.href} href={l.href} className={footerLink}>
-                {l.label}
-              </Link>
-            ))}
-          </div>
-          <div className="flex min-w-36 flex-1 flex-col items-start gap-4">
-            {policyLinks.map(l => (
-              <Link key={l.href} href={l.href} className={footerLink}>
-                {l.label}
-              </Link>
-            ))}
-          </div>
-          <div className="flex min-w-36 flex-1 flex-col items-start gap-4">
-            {otherLinks.map(l => (
-              <Link key={l.href} href={l.href} className={footerLink}>
-                {l.label}
-              </Link>
-            ))}
-          </div>
+        {/* Bottom - Copyright & Disclaimer */}
+        <div className="border-background/20 flex flex-col gap-4 border-t pt-8">
+          <p className="text-background text-sm font-medium">
+            © 5Flow GmbH {new Date().getFullYear()}. All Right Reserved.
+          </p>
+          <p className="text-background/60 max-w-4xl text-xs leading-relaxed">
+            5Flow® is a registered trademark of Propelis Group. All product and company names are trademarks TM or
+            registered ® trademarks of their respective holders. Use of these third-party trademarks does not imply any
+            affiliation with or endorsement by their holders. All specifications are subject to change without notice.
+          </p>
         </div>
-
-        {/* Copyright */}
-        <p className="text-background w-full text-sm font-medium tracking-tight sm:text-sm md:text-base">
-          © 5Flow {new Date().getFullYear()}
-        </p>
       </div>
     </footer>
   );
