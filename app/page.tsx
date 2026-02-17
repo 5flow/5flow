@@ -1,4 +1,5 @@
-import { Contact, Cta } from '@/components/layout';
+import { Contact } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import ServerHero from '@/components/page/home/Hero.server';
 import ServerWhat from '@/components/page/home/What.server';
 import ServerHow from '@/components/page/home/How.server';
@@ -30,13 +31,7 @@ export default function Home() {
       </div>
 
       <div className="pt-12 md:pt-20">
-        <Cta
-          leftTitle="Experience"
-          leftSubtitle="What’s Next in"
-          rightTitle="Artwork Management"
-          rightDesc="Get a live demo of our advanced artwork management solution."
-          buttonText="Book A Demo"
-        />
+        <CtaV2 />
       </div>
     </div>
   );

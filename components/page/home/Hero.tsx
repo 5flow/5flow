@@ -22,10 +22,10 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
       </div>
 
       {/* Hero content */}
-      <div className="flex flex-col gap-8 px-4 sm:px-2 md:gap-14">
-        <div className="mt-12 flex flex-col gap-4 md:mt-24">
+      <div className="flex flex-col gap-[26px] px-4 sm:px-2">
+        <div className="mt-12 flex flex-col gap-[26px] md:mt-24">
           <FullBleedLines>
-            <p className="font-heading text-foreground max-w-full text-5xl font-semibold tracking-tighter sm:max-w-2xl sm:text-5xl md:max-w-4xl md:text-8xl">
+            <p className="font-heading text-foreground max-w-full text-5xl font-semibold tracking-tighter sm:max-w-2xl sm:text-5xl md:max-w-2xl md:text-[80px]">
               {(title ?? 'Take brand vision to market reality').split(' ').map((word, i, arr) => {
                 const highlightWords = ['reality'];
                 const isLastWord = i === arr.length - 1;
@@ -45,17 +45,21 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </FullBleedLines>
 
           <FullBleedLines>
-            <h1 className="font-heading text-primary text-2xl tracking-tighter sm:text-3xl md:text-5xl">
+            <h1 className="font-heading text-primary text-2xl tracking-tighter sm:text-3xl md:text-[48px]">
               {subTitle ?? 'Faster. Smarter. At scale.'}
             </h1>
           </FullBleedLines>
         </div>
         <FullBleedLines>
-          <div className="text-foreground max-w-full text-base tracking-tight sm:max-w-2xl sm:text-lg md:max-w-3xl md:text-xl">
+          <div className="text-foreground max-w-full text-base tracking-tight sm:max-w-2xl sm:text-lg md:max-w-3xl md:text-[20px]">
             {bodyHtml ? (
               <HtmlContent html={bodyHtml} />
             ) : (
-              `5FLOW helps global brands unify workflows, speed up execution, and keep every touchpoint consistent. With our expertise in packaging, content, and creative production powered by intelligent automation, we transform the way brands operate in today's connected world.`
+              <>
+                5FLOW helps global brands unify workflows, speed up execution, and keep every touchpoint consistent.
+                With our <strong>expertise in packaging, content, and creative production</strong> powered by
+                intelligent automation, we transform the way brands operate in today&apos;s connected world.
+              </>
             )}
           </div>
         </FullBleedLines>
@@ -78,6 +82,9 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </Link>
         </FullBleedLines>
       </div>
+
+      {/* Bottom fade gradient with blur blend */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[96px] w-screen -translate-x-1/2 bg-gradient-to-t from-white/80 to-transparent [mask-image:linear-gradient(to_top,black,transparent)] backdrop-blur-sm" />
     </div>
   );
 };

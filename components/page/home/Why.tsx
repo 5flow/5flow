@@ -43,9 +43,9 @@
 
         <FullBleedLines>
           <div className="w-full">
-            <div className="bg-primary flex w-full flex-col items-start justify-between gap-6 rounded-2xl py-8 md:flex-row md:items-center md:gap-0">
+            <div className="bg-primary flex w-full flex-col items-start justify-between gap-6 rounded-2xl py-8 md:flex-row md:items-center md:gap-0 md:py-0">
               <Image
-                className="hidden h-45 w-44 object-cover sm:h-36 sm:w-36 md:flex md:h-[460px] md:w-[450px]"
+                className="mr-10 hidden h-45 w-44 object-cover sm:h-36 sm:w-36 md:flex md:h-[460px] md:w-[450px]"
                 width={450}
                 height={450}
                 alt="rings showcasing brand identity"
@@ -96,7 +96,6 @@
                           }`}
                         >
                           <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-6">
-                            
                             <p className="max-w-72 text-base leading-none font-bold tracking-tight md:text-xl">
                               {card.title}
                             </p>

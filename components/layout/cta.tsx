@@ -15,10 +15,9 @@ interface CtaProps {
 
 export function Cta({ leftTitle, leftSubtitle, rightTitle, rightDesc, buttonText }: CtaProps) {
   const pixelPattern = [
-    ['background', 'accent1', 'background', 'background', 'background'],
-    ['background', 'primary', 'accent1', 'background', 'success'],
-    ['background', 'success', 'primary', 'warning', 'background'],
-    ['accent1', 'primary', 'accent1', 'accent1', 'accent1'],
+    ['background', 'background', 'accent1', 'background', 'background', 'background', 'background'],
+    ['background', 'success', 'primary', 'warning', 'background', 'background', 'background'],
+    ['background', 'primary', 'background', 'background', 'success', 'background', 'background'],
   ];
 
   return (
@@ -31,7 +30,7 @@ export function Cta({ leftTitle, leftSubtitle, rightTitle, rightDesc, buttonText
             <CtaPixelGrid
               pattern={pixelPattern}
               pixelSize="64px"
-              icon={{ row: 2, col: 1, element: <ArrowUp size={20} className="text-foreground" /> }}
+              icon={{ row: 1, col: 1, element: <ArrowUp size={20} className="text-foreground" /> }}
             />
           </div>
         </div>
@@ -42,7 +41,7 @@ export function Cta({ leftTitle, leftSubtitle, rightTitle, rightDesc, buttonText
             <CtaPixelGrid
               pattern={pixelPattern}
               pixelSize="128px"
-              icon={{ row: 2, col: 1, element: <ArrowUp size={36} className="text-foreground" /> }}
+              icon={{ row: 1, col: 1, element: <ArrowUp size={36} className="text-foreground" /> }}
             />
           </div>
         </div>

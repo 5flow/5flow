@@ -297,3 +297,17 @@ body,
 *::-webkit-scrollbar-thumb {
   background: transparent;
 }
+
+/* Marquee animation for infinite scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
