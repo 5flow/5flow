@@ -44,7 +44,7 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
   const sectionDesc = desc || 'Driven by AI, automation, and the power of Propelis.';
   return (
     <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
-      <div className="px-2 py-8">
+      <div className="px-2 py-4">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-1 flex-col gap-4 md:flex-row md:items-center md:gap-8">
             <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[48px]">
@@ -78,12 +78,12 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
                 key={i}
                 className="bg-background flex w-full flex-col gap-2 rounded-2xl p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] md:flex-1 md:p-1"
               >
-                <div className="flex w-full items-center gap-4 p-2 md:gap-6 md:p-8">
+                <div className="flex w-full items-center gap-4 p-2 md:gap-6 md:p-5">
                   <Icon className="text-primary h-10 w-10 sm:h-14 sm:w-14 md:h-15 md:w-15" strokeWidth={1.5} />
                   <p className="text-xl leading-none font-bold tracking-tight sm:text-2xl md:text-3xl">{item.title}</p>
                 </div>
 
-                <div className="flex w-full flex-col items-start gap-4 p-2 md:flex-row md:items-center md:gap-8 md:p-8">
+                <div className="flex w-full flex-col items-start gap-4 p-2 md:flex-row md:items-center md:gap-8 md:p-5">
                   <p className="text-sm tracking-tight">{item.desc}</p>
                   {item.link && (
                     <Link href={item.link}>

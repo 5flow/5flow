@@ -67,10 +67,6 @@ const What = ({ title, items }: WhatProps) => {
               );
             })}
           </p>
-          <ArrowUpRight
-            strokeWidth={1.5}
-            className="text-accent1 h-16 w-16 origin-center sm:h-20 sm:w-20 md:h-32 md:w-32"
-          />
         </FullBleedLines>
       </div>
 
@@ -90,7 +86,7 @@ const What = ({ title, items }: WhatProps) => {
               >
                 <div className="flex w-full items-start justify-between">
                   <p className="text-xl font-bold tracking-tight sm:text-2xl md:text-[36px]">{card.title}</p>
-                  <Icon className="text-primary h-10 w-10 sm:h-[60px] sm:w-[60px]" strokeWidth={1.5} />
+                  <Icon className="text-primary h-[60px] w-[60px] shrink-0" strokeWidth={1.5} />
                 </div>
                 <div className="w-full max-w-xl">
                   <p className="w-full max-w-96 text-base font-bold tracking-tight md:text-[20px]">{card.desc}</p>

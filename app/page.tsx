@@ -23,14 +23,14 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container mx-auto mb-32">
+      <div className="container mx-auto mb-12">
         <div className="mt-12 flex flex-col gap-12 md:mt-24 md:gap-32">
           <ServerWhy />
           <Contact />
         </div>
       </div>
 
-      <div className="pt-12 md:pt-20">
+      <div className="pt-4 md:pt-8">
         <CtaV2 />
       </div>
     </div>
