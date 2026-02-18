@@ -57,7 +57,7 @@ const What = ({ title, items }: WhatProps) => {
     <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
       <div className="px-2 py-8">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-4xl md:text-left md:text-[64px]">
+          <p className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             {sectionTitle.split(' ').map((word, i) => {
               const highlightWords = ['modern', 'content'];
               return highlightWords.includes(word) ? (
