@@ -43,8 +43,8 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
   const sectionSubtitle = subtitle || 'Simplifying Complexity Across Marketing & Packaging Ecosystems.';
   const sectionDesc = desc || 'Driven by AI, automation, and the power of Propelis.';
   return (
-    <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
-      <div className="px-2 py-10 md:py-16">
+    <div className="text-foreground flex w-full flex-col">
+      <div className="p-2 pt-12 pb-8 md:pt-16 md:pb-6">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-1 flex-col gap-4 md:flex-row md:items-center md:gap-8">
             <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[48px]">
@@ -65,7 +65,7 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
       </div>
 
       <FullBleedLines>
-        <div className="flex flex-col gap-2 p-2 pb-8 md:flex-row md:pb-16">
+        <div className="flex flex-col gap-2 p-2 py-8 md:flex-row md:py-12">
           {data.map((item, i) => {
             const Icon = (() => {
               if (!item.iconKey) return Cloud;

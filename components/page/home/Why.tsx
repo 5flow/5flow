@@ -28,12 +28,12 @@
     const data = cards && cards.length > 0 ? cards : fallbackCards;
     return (
       <div className="flex flex-col gap-4 md:gap-8">
-        <FullBleedLines className="font-heading mx-auto w-full max-w-2xl gap-16 px-2 py-8">
+        <FullBleedLines className="font-heading mx-auto w-full max-w-4xl gap-16 px-2 py-8">
           <p className="text-center text-4xl leading-none font-bold tracking-tight md:text-[64px]">
             {sectionTitle.split(' ').map((word, i) => {
               const highlightWords = ['create,', 'scale,', 'deliver.'];
               return highlightWords.includes(word) ? (
-                <InlineHighlight key={i}>{word.replace(/[,\.]/, '')}</InlineHighlight>
+                <span key={i}><InlineHighlight>{word.replace(/[,\.]/, '')}</InlineHighlight> </span>
               ) : (
                 <span key={i}>{word} </span>
               );

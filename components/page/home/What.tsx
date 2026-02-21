@@ -61,7 +61,7 @@ const What = ({ title, items }: WhatProps) => {
             {sectionTitle.split(' ').map((word, i) => {
               const highlightWords = ['modern', 'content'];
               return highlightWords.includes(word) ? (
-                <InlineHighlight key={i}>{word}</InlineHighlight>
+                <span key={i}><InlineHighlight>{word}</InlineHighlight> </span>
               ) : (
                 <span key={i}>{word} </span>
               );
