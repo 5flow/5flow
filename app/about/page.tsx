@@ -1,4 +1,4 @@
-import { Cta } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import AboutServerSections from '@/components/page/about/About.server';
 
@@ -12,14 +12,8 @@ export default function About() {
         </div>
       </div>
 
-      <div className="pt-12 md:pt-20">
-        <Cta
-          leftTitle="Experience"
-          leftSubtitle="What’s Next in"
-          rightTitle="Brand Management"
-          rightDesc="Get a live demo of our advanced artwork management solution by our product experts."
-          buttonText="Book A Demo"
-        />
+      <div className="pt-4 md:pt-8">
+        <CtaV2 />
       </div>
     </div>
   );
