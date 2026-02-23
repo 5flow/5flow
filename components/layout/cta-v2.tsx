@@ -95,7 +95,7 @@ export function CtaV2() {
                     aria-label="Scroll to top"
                     className="flex h-full w-full items-center justify-center transition-transform hover:scale-110 active:scale-95"
                   >
-                    <ArrowUp size={20} className="text-foreground" />
+                    <ArrowUp size={30} className="text-foreground" />
                   </button>
                 ),
               }}
@@ -118,7 +118,7 @@ export function CtaV2() {
                     aria-label="Scroll to top"
                     className="flex h-full w-full items-center justify-center transition-transform hover:scale-110 active:scale-95"
                   >
-                    <ArrowUp size={36} className="text-foreground" />
+                    <ArrowUp size={60} className="text-foreground" />
                   </button>
                 ),
               }}
