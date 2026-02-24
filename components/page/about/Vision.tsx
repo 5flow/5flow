@@ -1,36 +1,39 @@
 import { ArrowUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 
-type VisionProps = { visionText?: string };
+type VisionProps = {
+  visionTitle?: string;
+  visionText?: string;
+};
 
-const Vision = ({ visionText }: VisionProps) => {
+const Vision = ({ visionTitle, visionText }: VisionProps) => {
   return (
     <FullBleedLines>
-      <div className="font-heading flex w-full flex-col items-start gap-8 sm:gap-0">
-        <div className="flex flex-col items-center justify-between gap-4 self-stretch sm:flex-row sm:items-start sm:gap-0">
-          <div className="flex h-48 w-full flex-1 sm:w-96">
-            <div className="bg-accent2/40 h-16 w-16 sm:h-48 sm:w-48" />
-            <div className="bg-accent1 h-16 w-16 sm:h-48 sm:w-48" />
-            <div className="bg-success h-16 w-16 sm:h-48 sm:w-48" />
+      <div className="flex w-full flex-col gap-0 sm:flex-row">
+        {/* Left Box - Vision Title */}
+        <div
+          className="flex flex-col items-start justify-end p-10 sm:h-[460px] sm:w-[460px] sm:p-12 md:p-16"
+          style={{ backgroundColor: '#d1dafd' }}
+        >
+          <div className="flex items-end gap-4 md:gap-6">
+            <h2 className="font-heading text-foreground text-5xl leading-[1] font-bold tracking-tight md:text-6xl lg:text-7xl">
+              The
+              <br />
+              Vision
+            </h2>
+            <ArrowUpRight className="text-foreground h-16 w-16 md:h-24 md:w-24 lg:h-28 lg:w-28" strokeWidth={2.5} />
           </div>
-          <p className="w-full text-center text-lg leading-snug tracking-tight sm:max-w-4xl sm:text-right sm:text-4xl sm:leading-none">
-            {visionText ||
-              `We will revolutionise how brands leverage content - to transform the entire go-to market journey and become their indispensable partner`}
-          </p>
         </div>
 
-        <div className="flex items-center justify-between gap-4 self-stretch sm:flex-row sm:items-end sm:gap-0">
-          <div className="flex w-full items-center justify-center gap-4 sm:w-96 sm:justify-between sm:gap-0">
-            <b className="relative text-4xl leading-none tracking-tighter sm:w-64 sm:text-8xl">The. Vision.</b>
-            <ArrowUpRight className="text-accent1 h-20 w-20 sm:hidden" strokeWidth={1} />
-          </div>
-          <div className="relative hidden items-center justify-center sm:flex">
-            <ArrowUpRight className="text-accent1 h-20 w-20 sm:h-52 sm:w-52" strokeWidth={1} />
-          </div>
-
-          <div className="flex flex-1 items-center justify-center sm:items-end sm:justify-end">
-            <div className="bg-primary flex h-16 w-16 sm:h-48 sm:w-48" />
-          </div>
+        {/* Right Box - Content */}
+        <div className="flex flex-col justify-center gap-4 px-6 py-10 sm:w-[60%] sm:pl-16 sm:pr-0 md:gap-5 md:py-20">
+          <h3 className="font-heading text-foreground ml-auto max-w-[300px] text-right text-xl font-bold leading-tight tracking-tight md:text-2xl">
+            {visionTitle || 'Cloud-smart solutions built for faster brand execution'}
+          </h3>
+          <p className="text-foreground ml-auto max-w-[560px] text-right text-sm leading-relaxed md:text-base lg:text-lg">
+            {visionText ||
+              'To develop innovative cloud-smart solutions for brand owners supercharged by data, tech, and AI in order to streamline and accelerate the GTM process from ideation to implementation so brand owners can adapt to changes faster.'}
+          </p>
         </div>
       </div>
     </FullBleedLines>

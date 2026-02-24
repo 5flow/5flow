@@ -3,6 +3,7 @@ import { getGenericPageBySlug } from '@/lib/cms/page';
 import Hero from './Hero';
 import Vision from './Vision';
 import Mission from './Mission';
+import Propelis from './Propelis';
 import Workflow from './Workflow';
 import Apart from './Apart';
 
@@ -60,8 +61,9 @@ export default async function AboutServerSections() {
         <Hero />
         <Vision />
         <Mission />
-        <Workflow />
+        <Propelis />
         <Apart />
+        <Workflow />
       </>
     );
   }
@@ -74,8 +76,9 @@ export default async function AboutServerSections() {
           <Hero />
           <Vision />
           <Mission />
-          <Workflow />
+          <Propelis />
           <Apart />
+          <Workflow />
         </>
       );
     }
@@ -105,11 +108,13 @@ export default async function AboutServerSections() {
     // Naive mapping of paragraphs to sections
     const heroDesc = paras[0];
     const propelisDescription = paras[1];
-    const visionText = paras[2];
-    const missionText = paras[3];
-    const workflowIntro = paras[4];
-    const workflowIso = paras[5];
-    const apartFeatureParas = paras.slice(6, 10); // up to 4 features
+    const visionTitle = paras[2];
+    const visionText = paras[3];
+    const missionTitle = paras[4];
+    const missionText = paras[5];
+    const workflowIntro = paras[6];
+    const workflowIso = paras[7];
+    const apartFeatureParas = paras.slice(8, 12); // up to 4 features
     const features = apartFeatureParas.map(p => {
       // Split first sentence as title (approx)
       const firstPeriod = p.indexOf('.') !== -1 ? p.indexOf('.') + 1 : p.length;
@@ -119,11 +124,12 @@ export default async function AboutServerSections() {
     });
     return (
       <>
-        <Hero description={heroDesc} propelisDescription={propelisDescription} images={heroImages} />
-        <Vision visionText={visionText} />
-        <Mission missionText={missionText} />
-        <Workflow introText={workflowIntro} isoText={workflowIso} images={workflowImages} />
+        <Hero description={heroDesc} images={heroImages} />
+        <Vision visionTitle={visionTitle} visionText={visionText} />
+        <Mission missionTitle={missionTitle} missionText={missionText} />
+        <Propelis propelisDescription={propelisDescription} />
         <Apart features={features} />
+        <Workflow introText={workflowIntro} isoText={workflowIso} images={workflowImages} />
       </>
     );
   } catch (e) {
@@ -132,8 +138,9 @@ export default async function AboutServerSections() {
         <Hero />
         <Vision />
         <Mission />
-        <Workflow />
+        <Propelis />
         <Apart />
+        <Workflow />
       </>
     );
   }

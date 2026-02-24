@@ -7,7 +7,7 @@ export default function About() {
     <div className="relative">
       <div className="container mx-auto mb-32">
         <PageHeader title="we. are." />
-        <div className="mt-16 flex flex-col gap-16 md:mt-32 md:gap-32">
+        <div className="mt-8 flex flex-col gap-16 md:mt-16 md:gap-32">
           <AboutServerSections />
         </div>
       </div>
