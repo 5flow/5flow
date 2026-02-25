@@ -16,19 +16,7 @@ const Hero = ({ description, images }: HeroProps) => {
   return (
     <>
       {/* Content */}
-      <div className="flex flex-col gap-14 pb-4 md:pb-0">
-        {/* Logo */}
-        <FullBleedLines className="px-2">
-          <Image
-            width={356}
-            height={80}
-            sizes="100vw"
-            alt="5Flow Brand"
-            src="/brand.svg"
-            className="flex w-full justify-center px-24 md:w-auto md:justify-start md:p-0"
-          />
-        </FullBleedLines>
-
+      <div className="relative pb-4 md:pb-0">
         {/* Images */}
         <FullBleedLines className="flex w-full flex-col gap-4 sm:flex-row sm:gap-0">
           <div className="flex w-full flex-col">
@@ -87,6 +75,18 @@ const Hero = ({ description, images }: HeroProps) => {
             </div>
           </div>
         </FullBleedLines>
+
+        {/* Logo positioned on top */}
+        <div className="absolute -top-44 left-0 z-10 w-full pt-4 sm:pt-6 md:pt-8">
+          <Image
+            width={356}
+            height={80}
+            sizes="100vw"
+            alt="5Flow Brand"
+            src="/brand.svg"
+            className="w-40 sm:w-48 md:w-64 lg:w-80"
+          />
+        </div>
       </div>
     </>
   );

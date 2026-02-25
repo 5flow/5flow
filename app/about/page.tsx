@@ -5,16 +5,14 @@ import AboutServerSections from '@/components/page/about/About.server';
 export default function About() {
   return (
     <div className="relative">
-      <div className="container mx-auto mb-32">
+      <div className="container mx-auto">
         <PageHeader title="we. are." />
-        <div className="mt-8 flex flex-col gap-16 md:mt-16 md:gap-32">
+        <div className="mt-0 flex flex-col gap-16 md:mt-8 md:gap-32">
           <AboutServerSections />
         </div>
       </div>
 
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
+      <CtaV2 />
     </div>
   );
 }

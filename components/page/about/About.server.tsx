@@ -6,6 +6,8 @@ import Mission from './Mission';
 import Propelis from './Propelis';
 import Workflow from './Workflow';
 import Apart from './Apart';
+import Performance from './Performance';
+import Results from './Results';
 
 // Very simple paragraph splitter from WP bodyHtml
 function decodeEntities(str: string): string {
@@ -64,6 +66,8 @@ export default async function AboutServerSections() {
         <Propelis />
         <Apart />
         <Workflow />
+        <Performance />
+        <Results />
       </>
     );
   }
@@ -79,6 +83,8 @@ export default async function AboutServerSections() {
           <Propelis />
           <Apart />
           <Workflow />
+          <Performance />
+          <Results />
         </>
       );
     }
@@ -130,6 +136,8 @@ export default async function AboutServerSections() {
         <Propelis propelisDescription={propelisDescription} />
         <Apart features={features} />
         <Workflow introText={workflowIntro} isoText={workflowIso} images={workflowImages} />
+        <Performance />
+        <Results />
       </>
     );
   } catch (e) {
@@ -141,6 +149,8 @@ export default async function AboutServerSections() {
         <Propelis />
         <Apart />
         <Workflow />
+        <Performance />
+        <Results />
       </>
     );
   }
