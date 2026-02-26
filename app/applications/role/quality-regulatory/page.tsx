@@ -8,7 +8,8 @@ import {
   History,
   SquareCheckBig,
 } from 'lucide-react';
-import { Contact, Cta } from '@/components/layout';
+import { Contact } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
@@ -224,14 +225,8 @@ export default async function QualityRegulatory() {
         </div>
       </div>
 
-      <div className="pt-12 md:pt-20">
-        <Cta
-          leftTitle="Experience"
-          leftSubtitle="What’s Next in"
-          rightTitle="Artwork Management"
-          rightDesc="Get a live demo of our advanced artwork management solution."
-          buttonText="Book A Demo"
-        />
+      <div className="pt-4 md:pt-8">
+        <CtaV2 />
       </div>
     </div>
   );

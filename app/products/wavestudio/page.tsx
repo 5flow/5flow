@@ -2,7 +2,8 @@ import { CalendarClock, CalendarX2, FileXIcon, History, Lightbulb, Rocket, Scali
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
-import { Contact, Cta } from '@/components/layout';
+import { Contact } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import Who from '@/components/page/home/Who';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
@@ -322,14 +323,8 @@ export default async function Wavestudio() {
         </div>
       </div>
 
-      <div className="pt-12 md:pt-20">
-        <Cta
-          leftTitle="Ready"
-          leftSubtitle="To make"
-          rightTitle="More with Less?"
-          rightDesc="Scale artwork production, cut turnaround times, and keep your brand sharp without adding headcount."
-          buttonText="Book A Demo"
-        />
+      <div className="pt-4 md:pt-8">
+        <CtaV2 />
       </div>
     </div>
   );

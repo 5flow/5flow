@@ -2,9 +2,9 @@
 import InlineHighlight from '@/components/core/inline-highlight';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 
-type HeroProps = { description?: string; propelisDescription?: string; images?: string[] };
+type HeroProps = { description?: string; images?: string[] };
 
-const Hero = ({ description, propelisDescription, images }: HeroProps) => {
+const Hero = ({ description, images }: HeroProps) => {
   const defaultTopRowImages = ['/about/about1.png', '/about/about2.png', '/about/about3.png'];
   const defaultBottomRowImages = ['/about/about5.png', '/about/about6.png'];
   const defaultSideImage = '/about/about4.png';
@@ -16,19 +16,7 @@ const Hero = ({ description, propelisDescription, images }: HeroProps) => {
   return (
     <>
       {/* Content */}
-      <div className="flex flex-col gap-14 pb-4 md:pb-0">
-        {/* Logo */}
-        <FullBleedLines className="px-2">
-          <Image
-            width={356}
-            height={80}
-            sizes="100vw"
-            alt="5Flow Brand"
-            src="/brand.svg"
-            className="flex w-full justify-center px-24 md:w-auto md:justify-start md:p-0"
-          />
-        </FullBleedLines>
-
+      <div className="relative pb-4 md:pb-0">
         {/* Images */}
         <FullBleedLines className="flex w-full flex-col gap-4 sm:flex-row sm:gap-0">
           <div className="flex w-full flex-col">
@@ -88,27 +76,16 @@ const Hero = ({ description, propelisDescription, images }: HeroProps) => {
           </div>
         </FullBleedLines>
 
-        {/* Propelis */}
-        <div className="font-heading flex w-full flex-col items-center justify-center gap-8 text-center sm:gap-14">
-          <FullBleedLines className="text-foreground text-4xl leading-none font-bold tracking-tight sm:text-6xl sm:leading-none">
-            <InlineHighlight>Powering</InlineHighlight>
-            <div>The Propelis Group</div>
-          </FullBleedLines>
-          <FullBleedLines className="text-foreground max-w-3xl text-lg leading-snug tracking-tight sm:max-w-6xl sm:text-4xl md:leading-none">
-            {propelisDescription ||
-              `We bring together decades of global brand expertise with the technology to define whats next. A
-                powerful blend of creative mastery and intelligent automation that transforms the way brands move from
-                concept to market.`}
-          </FullBleedLines>
-          <FullBleedLines>
-            <Image
-              width={300}
-              height={45}
-              alt="Propelis Group"
-              src="/about/propelis.svg"
-              className="mx-auto px-12 sm:h-[60px] sm:w-[400px] md:px-0"
-            />
-          </FullBleedLines>
+        {/* Logo positioned on top */}
+        <div className="absolute -top-44 left-0 z-10 w-full pt-4 sm:pt-6 md:pt-8">
+          <Image
+            width={356}
+            height={80}
+            sizes="100vw"
+            alt="5Flow Brand"
+            src="/brand.svg"
+            className="w-40 sm:w-48 md:w-64 lg:w-80"
+          />
         </div>
       </div>
     </>

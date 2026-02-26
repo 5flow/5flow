@@ -1,41 +1,40 @@
-import { ArrowUpLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 
-type MissionProps = { missionText?: string };
+type MissionProps = {
+  missionTitle?: string;
+  missionText?: string;
+};
 
-const Mission = ({ missionText }: MissionProps) => {
+const Mission = ({ missionTitle, missionText }: MissionProps) => {
   return (
     <FullBleedLines>
-      <div className="font-heading flex w-full flex-col items-start gap-8 sm:gap-0">
-        <div className="flex flex-col items-center justify-between gap-4 self-stretch sm:flex-row sm:items-start sm:gap-0">
-          <p className="order-2 w-full text-center text-lg leading-snug tracking-tight sm:order-none sm:max-w-2xl sm:text-left sm:text-4xl sm:leading-none">
+      <div className="flex w-full flex-col gap-0 sm:flex-row">
+        {/* Left Box - Content */}
+        <div className="order-2 flex flex-col justify-center gap-4 px-6 py-10 sm:order-1 sm:w-[60%] sm:pl-0 sm:pr-16 md:gap-5 md:py-20">
+          <h3 className="font-heading text-foreground max-w-[400px] text-xl font-bold leading-tight tracking-tight md:text-2xl">
+            {missionTitle || 'Industry-leading tools powering the complete go-to-market funnel'}
+          </h3>
+          <p className="text-foreground max-w-[500px] text-sm leading-relaxed md:text-base lg:text-lg">
             {missionText ||
-              `We unite technology, data and creativity
-              to pioneer innovative software platforms
-              that deliver content with speed, simplicity,
-              accuracy and connectivity. `}
+              'Develop industry leading tools across the entire GTM funnel, ultimately becoming a platform used by all manufacturers, brand owners, and retailers.'}
           </p>
-          <div className="order-1 flex h-48 w-96 flex-1 justify-end sm:order-none">
-            <div className="bg-success h-16 w-16 sm:h-48 sm:w-48" />
-            <div className="bg-primary h-16 w-16 sm:h-48 sm:w-48" />
-            <div className="bg-accent2 h-16 w-16 sm:h-48 sm:w-48" />
-            <div className="bg-accent2/40 h-16 w-16 sm:h-48 sm:w-48" />
-          </div>
         </div>
 
-        <div className="flex items-center justify-between gap-4 self-stretch sm:items-start sm:gap-0">
-          <div className="relative order-last mx-auto h-16 w-16 overflow-hidden sm:order-none sm:mx-0 sm:h-48 sm:w-48">
-            <div className="bg-accent1 absolute h-16 w-16 sm:h-48 sm:w-48" />
-          </div>
-          <div className="flex w-full items-center justify-center gap-4 sm:w-3xl sm:items-start sm:justify-between sm:gap-0">
-            <ArrowUpLeft className="text-accent1 h-20 w-20 sm:h-52 sm:w-52" strokeWidth={1} />
-            <b className="text-center text-4xl leading-snug tracking-tighter sm:text-left sm:text-8xl sm:leading-none">
-              <span className="sm:hidden">The. Mission.</span>
-              <span className="hidden sm:inline">
-                The. <br /> Mission.
-              </span>
-            </b>
-          </div>
+        {/* Right Box - Mission Title */}
+        <div
+          className="relative order-1 flex flex-col items-end justify-end p-10 sm:order-2 sm:h-[460px] sm:w-[460px] sm:p-12 md:p-16"
+          style={{ backgroundColor: '#e1daf5' }}
+        >
+          <ArrowLeft
+            className="text-foreground absolute top-10 left-10 h-16 w-16 sm:top-12 sm:left-12 md:top-16 md:left-16 md:h-24 md:w-24 lg:h-28 lg:w-28"
+            strokeWidth={2.5}
+          />
+          <h2 className="font-heading text-foreground text-right text-5xl leading-[1] font-bold tracking-tight md:text-6xl lg:text-7xl">
+            The
+            <br />
+            Mission
+          </h2>
         </div>
       </div>
     </FullBleedLines>

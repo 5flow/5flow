@@ -69,6 +69,10 @@ export function CtaV2() {
     ['background', 'primary', 'background', 'background', 'success', 'background', 'background'],
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const linkClass =
     'text-background/80 hover:text-success transition-all duration-500 ease-[var(--easing-smooth)] text-sm md:text-base';
 
@@ -82,7 +86,19 @@ export function CtaV2() {
             <CtaPixelGrid
               pattern={pixelPattern}
               pixelSize="64px"
-              icon={{ row: 1, col: 1, element: <ArrowUp size={20} className="text-foreground" /> }}
+              icon={{
+                row: 1,
+                col: 1,
+                element: (
+                  <button
+                    onClick={scrollToTop}
+                    aria-label="Scroll to top"
+                    className="flex h-full w-full items-center justify-center transition-transform hover:scale-110 active:scale-95"
+                  >
+                    <ArrowUp size={30} className="text-foreground" />
+                  </button>
+                ),
+              }}
             />
           </div>
         </div>
@@ -93,7 +109,19 @@ export function CtaV2() {
             <CtaPixelGrid
               pattern={pixelPattern}
               pixelSize="128px"
-              icon={{ row: 1, col: 1, element: <ArrowUp size={36} className="text-foreground" /> }}
+              icon={{
+                row: 1,
+                col: 1,
+                element: (
+                  <button
+                    onClick={scrollToTop}
+                    aria-label="Scroll to top"
+                    className="flex h-full w-full items-center justify-center transition-transform hover:scale-110 active:scale-95"
+                  >
+                    <ArrowUp size={60} className="text-foreground" />
+                  </button>
+                ),
+              }}
             />
           </div>
         </div>

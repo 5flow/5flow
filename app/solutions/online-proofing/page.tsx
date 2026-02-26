@@ -1,6 +1,7 @@
 import { CircleDollarSign, Rocket, ShieldCheck, Users } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import { Contact, Cta } from '@/components/layout';
+import { Contact } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import InlineHighlight from '@/components/core/inline-highlight';
@@ -183,14 +184,8 @@ export default async function OnlineProofing() {
         </div>
       </div>
 
-      <div className="pt-12 md:pt-20">
-        <Cta
-          leftTitle="Experience"
-          leftSubtitle="What’s Next in"
-          rightTitle="Artwork Management"
-          rightDesc="See how Online Proofing can cut approval loops, strengthen compliance, and keep projects on track."
-          buttonText="Book A Demo"
-        />
+      <div className="pt-4 md:pt-8">
+        <CtaV2 />
       </div>
     </div>
   );

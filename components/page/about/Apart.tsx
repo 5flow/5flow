@@ -1,4 +1,4 @@
-import { ArrowDown, ShieldCheck, TrendingUp, Users, UserStar } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Users, UserStar, Layers } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 
@@ -11,19 +11,20 @@ const iconMap: Record<string, any> = {
   scale: TrendingUp,
   security: ShieldCheck,
   backed: ShieldCheck,
+  layers: Layers,
 };
 
 const fallbackFeatures: ApartFeature[] = [
   {
     title: 'Customer First',
     description:
-      'We design around your needs, not ours. Every solution is built in partnership with the people who use it. We design around your needs, not ours. Every solution is built in partnership with the people who use it.',
+      'We design around your needs, not ours. Every solution is built in partnership with the people who use it.',
     iconKey: 'customer',
   },
   {
     title: 'Strong & Experienced Team',
     description:
-      'Built by experts with decades of knowledge in packaging, creative production, and workflow automation delivered by people who know how brands really work.',
+      'Decades of expertise in packaging, creative production, and workflow automation delivered by people who know how brands really work.',
     iconKey: 'team',
   },
   {
@@ -44,49 +45,38 @@ const Apart = ({ features }: ApartProps) => {
   const data = features && features.length > 0 ? features : fallbackFeatures;
 
   return (
-    <>
-      <div className="flex w-full flex-col gap-8 px-4 sm:px-0">
-        <FullBleedLines className="font-heading flex w-full flex-col items-center gap-4 px-2 sm:flex-row sm:items-start md:gap-8">
-          <b className="text-foreground text-center text-4xl leading-none tracking-tighter sm:text-left sm:text-6xl sm:leading-none">
-            <span>What Sets</span>
-            <br />
-            <span>{`Us `}</span>
-            <span>
-              <InlineHighlight className="text-background">Apart?</InlineHighlight>
-            </span>
-          </b>
-          <ArrowDown className="text-accent1 h-16 w-16 sm:h-32 sm:w-32" strokeWidth={1.5} />
+    <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
+      <div className="px-2 py-8">
+        <FullBleedLines className="flex w-full items-center justify-center">
+          <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-[64px]">
+            <span>What sets us </span>
+            <InlineHighlight>apart?</InlineHighlight>
+          </p>
         </FullBleedLines>
+      </div>
 
-        <FullBleedLines className="flex w-full flex-col justify-between gap-8 sm:flex-row sm:gap-0">
+      <FullBleedLines>
+        <div className="grid grid-cols-1 gap-2 p-2 sm:grid-cols-2 sm:gap-2 lg:grid-cols-4">
           {data.map((feature, index) => {
+            const Icon = feature.iconKey && iconMap[feature.iconKey] ? iconMap[feature.iconKey] : UserStar;
             return (
               <div
                 key={index}
-                className="flex flex-col items-center gap-0 px-4 text-center sm:items-start sm:text-left md:gap-4"
+                className="bg-background box-border flex min-h-[280px] flex-col gap-4 rounded-2xl p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:p-6 lg:min-h-[320px]"
               >
-                <div className="flex flex-col items-center gap-2 py-4 sm:items-start sm:py-7">
-                  <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-lg">
-                    {(() => {
-                      const Icon = feature.iconKey && iconMap[feature.iconKey] ? iconMap[feature.iconKey] : UserStar;
-                      return <Icon className="text-primary h-5 w-5" strokeWidth={2} />;
-                    })()}
-                  </div>
-                  <b className="text-foreground relative text-xl leading-relaxed tracking-tight sm:text-2xl">
-                    {feature.title}
-                  </b>
+                <div className="flex w-full items-start">
+                  <Icon className="text-primary h-12 w-12 shrink-0 sm:h-14 sm:w-14" strokeWidth={1.5} />
                 </div>
-                <div className="flex items-center px-0 py-4 sm:py-7">
-                  <p className="text-foreground text-sm leading-relaxed tracking-tight sm:text-lg">
-                    {feature.description}
-                  </p>
+                <div className="flex w-full flex-col gap-4">
+                  <p className="text-lg font-bold leading-tight tracking-tight sm:text-xl lg:text-2xl">{feature.title}</p>
+                  <p className="text-sm leading-relaxed tracking-tight sm:text-base">{feature.description}</p>
                 </div>
               </div>
             );
           })}
-        </FullBleedLines>
-      </div>
-    </>
+        </div>
+      </FullBleedLines>
+    </div>
   );
 };
 
