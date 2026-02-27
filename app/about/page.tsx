@@ -16,8 +16,10 @@ export default function About() {
         <PageHeader title="we. are." />
         <div className="mt-0 flex flex-col gap-16 md:mt-8 md:gap-32">
           <Hero />
-          <Vision />
-          <Mission />
+          <div className="flex flex-col gap-8 md:gap-16">
+            <Vision />
+            <Mission />
+          </div>
           <Propelis />
           <Apart />
         </div>
