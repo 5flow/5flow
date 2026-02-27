@@ -28,7 +28,7 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
             <br />
             at scale
           </h2>
-          <ArrowDown className="text-primary h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" strokeWidth={2} />
+          <ArrowDown className="text-accent1 h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20" strokeWidth={1.5} />
         </div>
 
         {/* Description */}
@@ -45,8 +45,10 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
                 key={index}
                 className="bg-background flex flex-col items-start justify-center gap-2 rounded-2xl p-6 md:p-8"
               >
-                <div className="font-heading text-primary text-5xl font-bold leading-none md:text-6xl">{stat.value}</div>
-                <div className="text-foreground text-sm font-medium leading-tight md:text-base">{stat.label}</div>
+                <div className="font-heading text-primary text-5xl leading-none font-bold md:text-6xl">
+                  {stat.value}
+                </div>
+                <div className="text-foreground text-sm leading-tight font-medium md:text-base">{stat.label}</div>
               </div>
             ))}
           </div>

@@ -1,5 +1,4 @@
 ﻿import Image from 'next/image';
-import InlineHighlight from '@/components/core/inline-highlight';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 
 type HeroProps = { description?: string; images?: string[] };
@@ -16,7 +15,19 @@ const Hero = ({ description, images }: HeroProps) => {
   return (
     <>
       {/* Content */}
-      <div className="relative pb-4 md:pb-0">
+      <div className="flex flex-col gap-14 pb-4 md:pb-0">
+        {/* Logo */}
+        <FullBleedLines className="px-2">
+          <Image
+            width={356}
+            height={80}
+            sizes="100vw"
+            alt="5Flow Brand"
+            src="/brand.svg"
+            className="flex w-full justify-center px-24 md:w-auto md:justify-start md:p-0"
+          />
+        </FullBleedLines>
+
         {/* Images */}
         <FullBleedLines className="flex w-full flex-col gap-4 sm:flex-row sm:gap-0">
           <div className="flex w-full flex-col">
@@ -52,11 +63,7 @@ const Hero = ({ description, images }: HeroProps) => {
 
                   <div className="text-lg leading-snug tracking-tighter sm:text-xl sm:leading-tight">
                     {description ||
-                      `We are 5Flow - The technology company transforming how brands leverage content to their advantage.
-                      As the critical backbone of modern content management, our intelligent platforms, tools & services streamline every part of
-                      the go-to-market journey, empowering brands to move faster, adapt quicker and stay ahead of change.
-                      Our smart, innovation-fuelled and restless mindset means we don't just see the future, we define it.
-                    `}
+                      `The technology backbone for modern brand execution. Our intelligent platform services simplify complexity, connect workflows, and give brands the speed, accuracy and agility to thrive in today's fast moving world.`}
                   </div>
                 </div>
               </div>
@@ -75,18 +82,6 @@ const Hero = ({ description, images }: HeroProps) => {
             </div>
           </div>
         </FullBleedLines>
-
-        {/* Logo positioned on top */}
-        <div className="absolute -top-44 left-0 z-10 w-full pt-4 sm:pt-6 md:pt-8">
-          <Image
-            width={356}
-            height={80}
-            sizes="100vw"
-            alt="5Flow Brand"
-            src="/brand.svg"
-            className="w-40 sm:w-48 md:w-64 lg:w-80"
-          />
-        </div>
       </div>
     </>
   );
