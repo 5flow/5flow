@@ -118,24 +118,21 @@ const NAV_ITEMS: NavItem[] = [
       columns: 2,
     },
   },
-  // {
-  //   type: 'dropdown',
-  //   href: '/resources/case-studies',
-  //   label: '[ RESOURCES ]',
-  //   menu: {
-  //     items: [
-  //       { href: '/resources/case-studies', label: 'CASE STUDIES' },
-  //       { href: '/resources/blogs', label: 'BLOGS' },
-  //       { href: '/resources/video-gallery', label: 'VIDEO GALLERY' },
-  //       { href: '/resources/webinars', label: 'WEBINARS' },
-  //       { href: '/resources/guides', label: 'GUIDES' },
-  //     ],
-  //     offsetClass: 'ml-36',
-  //     itemWidthClass: 'w-72',
-  //     columns: 1,
-  //   },
-  // },
-  { type: 'link', href: '/resources/blogs', label: 'RESOURCES', keyId: 'resources' },
+  {
+    type: 'dropdown',
+    href: '/resources/blogs',
+    label: 'RESOURCES',
+    keyId: 'resources',
+    menu: {
+      items: [
+        { href: '/resources/blogs', label: 'BLOGS' },
+        { href: '/resources/case-studies', label: 'CASE STUDIES' },
+      ],
+      offsetClass: 'ml-36',
+      itemWidthClass: 'w-72',
+      columns: 1,
+    },
+  },
 ];
 
 function isActive(pathname: string, item: NavItem): boolean {
