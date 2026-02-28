@@ -38,7 +38,7 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
         </p>
 
         {/* Stats Cards Container with Background */}
-        <div className="p-2" style={{ backgroundColor: '#f4f4f5' }}>
+        <div className="relative p-2" style={{ backgroundColor: '#f4f4f5' }}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
             {displayStats.map((stat, index) => (
               <div

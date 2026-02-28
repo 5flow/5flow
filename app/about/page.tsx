@@ -28,7 +28,7 @@ export default function About() {
       {/* Full-width sections outside container */}
       <div className="mt-16 flex flex-col gap-16 md:mt-32 md:gap-32">
         <Workflow />
-        <div className="container mx-auto">
+        <div className="container relative mx-auto">
           <Performance />
           <Results />
         </div>

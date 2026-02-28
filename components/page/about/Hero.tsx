@@ -24,7 +24,7 @@ const Hero = ({ description, images }: HeroProps) => {
             sizes="100vw"
             alt="5Flow Brand"
             src="/brand.svg"
-            className="flex w-full justify-center px-24 md:w-auto md:justify-start md:p-0"
+            className="flex h-auto w-32 justify-start md:w-auto md:p-0"
           />
         </FullBleedLines>
 
