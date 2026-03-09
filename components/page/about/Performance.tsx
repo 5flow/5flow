@@ -23,7 +23,7 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 md:gap-12 md:px-6 lg:gap-14">
         {/* Title Section */}
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-6">
-          <h2 className="font-heading text-foreground text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:text-5xl lg:text-6xl">
             Trusted to <InlineHighlight className="text-background">perform</InlineHighlight>
             <br />
             at scale
@@ -37,21 +37,17 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
             'Behind every number is a global network of teams, technology, and expertise enabling smarter content and faster execution. Together, they represent the measurable momentum 5Flow brings to modern brand operations worldwide.'}
         </p>
 
-        {/* Stats Cards Container with Background */}
-        <div className="relative p-2" style={{ backgroundColor: '#f4f4f5' }}>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 lg:grid-cols-5">
             {displayStats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-background flex flex-col items-start justify-center gap-2 rounded-2xl p-6 md:p-8"
+                className="bg-background flex h-48 flex-1 flex-col items-center justify-center gap-2 rounded-2xl shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:h-56"
               >
-                <div className="font-heading text-primary text-5xl leading-none font-bold md:text-6xl">
-                  {stat.value}
-                </div>
-                <div className="text-foreground text-sm leading-tight font-medium md:text-base">{stat.label}</div>
+                <b className="font-body text-primary text-4xl sm:text-6xl">{stat.value}</b>
+                <b className="relative text-center text-lg leading-tight sm:text-2xl sm:leading-none">{stat.label}</b>
               </div>
             ))}
-          </div>
         </div>
       </div>
     </div>
