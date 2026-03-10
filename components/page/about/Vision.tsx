@@ -16,7 +16,7 @@ const Vision = ({ visionTitle, visionText }: VisionProps) => {
           style={{ backgroundColor: '#d1dafd' }}
         >
           <div className="flex items-end gap-4 md:gap-6">
-            <h2 className="font-heading text-foreground text-5xl leading-[1] font-bold tracking-tight md:text-6xl lg:text-7xl">
+            <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
               The
               <br />
               Vision
