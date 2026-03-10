@@ -48,7 +48,7 @@ const Apart = ({ features }: ApartProps) => {
     <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
       <div className="px-2 py-8">
         <FullBleedLines className="flex w-full items-center justify-center">
-          <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             <span>What sets us </span>
             <InlineHighlight>apart?</InlineHighlight>
           </p>
