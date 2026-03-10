@@ -1,10 +1,18 @@
-import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
+import { getAllCmsCaseStudySlugs, getCmsCaseStudyBySlug, getCmsCaseStudyCards } from '@/lib/cms/case-study';
 
 export type CaseStudyCardItem = {
   title: string;
   desc: string;
   image: string;
   link: string;
+};
+
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
 };
 
 export async function getCaseStudyCards(): Promise<CaseStudyCardItem[]> {
@@ -89,4 +97,16 @@ export async function getCaseStudyCards(): Promise<CaseStudyCardItem[]> {
       link: '/case-studies/print',
     },
   ];
+}
+
+export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
+  const cmsCaseStudy = await getCmsCaseStudyBySlug(slug);
+  if (cmsCaseStudy) return cmsCaseStudy;
+  return null;
+}
+
+export async function getCaseStudySlugs(): Promise<string[]> {
+  const cmsSlugs = await getAllCmsCaseStudySlugs();
+  if (cmsSlugs.length > 0) return cmsSlugs;
+  return [];
 }
