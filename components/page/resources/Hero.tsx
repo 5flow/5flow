@@ -12,7 +12,7 @@ interface HeroProps {
 
 const Hero = ({ title, subtitle, buttonLabel = "See What's Possible" }: HeroProps) => {
   return (
-    <div className="relative mt-32 flex w-full flex-col px-4 sm:px-0">
+    <div className="relative mt-25 flex w-full flex-col px-4 sm:px-0">
       {/* Product heading */}
       <div className="font-heading flex flex-col gap-8 sm:gap-14">
         <FullBleedLines>
