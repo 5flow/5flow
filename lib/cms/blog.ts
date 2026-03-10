@@ -5,6 +5,7 @@ export interface WpPost {
   id: number;
   date: string;
   slug: string;
+  categories?: number[];
   title: { rendered: string };
   content: { rendered: string; raw?: string };
   excerpt: { rendered: string; raw?: string };
@@ -17,6 +18,13 @@ export interface WpPost {
     }>;
   };
 }
+
+type WpCategory = {
+  id: number;
+  slug: string;
+};
+
+const CASE_STUDIES_CATEGORY_SLUG = 'case-studies';
 
 function formatDate(dateString: string): string {
   try {
@@ -63,10 +71,21 @@ function parsePostData(post: WpPost) {
   };
 }
 
+async function getCategoryIdBySlug(slug: string): Promise<number | null> {
+  try {
+    const categories = (await wpFetch(`/wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`)) as WpCategory[];
+    return categories[0]?.id ?? null;
+  } catch (error) {
+    console.error(`Error fetching category "${slug}":`, error);
+    return null;
+  }
+}
+
 export async function getCmsBlogs(): Promise<BlogCardItem[]> {
   try {
-    // Removed context=edit to avoid 401 errors
-    const posts = (await wpFetch('/wp-json/wp/v2/posts?_embed&per_page=100')) as WpPost[];
+    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
+    const categoryExclusion = caseStudyCategoryId ? `&categories_exclude=${caseStudyCategoryId}` : '';
+    const posts = (await wpFetch(`/wp-json/wp/v2/posts?_embed&per_page=100${categoryExclusion}`)) as WpPost[];
     return posts.map(post => {
       const { image, imageFocus, date, title } = parsePostData(post);
 
@@ -87,10 +106,11 @@ export async function getCmsBlogs(): Promise<BlogCardItem[]> {
 
 export async function getCmsBlogBySlug(slug: string): Promise<Blog | null> {
   try {
-    // Removed context=edit to avoid 401 errors
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?slug=${slug}&_embed`)) as WpPost[];
     if (posts.length === 0) return null;
     const post = posts[0];
+    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
+    if (caseStudyCategoryId && post.categories?.includes(caseStudyCategoryId)) return null;
 
     const { content, image, imageFocus, date, title } = parsePostData(post);
 
@@ -110,7 +130,11 @@ export async function getCmsBlogBySlug(slug: string): Promise<Blog | null> {
 
 export async function getAllCmsBlogSlugs(): Promise<string[]> {
   try {
-    const posts = (await wpFetch('/wp-json/wp/v2/posts?per_page=100&_fields=slug')) as { slug: string }[];
+    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
+    const categoryExclusion = caseStudyCategoryId ? `&categories_exclude=${caseStudyCategoryId}` : '';
+    const posts = (await wpFetch(`/wp-json/wp/v2/posts?per_page=100&_fields=slug${categoryExclusion}`)) as {
+      slug: string;
+    }[];
     return posts.map(p => p.slug);
   } catch (error) {
     console.error('Error fetching CMS blog slugs:', error);
