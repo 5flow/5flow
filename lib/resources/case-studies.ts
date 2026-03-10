@@ -1,3 +1,5 @@
+import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
+
 export type CaseStudyCardItem = {
   title: string;
   desc: string;
@@ -6,6 +8,9 @@ export type CaseStudyCardItem = {
 };
 
 export async function getCaseStudyCards(): Promise<CaseStudyCardItem[]> {
+  const cmsCards = await getCmsCaseStudyCards();
+  if (cmsCards.length > 0) return cmsCards;
+
   // All case study items flattened from the previous tabs data
   return [
     // Industry
