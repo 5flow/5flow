@@ -10,6 +10,7 @@ type WpCaseStudyPost = {
   id: number;
   slug: string;
   date: string;
+  link: string;
   title: { rendered: string };
   excerpt: { rendered: string; raw?: string };
   acf?: {
@@ -72,7 +73,7 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
     title,
     desc,
     image,
-    link: `/resources/case-studies/${post.slug}`,
+    link: post.link,
   };
 }
 
