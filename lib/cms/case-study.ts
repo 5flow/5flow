@@ -1,5 +1,5 @@
 import { wpFetch } from './client';
-import type { CaseStudyCardItem } from '@/lib/resources/case-studies';
+import type { CaseStudy, CaseStudyCardItem } from '@/lib/resources/case-studies';
 
 type WpCategory = {
   id: number;
@@ -11,12 +11,15 @@ type WpCaseStudyPost = {
   slug: string;
   date: string;
   link: string;
+  categories?: number[];
   title: { rendered: string };
+  content: { rendered: string; raw?: string };
   excerpt: { rendered: string; raw?: string };
   acf?: {
     card_title?: string;
     card_desc?: string;
     is_featured_case_study?: boolean | number | string;
+    image_focus?: string;
   };
   _embedded?: {
     'wp:featuredmedia'?: Array<{
@@ -73,7 +76,20 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
     title,
     desc,
     image,
-    link: post.link,
+    link: `/resources/case-studies/${post.slug}`,
+  };
+}
+
+function mapCaseStudyDetail(post: WpCaseStudyPost): CaseStudy {
+  const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
+  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
+
+  return {
+    slug: post.slug,
+    title,
+    date: post.date,
+    image,
+    content: post.content?.rendered || '',
   };
 }
 
@@ -94,6 +110,41 @@ export async function getCmsCaseStudyCards(): Promise<CaseStudyCardItem[]> {
     return [mapCaseStudy(selectedPost)];
   } catch (error) {
     console.error('Error fetching CMS case studies:', error);
+    return [];
+  }
+}
+
+export async function getCmsCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
+  try {
+    const categoryId = await getCaseStudyCategoryId();
+    if (!categoryId) return null;
+
+    const posts = (await wpFetch(`/wp-json/wp/v2/posts?slug=${slug}&_embed`)) as WpCaseStudyPost[];
+    const post = posts[0];
+    if (!post) return null;
+
+    const categories = post.categories || [];
+    if (!categories.includes(categoryId)) return null;
+
+    return mapCaseStudyDetail(post);
+  } catch (error) {
+    console.error(`Error fetching CMS case study ${slug}:`, error);
+    return null;
+  }
+}
+
+export async function getAllCmsCaseStudySlugs(): Promise<string[]> {
+  try {
+    const categoryId = await getCaseStudyCategoryId();
+    if (!categoryId) return [];
+
+    const posts = (await wpFetch(`/wp-json/wp/v2/posts?categories=${categoryId}&per_page=100&_fields=slug`)) as {
+      slug: string;
+    }[];
+
+    return posts.map(post => post.slug);
+  } catch (error) {
+    console.error('Error fetching CMS case study slugs:', error);
     return [];
   }
 }
