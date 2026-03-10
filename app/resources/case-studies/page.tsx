@@ -1,28 +1,36 @@
-import { Contact } from '@/components/layout';
-import PageHeader from '@/components/core/page-header';
-import Hero from '@/components/page/resources/Hero';
-import FilterSection from '@/components/page/resources/FilterSection';
-import { getCaseStudyCards } from '@/lib/resources/case-studies';
+import Image from 'next/image';
+import HtmlContent from '@/components/core/html-content';
+import { getCaseStudyBySlug, getCaseStudySlugs } from '@/lib/resources/case-studies';
 
-export default async function CaseStudies() {
-  const caseStudyItems = await getCaseStudyCards();
+export default async function CaseStudyPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getCaseStudyBySlug(slug);
+  if (!post) return <div className="container mx-auto py-20">Post not found.</div>;
 
   return (
     <div className="relative">
-      <div className="container mx-auto mb-32">
-        <PageHeader title="case studies" />
-
-        <div className="flex flex-col gap-32">
-          <Hero
-            title="See how leading brands use 5Flow"
-            subtitle="Explore real-world success stories from Retail, Pharma, F&B, Beauty, and Consumer Goods."
-            buttonLabel="Contact Us"
+      {post.image ? (
+        <div className="relative h-[45vh] min-h-[320px] w-full">
+          <Image src={post.image} alt={post.title} fill className="object-cover" priority />
+          <div
+            className="to-background pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent"
+            aria-hidden="true"
           />
-          <FilterSection variant="case-studies" caseStudyItems={caseStudyItems} />
+        </div>
+      ) : null}
 
-          <Contact leadingText="Ready to write your own " highlightedText="success" trailingText=" story?" />
+      <div className="container mx-auto mb-32">
+        <div className="mx-auto max-w-3xl px-5 py-10 md:px-0">
+          <h1 className="font-heading mb-6 text-3xl leading-tight tracking-tight sm:text-4xl">{post.title}</h1>
+          <div className="text-foreground/60 mb-8 text-sm">{new Date(post.date).toLocaleDateString()}</div>
+          <HtmlContent html={post.content} />
         </div>
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const slugs = await getCaseStudySlugs();
+  return slugs.map(slug => ({ slug }));
 }
