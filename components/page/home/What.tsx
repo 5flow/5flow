@@ -89,7 +89,7 @@ const What = ({ title, items }: WhatProps) => {
                   <Icon className="text-primary h-[60px] w-[60px] shrink-0" strokeWidth={1.5} />
                 </div>
                 <div className="w-full max-w-xl">
-                  <p className="w-full max-w-102 text-base font-bold tracking-tight md:text-[20px]">{card.desc}</p>
+                  <p className="w-full max-w-102 text-[20px] leading-7 font-bold tracking-tight">{card.desc}</p>
                   {card.sub && (
                     <p className="font-body pt-2 text-[20px] leading-7 font-normal tracking-normal text-[#030712cc]">
                       {card.sub}

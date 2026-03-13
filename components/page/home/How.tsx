@@ -83,8 +83,8 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
                   <p className="text-xl leading-none font-bold tracking-tight sm:text-2xl md:text-3xl">{item.title}</p>
                 </div>
 
-                <div className="grid w-full flex-1 grid-cols-1 gap-4 p-2 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-5">
-                  <p className="font-body text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] md:self-end">
+                <div className="grid w-full flex-1 grid-cols-1 gap-4 p-2 md:min-h-[220px] md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-5">
+                  <p className="font-body text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] md:self-start">
                     {item.desc}
                   </p>
                   {item.link && (
