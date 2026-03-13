@@ -114,7 +114,6 @@ function getFallbackCaseStudyCards(): CaseStudyCardItem[] {
 }
 
 export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
-<<<<<<< HEAD
   if (!hasCaseStudyCmsConfig()) return null;
 
   try {
@@ -123,15 +122,12 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
   } catch {
     // Fall back to null when CMS is unavailable.
   }
-=======
   const cmsCaseStudy = await getCmsCaseStudyBySlug(slug);
   if (cmsCaseStudy) return cmsCaseStudy;
->>>>>>> 691f138d016f936ab3507a6649f44447d0a16b61
   return null;
 }
 
 export async function getCaseStudySlugs(): Promise<string[]> {
-<<<<<<< HEAD
   if (!hasCaseStudyCmsConfig()) return [];
 
   try {
@@ -140,9 +136,7 @@ export async function getCaseStudySlugs(): Promise<string[]> {
   } catch {
     // Fall back to no dynamic slugs when CMS is unavailable.
   }
-=======
   const cmsSlugs = await getAllCmsCaseStudySlugs();
   if (cmsSlugs.length > 0) return cmsSlugs;
->>>>>>> 691f138d016f936ab3507a6649f44447d0a16b61
   return [];
 }
