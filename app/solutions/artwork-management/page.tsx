@@ -1,4 +1,4 @@
-import { CircleDollarSign, Rocket, Scaling, ShieldCheck } from 'lucide-react';
+﻿import { CircleDollarSign, Rocket, Scaling, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
@@ -10,7 +10,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Artwork Management & Compliance Software | 5Flow',
+  description: 'Centralize artwork workflows and ensure packaging compliance using 5Flow artwork management software designed for regulated industries.',
+};
 // Utility
 function toPascalCase(input: string) {
   return input
@@ -188,3 +193,4 @@ export default async function ArtworkManagement() {
     </div>
   );
 }
+

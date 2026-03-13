@@ -24,7 +24,7 @@ const Workflow = ({ introText, isoText, images }: WorkflowProps) => {
     <div className="relative w-full py-12 md:py-16" style={{ backgroundColor: '#f2f2f7' }}>
       <div className="container mx-auto flex flex-col items-center gap-8 px-4 text-center md:gap-12 md:px-6 lg:gap-14">
         {/* Title */}
-        <h2 className="font-heading text-foreground text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-6xl">
+        <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:text-5xl md:text-[64px]">
           Trust built into every
           <br />
           <InlineHighlight className="text-background">workflow.</InlineHighlight>

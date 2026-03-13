@@ -1,4 +1,4 @@
-import { CircleDollarSign, Rocket, ShieldCheck, Users } from 'lucide-react';
+﻿import { CircleDollarSign, Rocket, ShieldCheck, Users } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { Contact } from '@/components/layout';
 import { CtaV2 } from '@/components/layout/cta-v2';
@@ -10,7 +10,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Artwork Collaboration & Online Proofing Tool | 5Flow',
+  description: 'Review and approve packaging artwork faster with 5Flow online proofing tools designed for collaborative artwork review and compliance.',
+};
 // Utility
 function toPascalCase(input: string) {
   return input
@@ -34,7 +39,7 @@ const heroData = {
   title: 'Document review made simple',
   subtitle: 'All comments. All versions. All in one place.',
   description:
-    '5Flow’s Online Proofing solution brings all stakeholders into one platform for clear, traceable approvals. From annotations to version comparisons, every review is faster, sharper, and audit ready.',
+    '5Flowâ€™s Online Proofing solution brings all stakeholders into one platform for clear, traceable approvals. From annotations to version comparisons, every review is faster, sharper, and audit ready.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/online-proofing.png',
@@ -190,3 +195,4 @@ export default async function OnlineProofing() {
     </div>
   );
 }
+

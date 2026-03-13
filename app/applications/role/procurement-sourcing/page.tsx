@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   ShieldCheck,
   CircleDollarSign,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
+
+
+export const metadata: Metadata = {
+  title: 'Packaging Workflow Management Platform | 5Flow',
+  description: 'Improve supplier collaboration and artwork approvals with packaging workflow management tools built for procurement teams.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -55,10 +62,10 @@ const heroFallback = {
   title: 'Procurement made predictable',
   subtitle: 'Accuracy and efficiency across your supply chain',
   description:
-    'Procurement teams are tasked with cutting costs and ensuring supplier efficiency — but artwork errors, misaligned assets, and reprints eat into budgets. 5Flow gives you control over assets, workflows, and approvals, so suppliers always receive the right files the first time.',
+    'Procurement teams are tasked with cutting costs and ensuring supplier efficiency â€” but artwork errors, misaligned assets, and reprints eat into budgets. 5Flow gives you control over assets, workflows, and approvals, so suppliers always receive the right files the first time.',
   imageSrc: '/applications/icp/Procurement.jpg',
   imageAlt: 'Artwork management preview',
-  ctaText: 'See What’s Possible',
+  ctaText: 'See Whatâ€™s Possible',
   mobileImageSrc: '/applications/icp/Procurement-mobile.jpg',
 };
 
@@ -231,3 +238,4 @@ export default async function ProcurementSourcing() {
     </div>
   );
 }
+

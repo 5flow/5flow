@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   SquareStack,
   Repeat2,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
+
+
+export const metadata: Metadata = {
+  title: 'Creative Collaboration Workflow Software | 5Flow',
+  description: 'Simplify creative production with collaborative content management tools for studios handling packaging and brand assets.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -58,7 +65,7 @@ const heroFallback = {
     'Creative studios should be focused on big ideas, not chasing files or juggling endless markups. 5Flow clears the clutter by automating production work, centralizing approvals, and giving designers back the time to design.',
   imageSrc: '/applications/icp/Marketing.jpg',
   imageAlt: 'Artwork management preview',
-  ctaText: 'See What’s Possible',
+  ctaText: 'See Whatâ€™s Possible',
   mobileImageSrc: '/applications/icp/Marketing-mobile.jpg',
 };
 
@@ -218,3 +225,4 @@ export default async function CreativeStudio() {
     </div>
   );
 }
+

@@ -1,8 +1,15 @@
+﻿import type { Metadata } from 'next';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
 import FilterSection from '@/components/page/resources/FilterSection';
 import { getCaseStudyCards } from '@/lib/resources/case-studies';
+
+
+export const metadata: Metadata = {
+  title: 'Artwork Workflow Automation Case Studies | 5Flow',
+  description: 'Discover how brands streamline artwork approvals, compliance and packaging workflows using 5Flow solutions.',
+};
 
 export default async function CaseStudies() {
   const caseStudyItems = await getCaseStudyCards();
@@ -26,3 +33,4 @@ export default async function CaseStudies() {
     </div>
   );
 }
+

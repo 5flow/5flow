@@ -1,3 +1,5 @@
+import { getAllCmsCaseStudySlugs, getCmsCaseStudyBySlug, getCmsCaseStudyCards } from '@/lib/cms/case-study';
+
 export type CaseStudyCardItem = {
   title: string;
   desc: string;
@@ -5,7 +7,32 @@ export type CaseStudyCardItem = {
   link: string;
 };
 
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+};
+
+function hasCaseStudyCmsConfig() {
+  return Boolean(process.env.WP_BASE_URL);
+}
+
 export async function getCaseStudyCards(): Promise<CaseStudyCardItem[]> {
+  if (!hasCaseStudyCmsConfig()) return getFallbackCaseStudyCards();
+
+  try {
+    const cmsCards = await getCmsCaseStudyCards();
+    if (cmsCards.length > 0) return cmsCards;
+  } catch {
+    // Fall back to local data when CMS is unavailable in local/dev environments.
+  }
+
+  return getFallbackCaseStudyCards();
+}
+
+function getFallbackCaseStudyCards(): CaseStudyCardItem[] {
   // All case study items flattened from the previous tabs data
   return [
     // Industry
@@ -84,4 +111,28 @@ export async function getCaseStudyCards(): Promise<CaseStudyCardItem[]> {
       link: '/case-studies/print',
     },
   ];
+}
+
+export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null> {
+  if (!hasCaseStudyCmsConfig()) return null;
+
+  try {
+    const cmsCaseStudy = await getCmsCaseStudyBySlug(slug);
+    if (cmsCaseStudy) return cmsCaseStudy;
+  } catch {
+    // Fall back to null when CMS is unavailable.
+  }
+  return null;
+}
+
+export async function getCaseStudySlugs(): Promise<string[]> {
+  if (!hasCaseStudyCmsConfig()) return [];
+
+  try {
+    const cmsSlugs = await getAllCmsCaseStudySlugs();
+    if (cmsSlugs.length > 0) return cmsSlugs;
+  } catch {
+    // Fall back to no dynamic slugs when CMS is unavailable.
+  }
+  return [];
 }

@@ -23,7 +23,7 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 md:gap-12 md:px-6 lg:gap-14">
         {/* Title Section */}
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-6">
-          <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             Trusted to <InlineHighlight className="text-background">perform</InlineHighlight>
             <br />
             at scale

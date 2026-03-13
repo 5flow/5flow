@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import { Files, History, FileStack, LaptopMinimalCheck, EyeOff, RotateCw, Share2 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
@@ -9,6 +10,12 @@ import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
+
+
+export const metadata: Metadata = {
+  title: 'Retail Labeling Compliance Software Platform | 5Flow',
+  description: 'Manage retail packaging artwork and ensure labeling compliance using collaborative artwork tools built for retailers.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -34,7 +41,7 @@ const heroFallback = {
   imageSrc: '/applications/industries/retail.jpg',
   imageAlt: 'Artwork management preview',
   mobileImageSrc: '/applications/industries/retail-mobile.jpg',
-  ctaText: 'See What’s Possible',
+  ctaText: 'See Whatâ€™s Possible',
 };
 
 const challengeItems = [
@@ -77,7 +84,7 @@ const challengeItems = [
   {
     id: 'lack-of-visibility',
     title: 'Lack of visibility',
-    desc: 'Retailers can’t see where campaigns stall',
+    desc: 'Retailers canâ€™t see where campaigns stall',
     sub: 'Dashboards and analytics show bottlenecks in real time, helping managers act before deadlines slip.',
     icon: EyeOff,
     buttonText: 'See How 5Flow Helps Retail',
@@ -222,3 +229,4 @@ export default async function Retail() {
     </div>
   );
 }
+

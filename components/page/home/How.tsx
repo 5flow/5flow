@@ -47,7 +47,7 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
       <div className="p-2 pt-12 pb-8 md:pt-16 md:pb-6">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-1 flex-col gap-4 md:flex-row md:items-center md:gap-8">
-            <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[48px]">
+            <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[64px]">
               <InlineHighlight>{sectionTitle.split(' ')[0]}</InlineHighlight>{' '}
               {sectionTitle.split(' ').slice(1).join(' ')}
             </p>
@@ -57,7 +57,7 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
             <b className="font-heading text-center text-lg leading-none tracking-tight md:text-left md:text-[32px]">
               {sectionSubtitle}
             </b>
-            <p className="w-full text-center text-base font-medium tracking-tight md:text-left md:text-lg">
+            <p className="w-full text-center text-base font-medium tracking-tight md:text-left text-[20px] leading-7 font-normal tracking-normal text-[#030712cc]">
               {sectionDesc}
             </p>
           </div>
@@ -83,12 +83,14 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
                   <p className="text-xl leading-none font-bold tracking-tight sm:text-2xl md:text-3xl">{item.title}</p>
                 </div>
 
-                <div className="flex w-full flex-col items-start gap-4 p-2 md:flex-row md:items-center md:gap-8 md:p-5">
-                  <p className="text-sm tracking-tight">{item.desc}</p>
+                <div className="grid w-full flex-1 grid-cols-1 gap-4 p-2 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-5">
+                  <p className="font-body text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] md:self-end">
+                    {item.desc}
+                  </p>
                   {item.link && (
-                    <Link href={item.link}>
+                    <Link href={item.link} className="self-end md:self-end">
                       <Button
-                        className="bg-primary hover:ring-primary/50 hover:ring-offset-background mt-2 size-12 origin-center cursor-pointer rounded-none px-2 py-1 transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6 md:mt-0 md:ml-auto md:size-15 md:px-4 md:py-2"
+                        className="bg-primary hover:ring-primary/50 hover:ring-offset-background size-12 origin-center cursor-pointer rounded-none px-2 py-1 transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6 md:size-15 md:px-4 md:py-2"
                         aria-label="Contact"
                       >
                         <ArrowUpRight className="size-6 sm:size-8" />

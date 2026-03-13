@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import { ClockPlus, RefreshCcw, Share2Icon, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
@@ -10,6 +11,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+
+
+export const metadata: Metadata = {
+  title: 'Content Collaboration Management Software | 5Flow',
+  description: 'Streamline content creation, approvals and asset sharing with 5Flow content collaboration management software for creative teams.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -34,7 +41,7 @@ const heroData = {
   title: 'Content under control',
   subtitle: 'One source of truth for every market and channel',
   description:
-    '5Flow’s Content Management solution centralizes product data, claims, translations, and packaging content. No more copy-pasting across spreadsheets or chasing the latest version — just accurate content ready for every artwork, label, and market.',
+    '5Flowâ€™s Content Management solution centralizes product data, claims, translations, and packaging content. No more copy-pasting across spreadsheets or chasing the latest version â€” just accurate content ready for every artwork, label, and market.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/content-management.png',
@@ -63,7 +70,7 @@ const howData = [
   {
     title: 'Version history',
     subtitle: 'Track every change across markets',
-    description: 'Every edit is logged and accessible, giving teams confidence they’re using the latest content.',
+    description: 'Every edit is logged and accessible, giving teams confidence theyâ€™re using the latest content.',
     buttonText: 'Discover Version Control',
     imageSrc: '/solutions/3-3.svg',
     iconName: 'SearchCheck',
@@ -190,3 +197,4 @@ export default async function ContentManagement() {
     </div>
   );
 }
+

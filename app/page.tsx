@@ -1,11 +1,16 @@
-import { Contact } from '@/components/layout';
+﻿import { Contact } from '@/components/layout';
 import { CtaV2 } from '@/components/layout/cta-v2';
 import ServerHero from '@/components/page/home/Hero.server';
 import ServerWhat from '@/components/page/home/What.server';
 import ServerHow from '@/components/page/home/How.server';
 import ServerWho from '@/components/page/home/Who.server';
 import ServerWhy from '@/components/page/home/Why.server';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Artwork Workflow Automation Platform | 5Flow',
+  description: "Streamline packaging and creative operations with 5Flow's artwork workflow automation platform, enabling faster approvals, compliance tracking and collaboration.",
+};
 export default function Home() {
   return (
     <div className="relative">
@@ -36,3 +41,4 @@ export default function Home() {
     </div>
   );
 }
+

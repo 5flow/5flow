@@ -1,4 +1,4 @@
-import { CtaV2 } from '@/components/layout/cta-v2';
+﻿import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/about/Hero';
 import Vision from '@/components/page/about/Vision';
@@ -8,7 +8,12 @@ import Apart from '@/components/page/about/Apart';
 import Workflow from '@/components/page/about/Workflow';
 import Performance from '@/components/page/about/Performance';
 import Results from '@/components/page/about/Results';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Artwork Collaboration Platform for Brands | 5Flow',
+  description: 'Learn how 5Flow helps brands streamline artwork collaboration, automate workflows, maintain compliance and centralize creative assets across teams.',
+};
 export default function About() {
   return (
     <div className="relative">
@@ -38,3 +43,4 @@ export default function About() {
     </div>
   );
 }
+

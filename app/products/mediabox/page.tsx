@@ -1,4 +1,4 @@
-import { CalendarClock, CircleDollarSign, EyeOff, Rocket, ShieldAlert, Target, Unplug } from 'lucide-react';
+﻿import { CalendarClock, CircleDollarSign, EyeOff, Rocket, ShieldAlert, Target, Unplug } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
@@ -13,7 +13,12 @@ import What from '@/components/page/product/What';
 import Why from '@/components/page/product/Why';
 import Workflow from '@/components/page/product/Workflow';
 import Who from '@/components/page/home/Who';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Digital Asset Management Software Platform | 5Flow',
+  description: 'Store, organize and manage creative assets using 5Flow Mediabox digital asset management software for teams and growing businesses.',
+};
 // Fallback data in case CMS is unavailable
 const heroData = {
   logoSrc: '/product/mediabox.svg',
@@ -166,7 +171,7 @@ const needData = {
   title2: ' that grows with you',
   subtitle: 'Flexible options for every team size',
   description:
-    'Whether you’re managing a small creative team or coordinating global campaigns, Mediabox offers flexible pricing tailored to your workflow needs.',
+    'Whether youâ€™re managing a small creative team or coordinating global campaigns, Mediabox offers flexible pricing tailored to your workflow needs.',
   buttonText: 'Talk to Us',
 };
 
@@ -350,3 +355,4 @@ export default async function Mediabox() {
     </div>
   );
 }
+

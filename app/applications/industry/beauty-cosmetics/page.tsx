@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   Grid2X2,
   LayoutDashboard,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
+
+
+export const metadata: Metadata = {
+  title: 'Cosmetics Packaging Artwork Automation | 5Flow',
+  description: 'Accelerate cosmetics packaging design and approvals with automated artwork workflow solutions for beauty brands.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -233,3 +240,4 @@ export default async function BeautyCosmetics() {
     </div>
   );
 }
+

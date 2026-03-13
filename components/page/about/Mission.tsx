@@ -30,7 +30,7 @@ const Mission = ({ missionTitle, missionText }: MissionProps) => {
             className="text-foreground absolute top-10 left-2 h-16 w-16 sm:top-12 sm:left-4 md:top-16 md:left-6 md:h-24 md:w-24 lg:h-28 lg:w-28"
             strokeWidth={1}
           />
-          <h2 className="font-heading text-foreground text-right text-5xl leading-[1] font-bold tracking-tight md:text-6xl lg:text-7xl">
+          <h2 className="font-heading text-foreground text-right text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             The
             <br />
             Mission

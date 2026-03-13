@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   Eye,
   ShieldCheck,
@@ -20,6 +21,12 @@ import Hero from '@/components/page/applications/Hero';
 import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
+
+
+export const metadata: Metadata = {
+  title: 'Brand Asset Management Software for Teams | 5Flow',
+  description: 'Maintain brand consistency across packaging and marketing assets with collaborative artwork tools built for brand managers.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -91,7 +98,7 @@ const challengeItems = [
   },
   {
     title: 'No visibility',
-    desc: 'You can’t see where projects stall',
+    desc: 'You canâ€™t see where projects stall',
     sub: 'Dashboards highlight bottlenecks and delays so you can act early and keep launches on track.',
     icon: Eye,
     buttonText: 'See How It Helps Brand Managers',
@@ -226,3 +233,4 @@ export default async function BrandManager() {
     </div>
   );
 }
+

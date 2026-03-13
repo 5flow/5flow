@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   ShieldCheck,
   ListRestart,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
+
+
+export const metadata: Metadata = {
+  title: 'Food Packaging Artwork Workflow Software | 5Flow',
+  description: 'Ensure food labeling compliance and packaging accuracy with automated artwork workflow software built for F&B brands.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -50,7 +57,7 @@ const challengeItems = [
   {
     id: 'constant-reformulations',
     title: 'Constant recipe reformulations',
-    desc: 'Packaging can’t keep up',
+    desc: 'Packaging canâ€™t keep up',
     sub: '5Flow centralizes ingredient data and pushes updates into artwork automatically, keeping labels accurate.',
     icon: ListRestart,
     buttonText: 'See How 5Flow Helps Pharma Teams',
@@ -231,3 +238,4 @@ export default async function FoodBeverages() {
     </div>
   );
 }
+

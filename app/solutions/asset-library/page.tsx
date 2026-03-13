@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import { CircleGauge, RefreshCcw, ShieldCheck, Zap } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
@@ -10,6 +11,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+
+
+export const metadata: Metadata = {
+  title: 'Centralized Digital Asset Library Software | 5Flow',
+  description: 'Organize brand assets with a centralized digital asset library. Improve collaboration and access using 5Flow asset management tools.',
+};
 
 // utility
 function toPascalCase(input: string) {
@@ -34,7 +41,7 @@ const heroData = {
   title: 'One library for every asset',
   subtitle: 'Centralize, search, and share with confidence',
   description:
-    '5Flow’s Asset Library brings every artwork, cutter guide, logo, and marketing file into one secure, searchable hub. No more Dropbox chaos, email attachments, or outdated files — just the right asset, always ready.',
+    '5Flowâ€™s Asset Library brings every artwork, cutter guide, logo, and marketing file into one secure, searchable hub. No more Dropbox chaos, email attachments, or outdated files â€” just the right asset, always ready.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/asset-library.png',
@@ -187,3 +194,4 @@ export default async function AssetLibrary() {
     </div>
   );
 }
+

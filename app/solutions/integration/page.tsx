@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import { Eye, Lightbulb, Scaling, WorkflowIcon } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
@@ -10,6 +11,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+
+
+export const metadata: Metadata = {
+  title: 'Advanced Workflow Integration Platform | 5Flow',
+  description: 'Connect packaging workflows, asset systems and approval tools seamlessly using 5Flow workflow integration solutions.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -34,7 +41,7 @@ const heroData = {
   title: 'Connected workflows, less copy and paste',
   subtitle: 'Integration that keeps your business in flow.',
   description:
-    '5Flow’s Integration solution connects your PIM, DAM, ERP, and design tools into one unified workflow. No more copy-pasting, duplicate files, or disconnected systems. Just data flowing smoothly across your ecosystem.',
+    '5Flowâ€™s Integration solution connects your PIM, DAM, ERP, and design tools into one unified workflow. No more copy-pasting, duplicate files, or disconnected systems. Just data flowing smoothly across your ecosystem.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/integration.png',
@@ -187,3 +194,4 @@ export default async function Integration() {
     </div>
   );
 }
+

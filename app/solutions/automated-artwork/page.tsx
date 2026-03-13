@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import { CircleDollarSign, FileStack, Lightbulb, Rocket } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
@@ -10,6 +11,12 @@ import Hero from '@/components/page/solutions/Hero';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
+
+
+export const metadata: Metadata = {
+  title: 'Artwork Automation Platform for Packaging | 5Flow',
+  description: 'Automate packaging artwork creation and approval workflows with 5Flow artwork automation platform for faster product launches.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -34,7 +41,7 @@ const heroData = {
   title: 'Artwork at the speed of automation',
   subtitle: 'Design Once. Deliver Everywhere.',
   description:
-    '5Flow’s Automated Artwork solution handles repetitive work, so you can focus on creativity.. From resizing to multilingual rollouts, it eliminates manual effort, minimizes errors, and accelerates delivery.',
+    '5Flowâ€™s Automated Artwork solution handles repetitive work, so you can focus on creativity.. From resizing to multilingual rollouts, it eliminates manual effort, minimizes errors, and accelerates delivery.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/automated-artwork.png',
@@ -188,3 +195,4 @@ export default async function AutomatedArtwork() {
     </div>
   );
 }
+

@@ -51,13 +51,13 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </FullBleedLines>
         </div>
         <FullBleedLines>
-          <div className="text-foreground max-w-full text-base tracking-tight sm:max-w-2xl sm:text-lg md:max-w-3xl md:text-[20px]">
+          <div className="font-body max-w-full text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] sm:max-w-2xl md:max-w-3xl [&_em]:font-normal [&_strong]:font-normal">
             {bodyHtml ? (
               <HtmlContent html={bodyHtml} />
             ) : (
               <>
                 5FLOW helps global brands unify workflows, speed up execution, and keep every touchpoint consistent.
-                With our <strong>expertise in packaging, content, and creative production</strong> powered by
+                With our expertise in packaging, content, and creative production powered by
                 intelligent automation, we transform the way brands operate in today&apos;s connected world.
               </>
             )}

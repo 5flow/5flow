@@ -1,4 +1,4 @@
-import {
+﻿import {
   CircleDollarSign,
   Lightbulb,
   LineSquiggle,
@@ -23,13 +23,18 @@ import Why from '@/components/page/product/Why';
 import Workflow from '@/components/page/product/Workflow';
 import Who from '@/components/page/home/Who';
 import VideoShowcase from '@/components/page/product/VideoShowcase';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Artwork Approval Software & Collaboration | 5Flow',
+  description: 'Speed up packaging and creative approvals with Dragonfly artwork approval software. Collaborate in real time and track revisions easily.',
+};
 // Fallback data in case CMS is unavailable
 const heroData = {
   logoSrc: '/product/dragonfly.svg',
   logoAlt: 'Wave Brand',
   title: 'Make your projects fly',
-  subtitle: 'Communication and control. It’s second nature with Dragonfly.',
+  subtitle: 'Communication and control. Itâ€™s second nature with Dragonfly.',
   description:
     'Dragonfly is a web-based graphics and packaging management tool that cuts through miscommunication, complexity, and confusion. Launch new products on time, on budget, every time with Dragonfly.',
   imageSrc: '/product/Solution_Banner_Dragonfly.jpg',
@@ -51,7 +56,7 @@ const whatData = [
     {
       title: 'Rigid workflows',
       subtitle: 'Processes break when projects change',
-      description: 'Static workflows cannot handle the pace or complexity of today’s packaging and marketing demands.',
+      description: 'Static workflows cannot handle the pace or complexity of todayâ€™s packaging and marketing demands.',
       icon: RailSymbol,
       buttonLink: '/solutions/artwork-management',
     },
@@ -66,7 +71,7 @@ const whatData = [
     },
     {
       title: 'System chaos',
-      subtitle: 'Too many tools that don’t connect',
+      subtitle: 'Too many tools that donâ€™t connect',
       description: 'Copy-pasting between PIMs, DAMs, and ERPs slows everything down and increases errors.',
       icon: LineSquiggle,
       buttonLink: '/solutions/integration',
@@ -170,12 +175,12 @@ const clientData = [
 
 const workflowData = {
   title: 'Trusted by global leaders',
-  subtitle: `L’Oréal, Colgate-Palmolive, and global FMCG leaders use Dragonfly as their packaging and marketing execution backbone.`,
+  subtitle: `Lâ€™OrÃ©al, Colgate-Palmolive, and global FMCG leaders use Dragonfly as their packaging and marketing execution backbone.`,
   buttonText: 'See Case Studies',
   statsData: [
     {
       value: '4.5K+',
-      label: `global users at L’Oréal`,
+      label: `global users at Lâ€™OrÃ©al`,
     },
     {
       value: 'Integration',
@@ -362,3 +367,4 @@ export default async function Dragonfly() {
     </div>
   );
 }
+

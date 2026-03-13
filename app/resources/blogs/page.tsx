@@ -1,8 +1,15 @@
+﻿import type { Metadata } from 'next';
 import { Contact } from '@/components/layout';
 import { getBlogCards } from '@/lib/resources/blogs';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
 import FilterSection from '@/components/page/resources/FilterSection';
+
+
+export const metadata: Metadata = {
+  title: 'Artwork Workflow & Packaging Insights Blog | 5Flow',
+  description: 'Explore insights on artwork automation, packaging compliance, digital asset management and workflow optimization.',
+};
 
 export default async function Blogs() {
   const blogItems = await getBlogCards();
@@ -26,3 +33,4 @@ export default async function Blogs() {
     </div>
   );
 }
+

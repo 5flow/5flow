@@ -11,7 +11,7 @@ const Propelis = ({ propelisDescription }: PropelisProps) => {
       <div className="flex w-full flex-col">
         {/* Title Row */}
         <div className="px-6 pb-6 pt-10 sm:px-0 sm:pb-4 sm:pt-12">
-          <h2 className="font-heading text-foreground text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2 className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             <InlineHighlight>Powering</InlineHighlight>
             <br />
             The Propelis group

@@ -1,4 +1,4 @@
-import { CalendarClock, CalendarX2, FileXIcon, History, Lightbulb, Rocket, Scaling, ShieldCheck } from 'lucide-react';
+﻿import { CalendarClock, CalendarX2, FileXIcon, History, Lightbulb, Rocket, Scaling, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
@@ -13,7 +13,12 @@ import What from '@/components/page/product/What';
 import Why from '@/components/page/product/Why';
 import Workflow from '@/components/page/product/Workflow';
 import InlineHighlight from '@/components/core/inline-highlight';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Creative Asset Management Software Tool | 5Flow',
+  description: 'Manage creative production efficiently with WaveStudio. A creative asset management software for collaboration, approvals and content workflows.',
+};
 // Fallback data in case CMS is unavailable
 const heroData = {
   logoSrc: '/product/wave-studio.svg',
@@ -329,3 +334,4 @@ export default async function Wavestudio() {
     </div>
   );
 }
+

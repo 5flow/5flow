@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   ShieldCheck,
   Languages,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
+
+
+export const metadata: Metadata = {
+  title: 'Pharma Artwork & Label Approval Software | 5Flow',
+  description: 'Streamline pharma packaging artwork reviews and approvals using validation-friendly pharma packaging workflow tools.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -58,7 +65,7 @@ const challengeItems = [
   {
     id: 'regulatory-pressure',
     title: '21 CFR and EMA compliance pressure',
-    desc: 'Regulations change, workflows don’t',
+    desc: 'Regulations change, workflows donâ€™t',
     sub: 'Preconfigured compliance checklists and validation rules ensure every label meets FDA, EMA, and regional standards.',
     icon: ShieldAlert,
     buttonText: 'See How 5Flow Helps Pharma Teams',
@@ -85,7 +92,7 @@ const challengeItems = [
   {
     id: 'patient-safety',
     title: 'Patient safety on the line',
-    desc: 'Errors aren’t just costly, they’re dangerous',
+    desc: 'Errors arenâ€™t just costly, theyâ€™re dangerous',
     sub: 'Built-in validation rules flag missing warnings, dosage errors, or misplaced barcodes before files go to print.',
     icon: ShieldPlus,
     buttonText: 'See How 5Flow Helps Pharma Teams',
@@ -230,3 +237,4 @@ export default async function HealthPharma() {
     </div>
   );
 }
+

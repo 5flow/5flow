@@ -1,4 +1,4 @@
-import {
+﻿import {
   CalendarSync,
   CircleDollarSign,
   EyeOff,
@@ -22,7 +22,12 @@ import Workflow from '@/components/page/product/Workflow';
 import How from '@/components/page/product/How';
 import Why from '@/components/page/product/Why';
 import Who from '@/components/page/home/Who';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Advanced Workflow Management Software | 5Flow',
+  description: 'Optimize packaging workflows with 5Flow Wave. Automate approvals, streamline artwork collaboration and manage complex creative processes efficiently.',
+};
 // Fallback data in case CMS is unavailable
 const heroData = {
   logoSrc: '/product/wave.svg',
@@ -358,3 +363,4 @@ export default async function Wave() {
     </div>
   );
 }
+

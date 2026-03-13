@@ -1,3 +1,4 @@
+﻿import type { Metadata } from 'next';
 import {
   ShieldCheck,
   ZapIcon,
@@ -19,6 +20,12 @@ import Hero from '@/components/page/applications/Hero';
 import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
+
+
+export const metadata: Metadata = {
+  title: 'Packaging Compliance Management Software | 5Flow',
+  description: 'Ensure packaging compliance and regulatory approval workflows with advanced artwork compliance tracking tools.',
+};
 
 // Utility
 function toPascalCase(input: string) {
@@ -53,7 +60,7 @@ function renderWorkflowTitle(title: string, highlight?: string) {
 // Fallback data in case CMS is unavailable
 const heroFallback = {
   title: 'Move Fast. Stay Compliant. Never Compromise.',
-  subtitle: 'Tools built for regulatory and quality descers who can’t afford mistakes',
+  subtitle: 'Tools built for regulatory and quality descers who canâ€™t afford mistakes',
   description:
     'Regulatory and quality managers need accuracy at every step. From label updates to final approvals, 5Flow ensures complete traceability, audit-ready workflows, and risk-free compliance.',
   imageSrc: '/applications/icp/Quality.jpg',
@@ -93,7 +100,7 @@ const challengeItems = [
   {
     id: 'fragmented-documentation',
     title: 'Fragmented documentation',
-    desc: 'Teams can’t prove compliance quickly',
+    desc: 'Teams canâ€™t prove compliance quickly',
     sub: 'With built-in records, reports are generated instantly for audits and inspections.',
     icon: ShieldQuestionMark,
     buttonText: 'See How It Helps Regulatory Teams',
@@ -231,3 +238,4 @@ export default async function QualityRegulatory() {
     </div>
   );
 }
+
