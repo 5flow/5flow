@@ -29,7 +29,7 @@
     return (
       <div className="flex flex-col gap-4 md:gap-8">
         <FullBleedLines className="font-heading mx-auto w-full max-w-4xl gap-16 px-2 py-8">
-          <p className="text-center text-4xl leading-none font-bold tracking-tight md:text-[64px]">
+          <p className="text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:text-[64px]">
             {sectionTitle.split(' ').map((word, i) => {
               const highlightWords = ['create,', 'scale,', 'deliver.'];
               return highlightWords.includes(word) ? (
@@ -53,7 +53,7 @@
               />
 
               <div className="flex flex-col gap-8 p-2 md:pr-8">
-                <p className="text-background max-w-4xl px-4 text-center text-sm font-medium tracking-tight sm:text-base md:px-0 md:text-left md:text-base">
+                <p className="text-background max-w-4xl px-4 text-center text-sm leading-[150%] font-normal tracking-tight sm:text-base md:px-0 md:text-left md:text-base">
                   {bodyHtml ||
                     '5FLOW started as a cloud-smart technology spin-off of the Matthews International Group in 2011. Now, part of the Propelis Group, 5FLOW combines over 150 years of creative, packaging, and brand production leadership with a technology-driven edge.'}
                 </p>
@@ -96,7 +96,7 @@
                           }`}
                         >
                           <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-6">
-                            <p className="max-w-72 text-base leading-none font-bold tracking-tight md:text-xl">
+                            <p className="max-w-72 text-2xl leading-tight font-bold tracking-tight sm:text-3xl sm:leading-none md:text-xl">
                               {card.title}
                             </p>
                           </div>

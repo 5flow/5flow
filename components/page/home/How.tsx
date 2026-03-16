@@ -47,17 +47,17 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
       <div className="p-2 pt-12 pb-8 md:pt-16 md:pb-6">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex flex-1 flex-col gap-4 md:flex-row md:items-center md:gap-8">
-            <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-left md:text-[64px]">
+            <p className="font-heading text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:text-left md:text-[64px]">
               <InlineHighlight>{sectionTitle.split(' ')[0]}</InlineHighlight>{' '}
               {sectionTitle.split(' ').slice(1).join(' ')}
             </p>
           </div>
 
           <div className="flex flex-1 flex-col items-start justify-center gap-4 px-8 md:gap-6 md:px-0">
-            <b className="font-heading text-center text-lg leading-none tracking-tight md:text-left md:text-[32px]">
+            <b className="font-heading text-center text-xl leading-tight tracking-tight sm:text-2xl sm:leading-none md:text-left md:text-[32px]">
               {sectionSubtitle}
             </b>
-            <p className="w-full text-center text-base font-medium tracking-tight md:text-left text-[20px] leading-7 font-normal tracking-normal text-[#030712cc]">
+            <p className="text-foreground w-full text-center text-sm leading-[150%] font-normal tracking-tight sm:text-base md:text-left md:text-[20px] md:leading-7 md:tracking-normal md:text-[#030712cc]">
               {sectionDesc}
             </p>
           </div>
@@ -80,11 +80,11 @@ const How = ({ title, subtitle, desc, items }: HowProps) => {
               >
                 <div className="flex w-full items-center gap-4 p-2 md:gap-6 md:p-5">
                   <Icon className="text-primary h-10 w-10 sm:h-14 sm:w-14 md:h-15 md:w-15" strokeWidth={1.5} />
-                  <p className="text-xl leading-none font-bold tracking-tight sm:text-2xl md:text-3xl">{item.title}</p>
+                  <p className="text-2xl leading-tight font-bold tracking-tight sm:text-3xl sm:leading-none md:text-3xl">{item.title}</p>
                 </div>
 
                 <div className="grid w-full flex-1 grid-cols-1 gap-4 p-2 md:min-h-[220px] md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-5">
-                  <p className="font-body text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] md:self-start">
+                  <p className="font-body text-foreground text-base leading-tight font-normal tracking-tight sm:text-xl sm:leading-none md:self-start md:text-[20px] md:leading-7 md:tracking-normal md:text-[#030712cc]">
                     {item.desc}
                   </p>
                   {item.link && (

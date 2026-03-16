@@ -25,7 +25,7 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
       <div className="flex flex-col gap-[26px] px-4 sm:px-2">
         <div className="mt-12 flex flex-col gap-[26px] md:mt-24">
           <FullBleedLines>
-            <p className="font-heading text-foreground max-w-full text-5xl font-semibold tracking-tighter sm:max-w-2xl sm:text-5xl md:max-w-2xl md:text-[80px]">
+            <p className="font-heading text-foreground max-w-full text-4xl leading-tight font-semibold tracking-tighter sm:max-w-2xl sm:text-8xl sm:leading-none md:max-w-2xl md:text-[80px]">
               {(title ?? 'Take brand vision to market reality').split(' ').map((word, i, arr) => {
                 const highlightWords = ['reality'];
                 const isLastWord = i === arr.length - 1;
@@ -45,13 +45,13 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </FullBleedLines>
 
           <FullBleedLines>
-            <h1 className="font-heading text-primary text-2xl tracking-tighter sm:text-3xl md:text-[48px]">
+            <h1 className="font-heading text-primary text-2xl leading-tight tracking-tighter sm:text-5xl sm:leading-none md:text-[48px]">
               {subTitle ?? 'Faster. Smarter. At scale.'}
             </h1>
           </FullBleedLines>
         </div>
         <FullBleedLines>
-          <div className="font-body max-w-full text-[20px] leading-7 font-normal tracking-normal text-[#030712cc] sm:max-w-2xl md:max-w-3xl [&_em]:font-normal [&_strong]:font-normal">
+          <div className="font-body text-foreground max-w-full text-sm leading-[150%] font-normal tracking-tight sm:max-w-2xl sm:text-base md:max-w-3xl md:text-[20px] md:leading-7 md:tracking-normal md:text-[#030712cc] [&_em]:font-normal [&_strong]:font-normal">
             {bodyHtml ? (
               <HtmlContent html={bodyHtml} />
             ) : (

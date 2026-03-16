@@ -43,7 +43,7 @@ const Who = ({ path = 'home', clients = DEFAULT_CLIENTS, title }: WhoProps) => {
       <FullBleedLines>
         <div className="flex items-center justify-center gap-2 px-4 sm:gap-8 sm:px-8">
           <ArrowDown className="text-accent1 h-16 w-16 shrink-0 sm:h-20 sm:w-20 md:h-28 md:w-28" aria-hidden />
-          <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:text-[64px]">
+          <p className="font-heading text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:text-[64px]">
             <InlineHighlight>{(title || 'Who Do We Solve It For?').split(' ')[0]}</InlineHighlight>{' '}
             {(title || 'Who Do We Solve It For?').split(' ').slice(1).join(' ')}
           </p>

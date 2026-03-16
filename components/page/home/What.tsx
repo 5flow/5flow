@@ -57,7 +57,7 @@ const What = ({ title, items }: WhatProps) => {
     <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
       <div className="px-2 py-8">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
-          <h2 className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
+          <h2 className="font-heading w-full max-w-full text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:max-w-5xl md:text-left md:text-[64px]">
             {sectionTitle.split(' ').map((word, i) => {
               const highlightWords = ['modern', 'content'];
               return highlightWords.includes(word) ? (
@@ -85,13 +85,15 @@ const What = ({ title, items }: WhatProps) => {
                 className="bg-background box-border flex h-[200px] flex-col gap-8 rounded-2xl p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:p-6 md:h-[252px]"
               >
                 <div className="flex w-full items-start justify-between">
-                  <p className="text-xl font-bold tracking-tight sm:text-2xl md:text-[36px]">{card.title}</p>
+                  <p className="text-2xl leading-tight font-bold tracking-tight sm:text-4xl sm:leading-none md:text-[36px]">{card.title}</p>
                   <Icon className="text-primary h-[60px] w-[60px] shrink-0" strokeWidth={1.5} />
                 </div>
                 <div className="w-full max-w-xl">
-                  <p className="w-full max-w-102 text-[20px] leading-7 font-bold tracking-tight">{card.desc}</p>
+                  <p className="w-full max-w-102 text-base leading-tight font-bold tracking-tight sm:text-xl sm:leading-none md:text-[20px] md:leading-7">
+                    {card.desc}
+                  </p>
                   {card.sub && (
-                    <p className="font-body pt-2 text-[20px] leading-7 font-normal tracking-normal text-[#030712cc]">
+                    <p className="font-body text-foreground pt-2 text-base leading-tight font-normal tracking-tight sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal md:text-[#030712cc]">
                       {card.sub}
                     </p>
                   )}
