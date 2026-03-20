@@ -1,159 +1,194 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
-// import HeroBg from './HeroBg';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import HeroBg from './HeroBg';
 
-type AnimationData = Record<string, unknown>;
+const TOTAL_FRAMES = 61;
+const INTRO_DURATION_MS = 2000;
+
+const getFrameSrc = (frame: number) =>
+  `/landing%20commence/landing%20commence%20new_${String(frame).padStart(5, '0')}.png`;
 
 const HeroLottieBg = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const lottieRef = useRef<LottieRefCurrentProps>(null);
-
-  const [data, setData] = useState<AnimationData | null>(null);
+  const framesRef = useRef<HTMLImageElement[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [ready, setReady] = useState(false);
   const [mode, setMode] = useState<'loading' | 'playing' | 'scrub'>('loading');
-
-  // Respect reduced motion: render only static background
   const [reduced, setReduced] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const onChange = () => setReduced(mq.matches);
-    onChange();
-    mq.addEventListener?.('change', onChange);
-    return () => mq.removeEventListener?.('change', onChange);
+    const reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileMq = window.matchMedia('(max-width: 767px)');
+
+    const syncReduced = () => setReduced(reducedMq.matches);
+    const syncMobile = () => setIsMobile(mobileMq.matches);
+
+    syncReduced();
+    syncMobile();
+
+    reducedMq.addEventListener?.('change', syncReduced);
+    mobileMq.addEventListener?.('change', syncMobile);
+
+    return () => {
+      reducedMq.removeEventListener?.('change', syncReduced);
+      mobileMq.removeEventListener?.('change', syncMobile);
+    };
   }, []);
 
-  // Load animation JSON (keeps static fallback visible while loading)
+  const frameIndices = useMemo(() => {
+    const allFrames = Array.from({ length: TOTAL_FRAMES }, (_, index) => index);
+    if (!isMobile) return allFrames;
+
+    const mobileFrames = allFrames.filter(index => index % 2 === 0);
+    if (mobileFrames[mobileFrames.length - 1] !== TOTAL_FRAMES - 1) {
+      mobileFrames.push(TOTAL_FRAMES - 1);
+    }
+    return mobileFrames;
+  }, [isMobile]);
+
   useEffect(() => {
+    if (reduced) {
+      setCurrentFrame(frameIndices[frameIndices.length - 1]);
+      setReady(true);
+      setMode('scrub');
+      return;
+    }
+
     let mounted = true;
-    if (reduced) return; // skip loading if reduced motion
-    fetch('/lottie/landing-commence.json')
-      .then(res => (res.ok ? res.json() : null))
-      .then(json => {
-        if (mounted && json) {
-          setData(json as AnimationData);
+    let loaded = 0;
+
+    setReady(false);
+    setMode('loading');
+    framesRef.current = [];
+
+    const frames = frameIndices.map(frameNumber => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.loading = 'eager';
+      img.src = getFrameSrc(frameNumber);
+      img.onload = () => {
+        loaded += 1;
+        if (!mounted) return;
+        if (loaded === 1) {
+          setReady(true);
+        }
+        if (loaded === frameIndices.length) {
+          framesRef.current = frames;
           setMode('playing');
         }
-      })
-      .catch(() => {
-        // If it fails, we'll just keep showing the static background
-      });
+      };
+      return img;
+    });
+
     return () => {
       mounted = false;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [reduced]);
+  }, [frameIndices, reduced]);
 
-  // Scroll-driven reverse scrubbing
   useEffect(() => {
-    if (!data || reduced) return;
+    if (mode !== 'playing' || reduced) return;
 
-    let ticking = false;
-    let totalFrames = 0;
+    const start = performance.now();
+    const lastFrameIndex = frameIndices.length - 1;
 
-    const initFrames = () => {
-      try {
-        // getDuration(true) returns total frames
-        totalFrames = Math.floor(lottieRef.current?.getDuration?.(true) || 0);
-      } catch {
-        totalFrames = 0;
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / INTRO_DURATION_MS, 1);
+      const sequenceIndex = Math.min(Math.floor(progress * lastFrameIndex), lastFrameIndex);
+      setCurrentFrame(frameIndices[sequenceIndex]);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setCurrentFrame(frameIndices[lastFrameIndex]);
+        setMode('scrub');
       }
     };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [frameIndices, mode, reduced]);
+
+  useEffect(() => {
+    if (mode === 'loading') return;
+
+    let ticking = false;
+    const lastFrameIndex = frameIndices.length - 1;
 
     const calcProgress = () => {
       const el = containerRef.current;
       if (!el) return 0;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-
-      // When the top of the container hits top of viewport => progress 0
-      // When the bottom of the container hits top of viewport => progress 1
-      const total = rect.height + vh; // extend range a bit for smoother exit
+      const total = rect.height + vh;
       const scrolled = Math.min(Math.max(vh - rect.top, 0), total);
       return Math.min(Math.max(scrolled / total, 0), 1);
     };
 
     const update = () => {
       ticking = false;
-      if (!lottieRef.current) return;
-      if (mode !== 'scrub') return; // only scrub when in scrub mode
-      if (!totalFrames) initFrames();
       const progress = calcProgress();
-      const frame = Math.floor((1 - progress) * totalFrames);
-      lottieRef.current.goToAndStop?.(frame + 8, true);
+      const sequenceIndex = Math.floor((1 - progress) * lastFrameIndex);
+      const safeIndex = Math.min(Math.max(sequenceIndex, 0), lastFrameIndex);
+      setCurrentFrame(frameIndices[safeIndex]);
     };
 
     const onScroll = () => {
-      // If user scrolls while playing, switch to scrub mode immediately
       if (mode === 'playing') {
-        // Do not clear the canvas, pause keeps the last rendered frame
-        lottieRef.current?.pause?.();
-        // Immediately set the correct frame so there's no visual gap
-        try {
-          if (!totalFrames) initFrames();
-          const progress = calcProgress();
-          const frame = Math.floor((1 - progress) * totalFrames);
-          lottieRef.current?.goToAndStop?.(frame + 8, true);
-        } catch {}
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        update();
         setMode('scrub');
+        return;
       }
+
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(update);
       }
     };
 
-    // Initialize once on mount and when data is ready
-    requestAnimationFrame(() => {
-      initFrames();
-      update();
-    });
-
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+
+    if (mode === 'scrub') {
+      requestAnimationFrame(update);
+    }
+
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [data, reduced, mode]);
+  }, [frameIndices, mode]);
+
+  if (!ready) return null;
 
   return (
     <div ref={containerRef} className="pointer-events-none absolute inset-0 -z-10">
-      {/* Always render a safe background so the canvas can never flash white */}
-      {/* <HeroBg
+      <HeroBg
         defaultColor="#ffffff"
         tileColors={[
-          // row 0
           [undefined, undefined, undefined, '#D1DAFD', 'var(--accent1)', 'var(--success)', 'var(--primary)'],
-          // row 1
           [undefined, undefined, undefined, undefined, '#D1DAFD', 'var(--accent2)', 'var(--success)', 'var(--primary)'],
-          // row 2
           [undefined, undefined, undefined, undefined, '#D1DAFD', 'var(--accent1)', 'var(--accent2)', 'var(--primary)'],
-          // row 3
           [undefined, undefined, undefined, '#D1DAFD', '#D1DAFD', '#D1DAFD', 'var(--accent1)', 'var(--primary)'],
         ]}
-      /> */}
-
-      {/* Lottie overlay */}
-      {!reduced && data ? (
-        <div className="absolute inset-0 -mt-22">
-          <Lottie
-            lottieRef={lottieRef}
-            animationData={data}
-            loop={false}
-            autoplay={mode === 'playing'}
-            onComplete={() => {
-              // Ensure we stay on the last frame and transition to scrubbing seamlessly
-              try {
-                const total = Math.floor(lottieRef.current?.getDuration?.(true) || 0);
-                if (total) lottieRef.current?.goToAndStop?.(total - 1, true);
-              } catch {}
-              setMode('scrub');
-            }}
-            className="h-full w-full"
-            rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
-          />
-        </div>
-      ) : null}
+      />
+      <div className="absolute inset-0 -mt-22 overflow-hidden">
+        <img
+          src={getFrameSrc(currentFrame)}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover"
+          fetchPriority="high"
+        />
+      </div>
     </div>
   );
 };
