@@ -10,7 +10,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <div className="relative">
       {post.image ? (
-        <div className="relative h-[45vh] min-h-[320px] w-full">
+        <div className="relative h-[45vh] min-h-[320px] w-full md:h-[60vh] md:min-h-[520px]">
           <Image
             src={post.image}
             alt={post.title}
@@ -41,3 +41,4 @@ export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
   return slugs.map(slug => ({ slug }));
 }
+
