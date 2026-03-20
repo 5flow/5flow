@@ -11,7 +11,7 @@ export default async function CaseStudyPost({ params }: { params: Promise<{ slug
     <div className="relative">
       {post.image ? (
         <div className="relative h-[45vh] min-h-[320px] w-full md:h-[60vh] md:min-h-[520px]">
-          <Image src={post.image} alt={post.title} fill className="object-cover" priority />
+          <Image src={post.image} alt={post.title} fill className="object-cover md:object-contain" priority />
         </div>
       ) : null}
 
@@ -32,6 +32,7 @@ export async function generateStaticParams() {
   const slugs = await getCaseStudySlugs();
   return slugs.map(slug => ({ slug }));
 }
+
 
 
 
