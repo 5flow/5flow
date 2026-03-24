@@ -14,7 +14,7 @@ const Propelis = ({ propelisDescription }: PropelisProps) => {
           <h2 className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             <InlineHighlight>Powering</InlineHighlight>
             <br />
-            the propelis group
+                the propelis group
           </h2>
         </div>
 
