@@ -19,10 +19,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             style={{ objectPosition: post.imageFocus || 'center' }}
             priority
           />
-          <div
-            className="to-background pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent"
-            aria-hidden="true"
-          />
         </div>
       ) : null}
 
@@ -41,4 +37,5 @@ export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
   return slugs.map(slug => ({ slug }));
 }
+
 

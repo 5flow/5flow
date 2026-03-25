@@ -23,7 +23,7 @@ export default async function CaseStudies() {
           <Hero
             title="See how leading brands use 5Flow"
             subtitle="Explore real-world success stories from Retail, Pharma, F&B, Beauty, and Consumer Goods."
-            buttonLabel="Contact Us"
+            buttonLabel="Contact us"
           />
           <FilterSection variant="case-studies" caseStudyItems={caseStudyItems} />
 

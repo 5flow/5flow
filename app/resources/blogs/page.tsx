@@ -21,9 +21,9 @@ export default async function Blogs() {
 
         <div className="flex flex-col gap-32">
           <Hero
-            title="Insights & Ideas For You"
+            title="Insights & ideas for you"
             subtitle="Stay ahead with expert insights, industry news, and best practices from the 5Flow team."
-            buttonLabel="Contact Us"
+            buttonLabel="Contact us"
           />
           <FilterSection variant="blogs" blogItems={blogItems} />
 
