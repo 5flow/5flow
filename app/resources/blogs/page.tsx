@@ -16,7 +16,7 @@ export default async function Blogs() {
 
   return (
     <div className="relative">
-      <div className="container mx-auto mb-36">
+      <div className="container mx-auto mb-32">
         <PageHeader title="blogs" />
 
         <div className="flex flex-col gap-32">
