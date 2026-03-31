@@ -3,10 +3,14 @@ import { getHomepage } from '@/lib/cms/homepage';
 import { getContentBlock } from '@/lib/cms/content-block';
 import Why from './Why';
 
-export default async function ServerWhy() {
+interface ServerWhyProps {
+  slug?: string;
+}
+
+export default async function ServerWhy({ slug }: ServerWhyProps) {
   if (!features.enabled) return <Why />;
   try {
-    const homepage = await getHomepage();
+    const homepage = await getHomepage(slug);
     if (homepage?.why?.items?.length) {
       const cards = homepage.why.items.map(i => ({
         title: i.title || '',

@@ -3,10 +3,14 @@ import { getHomepage } from '@/lib/cms/homepage';
 import { getContentBlock } from '@/lib/cms/content-block';
 import How from './How';
 
-export default async function ServerHow() {
+interface ServerHowProps {
+  slug?: string;
+}
+
+export default async function ServerHow({ slug }: ServerHowProps) {
   if (!features.enabled) return <How />;
   try {
-    const homepage = await getHomepage();
+    const homepage = await getHomepage(slug);
     if (homepage?.how?.items?.length) {
       const items = homepage.how.items.map(i => ({
         title: i.title || '',

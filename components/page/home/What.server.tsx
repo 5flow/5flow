@@ -3,10 +3,14 @@ import { getHomepage } from '@/lib/cms/homepage';
 import { getContentBlock } from '@/lib/cms/content-block';
 import What from './What';
 
-export default async function ServerWhat() {
+interface ServerWhatProps {
+  slug?: string;
+}
+
+export default async function ServerWhat({ slug }: ServerWhatProps) {
   if (!features.enabled) return <What />;
   try {
-    const homepage = await getHomepage();
+    const homepage = await getHomepage(slug);
     if (homepage?.what?.items?.length) {
       const items = homepage.what.items.map(i => ({
         title: i.title || '',

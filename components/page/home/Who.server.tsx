@@ -3,10 +3,14 @@ import { getHomepage } from '@/lib/cms/homepage';
 import { getContentBlock } from '@/lib/cms/content-block';
 import Who from './Who';
 
-export default async function ServerWho() {
+interface ServerWhoProps {
+  slug?: string;
+}
+
+export default async function ServerWho({ slug }: ServerWhoProps) {
   if (!features.enabled) return <Who />;
   try {
-    const homepage = await getHomepage();
+    const homepage = await getHomepage(slug);
     if (homepage?.who?.clients?.length) {
       return <Who title={homepage.who.title} clients={homepage.who.clients} />;
     }

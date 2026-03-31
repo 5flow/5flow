@@ -67,9 +67,8 @@ export function inferAltTextFromUrl(url: string): string | undefined {
     .trim();
 }
 
-export async function getHomepage(): Promise<HomepageData | null> {
-  // Fetch CPT homepage with slug 'home'
-  const raw = await wpFetch(`/wp-json/wp/v2/pages?slug=home`);
+export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
+  const raw = await wpFetch(`/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}`);
   if (!Array.isArray(raw) || raw.length === 0) return null;
   const page: any = raw[0];
   const meta: Record<string, any> = page.meta || page.acf || {};
