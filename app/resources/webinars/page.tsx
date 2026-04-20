@@ -16,7 +16,7 @@ export default function Webinars() {
     {
       title: 'Unlock 30% better quality control',
       desc: 'Discover proven strategies to enhance product data accuracy and labeling processes, ensuring 100% compliance.',
-      image: '/resources/Webinar_Cover-2-Secure_Food.png',
+      image: '/resources/Webinar_Cover-1-Secure_Food.png',
       link: webinarCtaHref,
     },
   ];
