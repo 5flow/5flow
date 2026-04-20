@@ -1,4 +1,3 @@
-﻿import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/about/Hero';
 import Vision from '@/components/page/about/Vision';
@@ -38,9 +37,8 @@ export default function About() {
           <Results />
         </div>
       </div>
-
-      <CtaV2 />
     </div>
   );
 }
+
 

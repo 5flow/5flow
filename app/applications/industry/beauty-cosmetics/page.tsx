@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   Grid2X2,
   LayoutDashboard,
@@ -14,7 +14,6 @@ import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
@@ -233,11 +232,8 @@ export default async function BeautyCosmetics() {
           <Contact leadingText="The " highlightedText="Best Software" trailingText=" For Beauty & Cosmetics Brands" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

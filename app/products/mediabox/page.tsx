@@ -1,9 +1,8 @@
-﻿import { CalendarClock, CircleDollarSign, EyeOff, Rocket, ShieldAlert, Target, Unplug } from 'lucide-react';
+import { CalendarClock, CircleDollarSign, EyeOff, Rocket, ShieldAlert, Target, Unplug } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
@@ -171,7 +170,7 @@ const needData = {
   title2: ' that grows with you',
   subtitle: 'Flexible options for every team size',
   description:
-    'Whether youâ€™re managing a small creative team or coordinating global campaigns, Mediabox offers flexible pricing tailored to your workflow needs.',
+    'Whether you’re managing a small creative team or coordinating global campaigns, Mediabox offers flexible pricing tailored to your workflow needs.',
   buttonText: 'Talk to Us',
 };
 
@@ -348,11 +347,8 @@ export default async function Mediabox() {
           <Contact leadingText="Ready for " highlightedText="flexible" trailingText=" creative workflows?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

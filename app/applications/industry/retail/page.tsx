@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Files, History, FileStack, LaptopMinimalCheck, EyeOff, RotateCw, Share2 } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
@@ -41,7 +40,7 @@ const heroFallback = {
   imageSrc: '/applications/industries/retail.jpg',
   imageAlt: 'Artwork management preview',
   mobileImageSrc: '/applications/industries/retail-mobile.jpg',
-  ctaText: 'See Whatâ€™s Possible',
+  ctaText: 'See What’s Possible',
 };
 
 const challengeItems = [
@@ -84,7 +83,7 @@ const challengeItems = [
   {
     id: 'lack-of-visibility',
     title: 'Lack of visibility',
-    desc: 'Retailers canâ€™t see where campaigns stall',
+    desc: 'Retailers can’t see where campaigns stall',
     sub: 'Dashboards and analytics show bottlenecks in real time, helping managers act before deadlines slip.',
     icon: EyeOff,
     buttonText: 'See How 5Flow Helps Retail',
@@ -222,11 +221,8 @@ export default async function Retail() {
           <Contact leadingText="The " highlightedText="Leading Workflow Platform" trailingText=" For Retailers" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

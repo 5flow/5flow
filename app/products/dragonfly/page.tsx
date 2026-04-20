@@ -1,4 +1,4 @@
-﻿import {
+import {
   CircleDollarSign,
   Lightbulb,
   LineSquiggle,
@@ -12,7 +12,6 @@ import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
@@ -34,7 +33,7 @@ const heroData = {
   logoSrc: '/product/dragonfly.svg',
   logoAlt: 'Wave Brand',
   title: 'Make your projects fly',
-  subtitle: 'Communication and control. Itâ€™s second nature with Dragonfly.',
+  subtitle: 'Communication and control. It’s second nature with Dragonfly.',
   description:
     'Dragonfly is a web-based graphics and packaging management tool that cuts through miscommunication, complexity, and confusion. Launch new products on time, on budget, every time with Dragonfly.',
   imageSrc: '/product/Solution_Banner_Dragonfly.jpg',
@@ -56,7 +55,7 @@ const whatData = [
     {
       title: 'Rigid workflows',
       subtitle: 'Processes break when projects change',
-      description: 'Static workflows cannot handle the pace or complexity of todayâ€™s packaging and marketing demands.',
+      description: 'Static workflows cannot handle the pace or complexity of today’s packaging and marketing demands.',
       icon: RailSymbol,
       buttonLink: '/solutions/artwork-management',
     },
@@ -71,7 +70,7 @@ const whatData = [
     },
     {
       title: 'System chaos',
-      subtitle: 'Too many tools that donâ€™t connect',
+      subtitle: 'Too many tools that don’t connect',
       description: 'Copy-pasting between PIMs, DAMs, and ERPs slows everything down and increases errors.',
       icon: LineSquiggle,
       buttonLink: '/solutions/integration',
@@ -175,12 +174,12 @@ const clientData = [
 
 const workflowData = {
   title: 'Trusted by global leaders',
-  subtitle: `Lâ€™OrÃ©al, Colgate-Palmolive, and global FMCG leaders use Dragonfly as their packaging and marketing execution backbone.`,
+  subtitle: `L’Oréal, Colgate-Palmolive, and global FMCG leaders use Dragonfly as their packaging and marketing execution backbone.`,
   buttonText: 'See Case Studies',
   statsData: [
     {
       value: '4.5K+',
-      label: `global users at Lâ€™OrÃ©al`,
+      label: `global users at L’Oréal`,
     },
     {
       value: 'Integration',
@@ -360,11 +359,8 @@ export default async function Dragonfly() {
           <Contact leadingText="Ready to make your projects " highlightedText="fly" trailingText="?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

@@ -1,5 +1,4 @@
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import ServerHero from '@/components/page/home/Hero.server';
 import ServerWhat from '@/components/page/home/What.server';
 import ServerHow from '@/components/page/home/How.server';
@@ -37,10 +36,6 @@ export default function FrenchHome() {
           <ServerWhy slug={FRENCH_HOME_SLUG} />
           <Contact />
         </div>
-      </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
       </div>
     </div>
   );

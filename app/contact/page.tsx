@@ -1,4 +1,3 @@
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Form from '@/components/page/contact/Form';
 import Hero from '@/components/page/contact/Hero';
@@ -40,10 +39,6 @@ export default async function Contact() {
             <FullBleedLines className="max-w-2xl text-sm md:text-base">{copy.supporting[1]}</FullBleedLines>
           </div>
         </div>
-      </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
       </div>
     </div>
   );
@@ -115,3 +110,4 @@ function extractHeroHeadline(html: string): string | null {
   const normalized = decodeEntities(text).replace(/\s+/g, ' ').trim();
   return normalized || null;
 }
+

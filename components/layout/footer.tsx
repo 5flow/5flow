@@ -43,6 +43,7 @@ const infosLinks = [
   { href: '/terms', label: 'Terms of Service' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/cookies', label: 'Cookie Policy' },
+  { href: '/imprint', label: 'Imprint' },
   { href: '/disclaimer', label: 'Disclaimer' },
   { href: '/quality', label: 'Quality' },
 ];

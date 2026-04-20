@@ -1,7 +1,6 @@
-﻿import { CircleDollarSign, Rocket, ShieldCheck, Users } from 'lucide-react';
+import { CircleDollarSign, Rocket, ShieldCheck, Users } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import InlineHighlight from '@/components/core/inline-highlight';
@@ -39,7 +38,7 @@ const heroData = {
   title: 'Document review made simple',
   subtitle: 'All comments. All versions. All in one place.',
   description:
-    '5Flowâ€™s Online Proofing solution brings all stakeholders into one platform for clear, traceable approvals. From annotations to version comparisons, every review is faster, sharper, and audit ready.',
+    '5Flow’s Online Proofing solution brings all stakeholders into one platform for clear, traceable approvals. From annotations to version comparisons, every review is faster, sharper, and audit ready.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/online-proofing.png',
@@ -188,11 +187,8 @@ export default async function OnlineProofing() {
           <Contact leadingText="Ready to " highlightedText="error-proof" trailingText=" your launches?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

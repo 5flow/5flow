@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   Eye,
   ShieldCheck,
@@ -11,7 +11,6 @@ import {
   ChartArea,
 } from 'lucide-react';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
@@ -98,7 +97,7 @@ const challengeItems = [
   },
   {
     title: 'No visibility',
-    desc: 'You canâ€™t see where projects stall',
+    desc: 'You can’t see where projects stall',
     sub: 'Dashboards highlight bottlenecks and delays so you can act early and keep launches on track.',
     icon: Eye,
     buttonText: 'See How It Helps Brand Managers',
@@ -226,11 +225,8 @@ export default async function BrandManager() {
           <Contact leadingText="Trusted by Brand Managers" highlightedText=" Who Deliver" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

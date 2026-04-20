@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { CircleGauge, RefreshCcw, ShieldCheck, Zap } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -41,7 +40,7 @@ const heroData = {
   title: 'One library for every asset',
   subtitle: 'Centralize, search, and share with confidence',
   description:
-    '5Flowâ€™s Asset Library brings every artwork, cutter guide, logo, and marketing file into one secure, searchable hub. No more Dropbox chaos, email attachments, or outdated files â€” just the right asset, always ready.',
+    '5Flow’s Asset Library brings every artwork, cutter guide, logo, and marketing file into one secure, searchable hub. No more Dropbox chaos, email attachments, or outdated files — just the right asset, always ready.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/asset-library.png',
@@ -187,11 +186,8 @@ export default async function AssetLibrary() {
           <Contact leadingText="Time to turn your packaging liabilities into " highlightedText="assets" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

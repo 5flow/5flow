@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { AlarmClockCheck, Lightbulb, RefreshCcwDot, Settings } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -38,7 +37,7 @@ const heroData = {
   title: 'From Data to Direction',
   subtitle: 'Turn data into insight you can act on',
   description:
-    'With Evaluate, transform raw data into real-time intelligence. Track every task, predict approval bottlenecks, and visualize performance through customizable dashboardsâ€”empowering faster decisions and ongoing process optimization driven with AI.',
+    'With Evaluate, transform raw data into real-time intelligence. Track every task, predict approval bottlenecks, and visualize performance through customizable dashboards—empowering faster decisions and ongoing process optimization driven with AI.',
   imageSrc: '/solutions/data-analysis.png',
   imageAlt: 'Data analysis preview',
   mobileImageSrc: '/solutions/data-analysis-mobile.png',
@@ -69,7 +68,7 @@ const howData = [
     title: 'Custom dashboards',
     subtitle: 'Metrics that matter to your role',
     description:
-      'Design dashboards for brand, regulatory, or design teams, so everyone sees whatâ€™s most relevant to them.',
+      'Design dashboards for brand, regulatory, or design teams, so everyone sees what’s most relevant to them.',
     icon: '/solutions/rectangle.png',
     buttonText: 'Discover Dashboards',
     imageSrc: '/solutions/7-3.svg',
@@ -189,11 +188,8 @@ export default async function DataAnalysis() {
           <Contact leadingText="Ready to " highlightedText="turn data" trailingText=" into action?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

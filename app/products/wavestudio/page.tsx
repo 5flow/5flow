@@ -1,9 +1,8 @@
-﻿import { CalendarClock, CalendarX2, FileXIcon, History, Lightbulb, Rocket, Scaling, ShieldCheck } from 'lucide-react';
+import { CalendarClock, CalendarX2, FileXIcon, History, Lightbulb, Rocket, Scaling, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import Who from '@/components/page/home/Who';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
@@ -327,11 +326,8 @@ export default async function Wavestudio() {
           <Contact leadingText="Ready to make " highlightedText="more" trailingText=" with less?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

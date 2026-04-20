@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   ShieldCheck,
   Languages,
@@ -14,7 +14,6 @@ import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
@@ -65,7 +64,7 @@ const challengeItems = [
   {
     id: 'regulatory-pressure',
     title: '21 CFR and EMA compliance pressure',
-    desc: 'Regulations change, workflows donâ€™t',
+    desc: 'Regulations change, workflows don’t',
     sub: 'Preconfigured compliance checklists and validation rules ensure every label meets FDA, EMA, and regional standards.',
     icon: ShieldAlert,
     buttonText: 'See How 5Flow Helps Pharma Teams',
@@ -92,7 +91,7 @@ const challengeItems = [
   {
     id: 'patient-safety',
     title: 'Patient safety on the line',
-    desc: 'Errors arenâ€™t just costly, theyâ€™re dangerous',
+    desc: 'Errors aren’t just costly, they’re dangerous',
     sub: 'Built-in validation rules flag missing warnings, dosage errors, or misplaced barcodes before files go to print.',
     icon: ShieldPlus,
     buttonText: 'See How 5Flow Helps Pharma Teams',
@@ -230,11 +229,8 @@ export default async function HealthPharma() {
           <Contact leadingText="The " highlightedText="Best Software" trailingText=" For Healthcare & Pharma" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

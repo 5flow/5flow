@@ -1,4 +1,4 @@
-﻿import {
+import {
   CalendarSync,
   CircleDollarSign,
   EyeOff,
@@ -12,7 +12,6 @@ import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import InlineHighlight from '@/components/core/inline-highlight';
 import Hero from '@/components/page/product/Hero';
@@ -356,11 +355,8 @@ export default async function Wave() {
           <Contact leadingText="Ready to " highlightedText="simplify" trailingText=" artwork management?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

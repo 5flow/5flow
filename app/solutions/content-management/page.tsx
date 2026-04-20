@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { ClockPlus, RefreshCcw, Share2Icon, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -41,7 +40,7 @@ const heroData = {
   title: 'Content under control',
   subtitle: 'One source of truth for every market and channel',
   description:
-    '5Flowâ€™s Content Management solution centralizes product data, claims, translations, and packaging content. No more copy-pasting across spreadsheets or chasing the latest version â€” just accurate content ready for every artwork, label, and market.',
+    '5Flow’s Content Management solution centralizes product data, claims, translations, and packaging content. No more copy-pasting across spreadsheets or chasing the latest version — just accurate content ready for every artwork, label, and market.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/content-management.png',
@@ -70,7 +69,7 @@ const howData = [
   {
     title: 'Version history',
     subtitle: 'Track every change across markets',
-    description: 'Every edit is logged and accessible, giving teams confidence theyâ€™re using the latest content.',
+    description: 'Every edit is logged and accessible, giving teams confidence they’re using the latest content.',
     buttonText: 'Discover Version Control',
     imageSrc: '/solutions/3-3.svg',
     iconName: 'SearchCheck',
@@ -190,11 +189,8 @@ export default async function ContentManagement() {
           <Contact leadingText="Prepared to " highlightedText="start feeling" trailingText=" content?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

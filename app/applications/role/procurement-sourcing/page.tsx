@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   ShieldCheck,
   CircleDollarSign,
@@ -10,7 +10,6 @@ import {
   LaptopMinimalCheck,
 } from 'lucide-react';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
@@ -62,10 +61,10 @@ const heroFallback = {
   title: 'Procurement made predictable',
   subtitle: 'Accuracy and efficiency across your supply chain',
   description:
-    'Procurement teams are tasked with cutting costs and ensuring supplier efficiency â€” but artwork errors, misaligned assets, and reprints eat into budgets. 5Flow gives you control over assets, workflows, and approvals, so suppliers always receive the right files the first time.',
+    'Procurement teams are tasked with cutting costs and ensuring supplier efficiency — but artwork errors, misaligned assets, and reprints eat into budgets. 5Flow gives you control over assets, workflows, and approvals, so suppliers always receive the right files the first time.',
   imageSrc: '/applications/icp/Procurement.jpg',
   imageAlt: 'Artwork management preview',
-  ctaText: 'See Whatâ€™s Possible',
+  ctaText: 'See What’s Possible',
   mobileImageSrc: '/applications/icp/Procurement-mobile.jpg',
 };
 
@@ -231,11 +230,8 @@ export default async function ProcurementSourcing() {
           <Contact leadingText="The Best Software For " highlightedText="Procurement & Sourcing Teams" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

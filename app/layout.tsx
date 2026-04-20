@@ -5,6 +5,7 @@ import { centuryGothic, metropolis } from '@/lib/fonts';
 import { hideTranslationWidget, customizeAccessibilityWidget } from '@/lib/accessibility-widget';
 import { Toaster } from '@/components/ui/sonner';
 import { Footer } from '@/components/layout';
+import { CtaV2 } from '@/components/layout/cta-v2';
 import { ServerNavigation } from '@/components/layout/navigation.server';
 import PageTransition from '@/components/layout/page-transition';
 import FixedActions from '@/components/layout/fixed-actions';
@@ -69,6 +70,7 @@ export default function RootLayout({
           {/* <PatternOverlay side="both" margin="container" containerAlign="outside" /> */}
           <PageTransition>{children}</PageTransition>
         </main>
+        <CtaV2 />
         <Footer />
 
         {/* Fixed */}

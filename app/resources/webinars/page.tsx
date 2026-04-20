@@ -1,87 +1,23 @@
+import type { Metadata } from 'next';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
-import FilterSection from '@/components/page/resources/FilterSection';
+import WebinarsSection, { type WebinarCardItem } from '@/components/page/resources/WebinarsSection';
+
+export const metadata: Metadata = {
+  title: 'Industry Expert Webinars | 5Flow',
+  description: 'Explore 5Flow webinars and expert sessions.',
+};
 
 export default function Webinars() {
-  const tabsData = [
+  const webinarCtaHref = 'https://www.events.5flowtech.com/fr/webinaire-securefood';
+
+  const webinarItems: WebinarCardItem[] = [
     {
-      value: 'upcoming',
-      label: 'Upcoming',
-      icon: 'calendarDays',
-      items: [
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/register/1',
-          buttonLabel: 'Register Now',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/register/2',
-          buttonLabel: 'Register Now',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/register/3',
-          buttonLabel: 'Register Now',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/register/4',
-          buttonLabel: 'Register Now',
-        },
-      ],
-    },
-    {
-      value: 'ondemand',
-      label: 'On Demand',
-      icon: 'play',
-      items: [
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/ondemand/1',
-          buttonLabel: 'Watch Recording',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/ondemand/2',
-          buttonLabel: 'Watch Recording',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/ondemand/3',
-          buttonLabel: 'Watch Recording',
-        },
-        {
-          date: 'Date & Time',
-          title: 'Title',
-          desc: 'Short description',
-          image: '/product/rectangle.png',
-          link: '/webinars/ondemand/4',
-          buttonLabel: 'Watch Recording',
-        },
-      ],
+      title: 'Unlock 30% better quality control',
+      desc: 'Discover proven strategies to enhance product data accuracy and labeling processes, ensuring 100% compliance.',
+      image: '/resources/Webinar_Cover-2-Secure_Food.png',
+      link: webinarCtaHref,
     },
   ];
 
@@ -92,11 +28,10 @@ export default function Webinars() {
 
         <div className="flex flex-col gap-32">
           <Hero
-            title="Deep dives with our experts and industry leaders"
-            subtitle="Join live sessions or watch on-demand recordings to explore trends, solutions, and case studies."
-            buttonLabel="Register / Watch On Demand"
+            title="Insights from industry experts"
+            subtitle="Access expert sessions designed to help teams work smarter, move faster, and deliver with confidence."
           />
-          <FilterSection tabsData={tabsData} />
+          <WebinarsSection items={webinarItems} />
 
           <Contact leadingText="Ready to write your own " highlightedText="success" trailingText=" story?" />
         </div>

@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Eye, Lightbulb, Scaling, WorkflowIcon } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -41,7 +40,7 @@ const heroData = {
   title: 'Connected workflows, less copy and paste',
   subtitle: 'Integration that keeps your business in flow.',
   description:
-    '5Flowâ€™s Integration solution connects your PIM, DAM, ERP, and design tools into one unified workflow. No more copy-pasting, duplicate files, or disconnected systems. Just data flowing smoothly across your ecosystem.',
+    '5Flow’s Integration solution connects your PIM, DAM, ERP, and design tools into one unified workflow. No more copy-pasting, duplicate files, or disconnected systems. Just data flowing smoothly across your ecosystem.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/integration.png',
@@ -187,11 +186,8 @@ export default async function Integration() {
           <Contact leadingText="Ready to connect your " highlightedText="artwork systems?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

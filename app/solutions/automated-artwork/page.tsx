@@ -1,10 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { CircleDollarSign, FileStack, Lightbulb, Rocket } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -41,7 +40,7 @@ const heroData = {
   title: 'Artwork at the speed of automation',
   subtitle: 'Design Once. Deliver Everywhere.',
   description:
-    '5Flowâ€™s Automated Artwork solution handles repetitive work, so you can focus on creativity.. From resizing to multilingual rollouts, it eliminates manual effort, minimizes errors, and accelerates delivery.',
+    '5Flow’s Automated Artwork solution handles repetitive work, so you can focus on creativity.. From resizing to multilingual rollouts, it eliminates manual effort, minimizes errors, and accelerates delivery.',
   buttonText: 'See it in Action',
   buttonLink: '/contact',
   imageSrc: '/solutions/automated-artwork.png',
@@ -188,11 +187,8 @@ export default async function AutomatedArtwork() {
           <Contact leadingText="Create artworks the " highlightedText="smart way" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

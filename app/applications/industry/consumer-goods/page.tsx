@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   ShieldCheck,
   History,
@@ -14,7 +14,6 @@ import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/applications/Hero';
 import Challenges from '@/components/page/applications/Challenges';
@@ -47,7 +46,7 @@ const heroFallback = {
   title: 'Packaging control for complex product lines',
   subtitle: 'Built for consumer goods brands managing scale and variety',
   description:
-    'Consumer goods brands deal with endless SKUs, multi-part packaging, and global supply chains. 5Flow keeps packaging accurate, workflows connected, and launches on schedule â€” no matter the scale.',
+    'Consumer goods brands deal with endless SKUs, multi-part packaging, and global supply chains. 5Flow keeps packaging accurate, workflows connected, and launches on schedule — no matter the scale.',
   imageSrc: '/applications/industries/fmcg.jpg',
   imageAlt: 'Artwork management preview',
   mobileImageSrc: '/applications/industries/fmcg-mobile.jpg',
@@ -112,7 +111,7 @@ const howData = [
     buttonLink: '/solutions/artwork-management',
   },
   {
-    title: 'Monitor every componentâ€™s progress with real-time dashboards.',
+    title: 'Monitor every component’s progress with real-time dashboards.',
     description: 'Manage multilingual packaging with centralized translation libraries.',
     iconName: 'ChartArea',
     imageSrc: '/applications/5-2.svg',
@@ -141,7 +140,7 @@ const benefitItems = [
     id: 'portfolio-scalability',
     title: 'Portfolio scalability',
     desc: 'Growth without losing control',
-    sub: 'Whether itâ€™s 50 SKUs or 5,000, 5Flow scales with your product portfolio and keeps complexity in check.',
+    sub: 'Whether it’s 50 SKUs or 5,000, 5Flow scales with your product portfolio and keeps complexity in check.',
     icon: Files,
   },
   {
@@ -231,11 +230,8 @@ export default async function ConsumerGoods() {
           <Contact leadingText="The " highlightedText="Best Software" trailingText=" For Consumer Goods Brands" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

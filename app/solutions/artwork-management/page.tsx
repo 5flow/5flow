@@ -1,9 +1,8 @@
-﻿import { CircleDollarSign, Rocket, Scaling, ShieldCheck } from 'lucide-react';
+import { CircleDollarSign, Rocket, Scaling, ShieldCheck } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getSolution } from '@/lib/cms/solution';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import InlineHighlight from '@/components/core/inline-highlight';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/solutions/Hero';
@@ -186,11 +185,8 @@ export default async function ArtworkManagement() {
           <Contact leadingText="Ready to " highlightedText="simplify" trailingText=" artwork management?" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 

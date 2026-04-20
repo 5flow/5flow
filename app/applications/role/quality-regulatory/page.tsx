@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import {
   ShieldCheck,
   ZapIcon,
@@ -10,7 +10,6 @@ import {
   SquareCheckBig,
 } from 'lucide-react';
 import { Contact } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
 import * as LucideIcons from 'lucide-react';
 import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
@@ -60,7 +59,7 @@ function renderWorkflowTitle(title: string, highlight?: string) {
 // Fallback data in case CMS is unavailable
 const heroFallback = {
   title: 'Move Fast. Stay Compliant. Never Compromise.',
-  subtitle: 'Tools built for regulatory and quality descers who canâ€™t afford mistakes',
+  subtitle: 'Tools built for regulatory and quality descers who can’t afford mistakes',
   description:
     'Regulatory and quality managers need accuracy at every step. From label updates to final approvals, 5Flow ensures complete traceability, audit-ready workflows, and risk-free compliance.',
   imageSrc: '/applications/icp/Quality.jpg',
@@ -100,7 +99,7 @@ const challengeItems = [
   {
     id: 'fragmented-documentation',
     title: 'Fragmented documentation',
-    desc: 'Teams canâ€™t prove compliance quickly',
+    desc: 'Teams can’t prove compliance quickly',
     sub: 'With built-in records, reports are generated instantly for audits and inspections.',
     icon: ShieldQuestionMark,
     buttonText: 'See How It Helps Regulatory Teams',
@@ -231,11 +230,8 @@ export default async function QualityRegulatory() {
           <Contact leadingText="The Best Software For " highlightedText="Regulatory & Quality Managers" />
         </div>
       </div>
-
-      <div className="pt-4 md:pt-8">
-        <CtaV2 />
-      </div>
     </div>
   );
 }
+
 
