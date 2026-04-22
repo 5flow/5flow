@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import Markdown, { richTextClassMap } from '@/components/core/markdown';
 
 type Props = { html: string };
+type GenericProps = Record<string, unknown>;
 
 const HTML_PATTERN = /<\/?[a-z][\s\S]*?>/i;
 
@@ -30,7 +31,7 @@ const parserOptions: HTMLReactParserOptions = {
     if (node.type !== 'tag') return undefined;
     const element = node as HtmlElement;
     const children = domToReact(element.children as unknown as DOMNode[], parserOptions);
-    const reactProps = attributesToProps(element.attribs ?? {}, element.name) as Record<string, unknown>;
+    const reactProps = attributesToProps(element.attribs ?? {}, element.name) as GenericProps;
     const rawClassName =
       typeof reactProps.className === 'string'
         ? reactProps.className
@@ -92,9 +93,11 @@ const parserOptions: HTMLReactParserOptions = {
         );
       case 'a': {
         const { rel: relAttr, target, ...anchorRest } = rest;
-        const computedRel = target === '_blank' ? 'noreferrer noopener' : relAttr;
+        const anchorTarget = typeof target === 'string' ? target : undefined;
+        const anchorRel = typeof relAttr === 'string' ? relAttr : undefined;
+        const computedRel = anchorTarget === '_blank' ? 'noreferrer noopener' : anchorRel;
         return (
-          <a className={withClasses(richTextClassMap.a)} target={target} rel={computedRel} {...anchorRest}>
+          <a className={withClasses(richTextClassMap.a)} target={anchorTarget} rel={computedRel} {...anchorRest}>
             {children}
           </a>
         );
@@ -147,9 +150,10 @@ const parserOptions: HTMLReactParserOptions = {
         );
       case 'img': {
         const { alt, ...imgRest } = rest;
+        const imgAlt = typeof alt === 'string' ? alt : '';
         return (
           // eslint-disable-next-line @next/next/no-img-element
-          <img className={withClasses(richTextClassMap.img)} alt={alt ?? ''} {...imgRest} />
+          <img className={withClasses(richTextClassMap.img)} alt={imgAlt} {...imgRest} />
         );
       }
       case 'br':
