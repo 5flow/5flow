@@ -10,6 +10,10 @@ export interface WpPost {
   content: { rendered: string; raw?: string };
   excerpt: { rendered: string; raw?: string };
   acf?: {
+    card_image?: string | { url?: string; sizes?: Record<string, string> };
+    blog_detail_image?: string | { url?: string; sizes?: Record<string, string> };
+    card_image_focus?: string;
+    blog_detail_image_focus?: string;
     image_focus?: string;
   };
   _embedded?: {
@@ -24,12 +28,14 @@ type WpCategory = {
   slug: string;
 };
 
+type AcfImageField = string | { url?: string; sizes?: Record<string, string> } | undefined;
+
 const CASE_STUDIES_CATEGORY_SLUG = 'case-studies';
 
 function formatDate(dateString: string): string {
   try {
     return new Date(dateString).toISOString().split('T')[0];
-  } catch (e) {
+  } catch {
     return dateString;
   }
 }
@@ -53,22 +59,41 @@ function decodeHtmlEntities(text: string): string {
 function parsePostData(post: WpPost) {
   const content = post.content.rendered;
 
-  // Image priority: Featured Image > Fallback
-  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.png';
+  // Default fallback if no custom ACF image exists.
+  const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.png';
 
   // Date priority: Post Date
   const date = formatDate(post.date);
 
-  const imageFocus = post.acf?.image_focus;
+  const cardImage = resolveAcfImage(post.acf?.card_image) || featuredImage;
+  const detailImage = resolveAcfImage(post.acf?.blog_detail_image) || featuredImage;
+  const cardImageFocus = post.acf?.card_image_focus || post.acf?.image_focus;
+  const detailImageFocus = post.acf?.blog_detail_image_focus || post.acf?.image_focus;
 
   return {
     content,
     frontmatter: {},
-    image,
-    imageFocus,
+    cardImage,
+    cardImageFocus,
+    detailImage,
+    detailImageFocus,
     date,
     title: decodeHtmlEntities(post.title.rendered),
   };
+}
+
+function resolveAcfImage(imageField: AcfImageField): string | undefined {
+  if (!imageField) return undefined;
+  if (typeof imageField === 'string') return imageField;
+  if (typeof imageField.url === 'string' && imageField.url.length > 0) return imageField.url;
+
+  const preferredSizes = ['large', 'medium_large', 'medium', 'full'];
+  for (const size of preferredSizes) {
+    const url = imageField.sizes?.[size];
+    if (typeof url === 'string' && url.length > 0) return url;
+  }
+
+  return undefined;
 }
 
 async function getCategoryIdBySlug(slug: string): Promise<number | null> {
@@ -87,14 +112,14 @@ export async function getCmsBlogs(): Promise<BlogCardItem[]> {
     const categoryExclusion = caseStudyCategoryId ? `&categories_exclude=${caseStudyCategoryId}` : '';
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?_embed&per_page=100${categoryExclusion}`)) as WpPost[];
     return posts.map(post => {
-      const { image, imageFocus, date, title } = parsePostData(post);
+      const { cardImage, cardImageFocus, date, title } = parsePostData(post);
 
       return {
         title,
         desc: '', // User requested no description
         date,
-        image,
-        imageFocus,
+        image: cardImage,
+        imageFocus: cardImageFocus,
         link: `/resources/blogs/${post.slug}`,
       };
     });
@@ -112,14 +137,14 @@ export async function getCmsBlogBySlug(slug: string): Promise<Blog | null> {
     const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
     if (caseStudyCategoryId && post.categories?.includes(caseStudyCategoryId)) return null;
 
-    const { content, image, imageFocus, date, title } = parsePostData(post);
+    const { content, detailImage, detailImageFocus, date, title } = parsePostData(post);
 
     return {
       slug: post.slug,
       title,
       date,
-      image,
-      imageFocus,
+      image: detailImage,
+      imageFocus: detailImageFocus,
       content,
     };
   } catch (error) {
