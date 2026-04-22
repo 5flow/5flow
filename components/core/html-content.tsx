@@ -1,5 +1,6 @@
 import React from 'react';
 import parse, {
+  attributesToProps,
   domToReact,
   type DOMNode,
   type Element as HtmlElement,
@@ -29,7 +30,15 @@ const parserOptions: HTMLReactParserOptions = {
     if (node.type !== 'tag') return undefined;
     const element = node as HtmlElement;
     const children = domToReact(element.children as unknown as DOMNode[], parserOptions);
-    const { class: rawClassName, ...rest } = element.attribs ?? {};
+    const reactProps = attributesToProps(element.attribs ?? {}, element.name) as Record<string, unknown>;
+    const rawClassName =
+      typeof reactProps.className === 'string'
+        ? reactProps.className
+        : typeof element.attribs?.class === 'string'
+          ? element.attribs.class
+          : undefined;
+    const rest = { ...reactProps };
+    delete rest.className;
     const withClasses = (base: string) => clsx(base, rawClassName);
 
     switch (element.name) {
