@@ -18,6 +18,7 @@ type WpCaseStudyPost = {
   acf?: {
     card_title?: string;
     card_desc?: string;
+    card_image?: string | { url?: string; sizes?: Record<string, string> };
     is_featured_case_study?: boolean | number | string;
     image_focus?: string;
   };
@@ -29,6 +30,7 @@ type WpCaseStudyPost = {
 };
 
 const CASE_STUDIES_CATEGORY_SLUG = 'case-studies';
+type AcfImageField = string | { url?: string; sizes?: Record<string, string> } | undefined;
 
 function decodeHtmlEntities(text: string) {
   return text
@@ -48,6 +50,20 @@ function decodeHtmlEntities(text: string) {
 
 function stripHtml(text: string) {
   return text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function resolveAcfImage(imageField: AcfImageField): string | undefined {
+  if (!imageField) return undefined;
+  if (typeof imageField === 'string') return imageField;
+  if (typeof imageField.url === 'string' && imageField.url.length > 0) return imageField.url;
+
+  const preferredSizes = ['large', 'medium_large', 'medium', 'full'];
+  for (const size of preferredSizes) {
+    const url = imageField.sizes?.[size];
+    if (typeof url === 'string' && url.length > 0) return url;
+  }
+
+  return undefined;
 }
 
 function isFeaturedCaseStudy(value?: WpCaseStudyPost['acf']) {
@@ -70,7 +86,8 @@ async function getCaseStudyCategoryId(): Promise<number | null> {
 function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
   const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.excerpt?.rendered || ''));
-  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
+  const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
+  const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
 
   return {
     title,
