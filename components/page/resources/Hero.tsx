@@ -27,7 +27,7 @@ const Hero = ({ title, subtitle, buttonLabel }: HeroProps) => {
           <div className="text-primary max-w-full text-center text-2xl leading-none tracking-tighter sm:max-w-5xl sm:text-left sm:text-5xl">
             <FullBleedLines>{subtitle}</FullBleedLines>
           </div>
-          {buttonLabel ? (
+          {/* {buttonLabel ? (
             <Link href="/contact">
               <Button
                 size="lg"
@@ -44,7 +44,7 @@ const Hero = ({ title, subtitle, buttonLabel }: HeroProps) => {
                 </span>
               </Button>
             </Link>
-          ) : null}
+          ) : null} */}
         </FullBleedLines>
       </div>
     </div>
