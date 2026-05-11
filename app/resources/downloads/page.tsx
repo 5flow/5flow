@@ -5,6 +5,8 @@ import Hero from '@/components/page/resources/Hero';
 import DownloadsSection from '@/components/page/resources/DownloadsSection';
 import { getDownloadCards } from '@/lib/resources/downloads';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Artwork Workflow Downloads & Guides | 5Flow',
   description: 'Download practical guides, templates, and in-depth resources from 5Flow.',

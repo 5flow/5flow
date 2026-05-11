@@ -17,6 +17,7 @@ type WpDownloadPost = {
   acf?: {
     card_title?: string;
     card_desc?: string;
+    card_description?: string;
     card_image?: AcfImageField;
     download_file?: AcfFileField;
     download_url?: string;
@@ -30,7 +31,7 @@ type WpDownloadPost = {
   };
 };
 
-const DOWNLOADS_CATEGORY_SLUG = 'downloads';
+const DOWNLOADS_CATEGORY_SLUGS = ['downloads', 'download'];
 
 function decodeHtmlEntities(text: string) {
   return text
@@ -73,20 +74,22 @@ function resolveAcfFile(fileField: AcfFileField): string | undefined {
 }
 
 async function getDownloadsCategoryId(): Promise<number | null> {
-  try {
-    const categories = (await wpFetch(
-      `/wp-json/wp/v2/categories?slug=${encodeURIComponent(DOWNLOADS_CATEGORY_SLUG)}`,
-    )) as WpCategory[];
-    return categories[0]?.id ?? null;
-  } catch (error) {
-    console.error('Error fetching downloads category:', error);
-    return null;
+  for (const slug of DOWNLOADS_CATEGORY_SLUGS) {
+    try {
+      const categories = (await wpFetch(`/wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`)) as WpCategory[];
+      const categoryId = categories[0]?.id ?? null;
+      if (categoryId) return categoryId;
+    } catch (error) {
+      console.error(`Error fetching downloads category for slug "${slug}":`, error);
+    }
   }
+
+  return null;
 }
 
 function mapDownload(post: WpDownloadPost): DownloadCardItem {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
-  const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.excerpt?.rendered || ''));
+  const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.acf?.card_description || post.excerpt?.rendered || ''));
   const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
   const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
   const href = resolveAcfFile(post.acf?.download_file) || post.acf?.download_url || '#';
