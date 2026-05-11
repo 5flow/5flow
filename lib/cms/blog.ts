@@ -30,7 +30,7 @@ type WpCategory = {
 
 type AcfImageField = string | { url?: string; sizes?: Record<string, string> } | undefined;
 
-const CASE_STUDIES_CATEGORY_SLUG = 'case-studies';
+const EXCLUDED_BLOG_CATEGORY_SLUGS = ['case-studies', 'downloads', 'download'];
 
 function formatDate(dateString: string): string {
   try {
@@ -106,10 +106,24 @@ async function getCategoryIdBySlug(slug: string): Promise<number | null> {
   }
 }
 
+async function getExcludedBlogCategoryIds(): Promise<number[]> {
+  const categoryIds = await Promise.all(EXCLUDED_BLOG_CATEGORY_SLUGS.map(getCategoryIdBySlug));
+  return categoryIds.filter((categoryId): categoryId is number => Boolean(categoryId));
+}
+
+function toCategoryExcludeParam(categoryIds: number[]): string {
+  return categoryIds.length > 0 ? `&categories_exclude=${categoryIds.join(',')}` : '';
+}
+
+function isExcludedFromBlogs(post: WpPost, excludedCategoryIds: number[]): boolean {
+  if (!post.categories || excludedCategoryIds.length === 0) return false;
+  return post.categories.some(categoryId => excludedCategoryIds.includes(categoryId));
+}
+
 export async function getCmsBlogs(): Promise<BlogCardItem[]> {
   try {
-    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
-    const categoryExclusion = caseStudyCategoryId ? `&categories_exclude=${caseStudyCategoryId}` : '';
+    const excludedCategoryIds = await getExcludedBlogCategoryIds();
+    const categoryExclusion = toCategoryExcludeParam(excludedCategoryIds);
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?_embed&per_page=100${categoryExclusion}`)) as WpPost[];
     return posts.map(post => {
       const { cardImage, cardImageFocus, date, title } = parsePostData(post);
@@ -134,8 +148,8 @@ export async function getCmsBlogBySlug(slug: string): Promise<Blog | null> {
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?slug=${slug}&_embed`)) as WpPost[];
     if (posts.length === 0) return null;
     const post = posts[0];
-    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
-    if (caseStudyCategoryId && post.categories?.includes(caseStudyCategoryId)) return null;
+    const excludedCategoryIds = await getExcludedBlogCategoryIds();
+    if (isExcludedFromBlogs(post, excludedCategoryIds)) return null;
 
     const { content, detailImage, detailImageFocus, date, title } = parsePostData(post);
 
@@ -155,8 +169,8 @@ export async function getCmsBlogBySlug(slug: string): Promise<Blog | null> {
 
 export async function getAllCmsBlogSlugs(): Promise<string[]> {
   try {
-    const caseStudyCategoryId = await getCategoryIdBySlug(CASE_STUDIES_CATEGORY_SLUG);
-    const categoryExclusion = caseStudyCategoryId ? `&categories_exclude=${caseStudyCategoryId}` : '';
+    const excludedCategoryIds = await getExcludedBlogCategoryIds();
+    const categoryExclusion = toCategoryExcludeParam(excludedCategoryIds);
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?per_page=100&_fields=slug${categoryExclusion}`)) as {
       slug: string;
     }[];
