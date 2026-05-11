@@ -1,0 +1,15 @@
+
+> 5flow@0.1.0 dev
+> next dev --turbopack --hostname 127.0.0.1 --port 3000
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+Creating turbopack project { dir: 'D:\\5 flow\\5flow-main 5-3-26 live changes', testMode: true }
+ ✓ Ready in 1501ms
+ ○ Compiling /resources/downloads ...
+ ✓ Compiled /resources/downloads in 4.3s
+ GET /resources/downloads 200 in 5617ms
+ GET /resources/downloads 200 in 618ms
