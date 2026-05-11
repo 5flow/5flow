@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
 import DownloadsSection from '@/components/page/resources/DownloadsSection';
@@ -26,8 +25,6 @@ export default async function Downloads() {
             subtitle="Access expert guides, templates, and in-depth materials designed to help you streamline workflows, improve data flow, and drive operational efficiency."
           />
           <DownloadsSection items={downloadItems} />
-
-          <Contact leadingText="Explore " highlightedText="more" trailingText=" resources" />
         </div>
       </div>
     </div>

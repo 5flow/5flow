@@ -21,13 +21,15 @@ export default function DownloadsSection({ items }: DownloadsSectionProps) {
               className="relative flex h-full min-h-[28rem] flex-1 flex-col gap-0 rounded-2xl border p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"
             >
               <div className="relative h-48 w-full overflow-hidden rounded-[20px] bg-primary/80 sm:h-65">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: item.imageFocus || 'center' }}
-                />
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: item.imageFocus || 'center' }}
+                  />
+                ) : null}
               </div>
 
               <div className="flex flex-1 flex-col px-2 py-4">
