@@ -128,7 +128,8 @@ const NAV_ITEMS: NavItem[] = [
         { href: '/resources/blogs', label: 'BLOGS' },
         { href: '/resources/case-studies', label: 'CASE STUDIES' },
         { href: '/resources/webinars', label: 'WEBINARS' },
-        { href: '/resources/downloads', label: 'DOWNLOADS' },
+        // Temporarily hidden.
+        // { href: '/resources/downloads', label: 'DOWNLOADS' },
       ],
       offsetClass: 'ml-36',
       itemWidthClass: 'w-72',
