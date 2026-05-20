@@ -74,7 +74,7 @@ export default function HowWeWork({
 
   return (
     <section className="relative isolate px-4 sm:px-6 md:px-0">
-      <div className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-[#f2f2f7]" />
+      <div className="absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-[#f2f4fa]" />
       <FullBleedLines className="py-12 md:py-16 lg:py-20">
         <div className="grid gap-8 p-4 md:grid-cols-[1fr_1.35fr] md:gap-10 md:p-8 lg:p-10">
           <div>

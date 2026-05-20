@@ -26,13 +26,13 @@ const fallbackItems: HowItem[] = [
   {
     title: 'Custom Solutions',
     desc: 'Tailored to your business needs. Enhanced with AI, automation, and seamless integration into your ecosystem.',
-    link: '/products/wave',
+    link: '/products/mediabox',
     iconKey: 'puzzle',
   },
   {
     title: 'Consulting',
     desc: 'Expert guidance to simplify complexity, optimize workflows, and unlock growth through strategy, technology, and process transformation.',
-    link: '/contact',
+    link: '/solutions/consulting',
     iconKey: 'message-square',
   },
 ];

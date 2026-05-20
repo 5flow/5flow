@@ -98,7 +98,7 @@ export default function DeliverySection({
           {displayItems.map(({ title, text, icon: Icon, assetSrc }) => (
             <article
               key={title}
-              className="border-border flex min-h-52 flex-col justify-between rounded-xl border bg-background p-5 md:min-h-72 md:p-7"
+              className="border-border bg-background flex min-h-52 flex-col justify-between rounded-xl border p-5 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] md:min-h-72 md:p-7"
             >
               <div className="flex items-start justify-between gap-6">
                 <h3 className="font-heading max-w-72 text-xl leading-none font-bold tracking-tight md:text-3xl">
