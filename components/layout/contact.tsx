@@ -9,19 +9,31 @@ type ContactProps = {
   leadingText?: string;
   highlightedText?: string;
   trailingText?: string;
+  heading?: React.ReactNode;
+  headingClassName?: string;
+  className?: string;
+  headingWrapperClassName?: string;
 };
 
 export function Contact({
   leadingText = 'Built for the way brands',
   highlightedText = 'work today.',
   trailingText = '',
+  heading,
+  headingClassName = '',
+  className = '',
+  headingWrapperClassName = '',
 }: ContactProps) {
   return (
-    <div className="flex flex-col gap-4 md:gap-8">
-      <FullBleedLines className="font-heading mx-auto w-full max-w-3xl gap-16 px-2 py-8">
-        <p className="text-center text-4xl leading-none font-bold tracking-tight md:text-[64px]">
-          {leadingText} <InlineHighlight>{highlightedText}</InlineHighlight>
-          {trailingText && <> {trailingText}</>}
+    <div className={`flex flex-col gap-4 md:gap-8 ${className}`}>
+      <FullBleedLines className={`font-heading mx-auto w-full max-w-3xl gap-16 px-2 py-8 ${headingWrapperClassName}`}>
+        <p className={`text-center text-4xl leading-none font-bold tracking-tight md:text-[64px] ${headingClassName}`}>
+          {heading || (
+            <>
+              {leadingText} <InlineHighlight>{highlightedText}</InlineHighlight>
+              {trailingText && <> {trailingText}</>}
+            </>
+          )}
         </p>
       </FullBleedLines>
 

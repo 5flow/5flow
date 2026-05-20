@@ -86,6 +86,9 @@ export type LeadPayload = {
   requestType: 'Demo' | 'General information' | 'Other' | string;
   message?: string;
   consentContact?: boolean; // user opted-in to be contacted
+  sourcePage?: string;
+  sourceUrl?: string;
+  referrer?: string;
 };
 
 type ZohoLeadRecord = {
@@ -100,6 +103,7 @@ type ZohoLeadRecord = {
   Lead_Source?: string;
   Description?: string;
   Email_Opt_Out?: boolean;
+  Website_Source_URL?: string;
 };
 
 type ZohoCreateResponse = {
@@ -129,6 +133,7 @@ export async function createZohoLead(payload: LeadPayload) {
     Lead_Source: payload.requestType || 'Website',
     Description: buildDescription(payload),
     Email_Opt_Out: payload.consentContact === true ? false : true,
+    Website_Source_URL: payload.sourceUrl || undefined,
   };
 
   // Remove undefined fields without mutating types
@@ -156,6 +161,9 @@ function buildDescription(p: LeadPayload) {
     p.message ? `Message: ${p.message}` : undefined,
     p.requestType ? `Request Type: ${p.requestType}` : undefined,
     p.zip ? `ZIP: ${p.zip}` : undefined,
+    p.sourcePage ? `Source Page: ${p.sourcePage}` : undefined,
+    p.sourceUrl ? `Source URL: ${p.sourceUrl}` : undefined,
+    p.referrer ? `Referrer: ${p.referrer}` : undefined,
   ].filter(Boolean);
   return lines.join('\n');
 }

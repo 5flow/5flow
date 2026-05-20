@@ -158,10 +158,13 @@ export default function LeadForm({
 
     setSubmitting(true);
     try {
+      const sourcePage = window.location.pathname;
+      const sourceUrl = window.location.href;
+      const referrer = document.referrer || undefined;
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, sourcePage, sourceUrl, referrer }),
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || 'Submission failed');

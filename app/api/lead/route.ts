@@ -21,6 +21,9 @@ export async function POST(req: NextRequest) {
       requestType: (body.requestType || '').toString().trim(),
       message: body.message ? body.message.toString() : undefined,
       consentContact: Boolean(body.consentContact),
+      sourcePage: body.sourcePage ? body.sourcePage.toString().trim() : undefined,
+      sourceUrl: body.sourceUrl ? body.sourceUrl.toString().trim() : undefined,
+      referrer: body.referrer ? body.referrer.toString().trim() : undefined,
     };
 
     // Basic validation
