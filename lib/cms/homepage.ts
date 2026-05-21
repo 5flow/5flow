@@ -7,8 +7,13 @@ export interface HomepageItemRaw {
   bodyHtml?: string;
   icon_key?: string;
   iconKey?: string;
+  link?: string;
   link_url?: string;
   linkUrl?: string;
+  button_link?: string;
+  buttonLink?: string;
+  button_url?: string;
+  buttonUrl?: string;
   image_url?: string;
   imageUrl?: string;
 }
@@ -81,25 +86,26 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     ctaUrl: meta.hero_cta_url || meta.cta_url || page.acf?.hero_cta_url,
   };
 
-  const whatItems = parseJsonArray<HomepageItemRaw>(page.acf.what_items_json);
-  const howItems = parseJsonArray<HomepageItemRaw>(page.acf.how_body_html);
-  const whoItems = parseJsonArray<HomepageItemRaw | string>(page.acf.who_items_json);
-  const whyItems = parseJsonArray<HomepageItemRaw>(page.acf.why_items_json);
+  const acf: Record<string, any> = page.acf || {};
+  const whatItems = parseJsonArray<HomepageItemRaw>(meta.what_items_json || acf.what_items_json);
+  const howItems = parseJsonArray<HomepageItemRaw>(meta.how_items_json || acf.how_items_json || acf.how_body_html);
+  const whoItems = parseJsonArray<HomepageItemRaw | string>(meta.who_items_json || acf.who_items_json);
+  const whyItems = parseJsonArray<HomepageItemRaw>(meta.why_items_json || acf.why_items_json);
 
   return {
     hero: hero,
     what: {
-      title: page.acf.what_title,
+      title: meta.what_title || acf.what_title,
       items: whatItems,
     },
     how: {
-      title: page.acf.how_title,
-      subtitle: page.acf.how_subtitle,
-      bodyHtml: page.acf.how_description || page.acf.how_description,
+      title: meta.how_title || acf.how_title,
+      subtitle: meta.how_subtitle || acf.how_subtitle,
+      bodyHtml: meta.how_description || meta.how_body_html || acf.how_description || acf.how_body_html,
       items: howItems,
     },
     who: {
-      title: page.acf.who_title,
+      title: meta.who_title || acf.who_title,
       clients: whoItems.map(ci => {
         if (typeof ci === 'string') {
           return {
@@ -114,8 +120,8 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
       }),
     },
     why: {
-      title: page.acf.why_title,
-      bodyHtml: page.acf.why_body_html || page.acf.why_bodyhtml,
+      title: meta.why_title || acf.why_title,
+      bodyHtml: meta.why_body_html || meta.why_bodyhtml || acf.why_body_html || acf.why_bodyhtml,
       items: whyItems,
     },
   };

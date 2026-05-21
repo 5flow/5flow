@@ -15,7 +15,15 @@ export default async function ServerHow({ slug }: ServerHowProps) {
       const items = homepage.how.items.map(i => ({
         title: i.title || '',
         desc: i.body_html || i.bodyHtml || '',
-        link: i.link_url || i.linkUrl || '/contact',
+        link:
+          i.link ||
+          i.link_url ||
+          i.linkUrl ||
+          i.button_link ||
+          i.buttonLink ||
+          i.button_url ||
+          i.buttonUrl ||
+          '/contact',
         iconKey: i.icon_key || i.iconKey,
       }));
       return (

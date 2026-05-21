@@ -96,8 +96,13 @@ export function toContentItem(rawUnknown: unknown): CmsContentItem {
   const body = raw['body'];
   const icon_key = raw['icon_key'];
   const iconKey = raw['iconKey'];
+  const link = raw['link'];
   const link_url = raw['link_url'];
   const linkUrl = raw['linkUrl'];
+  const button_link = raw['button_link'];
+  const buttonLink = raw['buttonLink'];
+  const button_url = raw['button_url'];
+  const buttonUrl = raw['buttonUrl'];
   const image = raw['image'];
   const sort_order = raw['sort_order'];
   const sortOrder = raw['sortOrder'];
@@ -108,7 +113,22 @@ export function toContentItem(rawUnknown: unknown): CmsContentItem {
     bodyHtml: sanitize(typeof body_html === 'string' ? body_html : typeof body === 'string' ? body : ''),
     iconKey: typeof icon_key === 'string' ? icon_key : typeof iconKey === 'string' ? iconKey : undefined,
     image: image ? toMediaAsset(image) : null,
-    linkUrl: typeof link_url === 'string' ? link_url : typeof linkUrl === 'string' ? linkUrl : undefined,
+    linkUrl:
+      typeof link === 'string'
+        ? link
+        : typeof link_url === 'string'
+          ? link_url
+          : typeof linkUrl === 'string'
+            ? linkUrl
+            : typeof button_link === 'string'
+              ? button_link
+              : typeof buttonLink === 'string'
+                ? buttonLink
+                : typeof button_url === 'string'
+                  ? button_url
+                  : typeof buttonUrl === 'string'
+                    ? buttonUrl
+                    : undefined,
     sortOrder: typeof sort_order === 'number' ? sort_order : typeof sortOrder === 'number' ? sortOrder : 0,
   };
 }
