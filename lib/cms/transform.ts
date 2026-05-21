@@ -14,6 +14,38 @@ function sanitize(html: string): string {
 
 type AnyObj = Record<string, unknown>;
 
+function resolveUrl(value: unknown): string | undefined {
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    return trimmed || undefined;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const resolved = resolveUrl(item);
+      if (resolved) return resolved;
+    }
+    return undefined;
+  }
+
+  if (value && typeof value === 'object') {
+    const item = value as AnyObj;
+    return (
+      resolveUrl(item['url']) ||
+      resolveUrl(item['href']) ||
+      resolveUrl(item['link']) ||
+      resolveUrl(item['link_url']) ||
+      resolveUrl(item['linkUrl']) ||
+      resolveUrl(item['button_link']) ||
+      resolveUrl(item['buttonLink']) ||
+      resolveUrl(item['button_url']) ||
+      resolveUrl(item['buttonUrl'])
+    );
+  }
+
+  return undefined;
+}
+
 export function toMediaAsset(rawUnknown: unknown): CmsMediaAsset {
   const raw = (rawUnknown as AnyObj) || {};
   const id = raw['id'];
@@ -114,21 +146,13 @@ export function toContentItem(rawUnknown: unknown): CmsContentItem {
     iconKey: typeof icon_key === 'string' ? icon_key : typeof iconKey === 'string' ? iconKey : undefined,
     image: image ? toMediaAsset(image) : null,
     linkUrl:
-      typeof link === 'string'
-        ? link
-        : typeof link_url === 'string'
-          ? link_url
-          : typeof linkUrl === 'string'
-            ? linkUrl
-            : typeof button_link === 'string'
-              ? button_link
-              : typeof buttonLink === 'string'
-                ? buttonLink
-                : typeof button_url === 'string'
-                  ? button_url
-                  : typeof buttonUrl === 'string'
-                    ? buttonUrl
-                    : undefined,
+      resolveUrl(link) ||
+      resolveUrl(link_url) ||
+      resolveUrl(linkUrl) ||
+      resolveUrl(button_link) ||
+      resolveUrl(buttonLink) ||
+      resolveUrl(button_url) ||
+      resolveUrl(buttonUrl),
     sortOrder: typeof sort_order === 'number' ? sort_order : typeof sortOrder === 'number' ? sortOrder : 0,
   };
 }

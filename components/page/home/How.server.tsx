@@ -7,6 +7,61 @@ interface ServerHowProps {
   slug?: string;
 }
 
+function resolveUrl(value: unknown): string | undefined {
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    return trimmed || undefined;
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const resolved = resolveUrl(item);
+      if (resolved) return resolved;
+    }
+    return undefined;
+  }
+
+  if (value && typeof value === 'object') {
+    const item = value as Record<string, unknown>;
+    return (
+      resolveUrl(item.url) ||
+      resolveUrl(item.href) ||
+      resolveUrl(item.link) ||
+      resolveUrl(item.link_url) ||
+      resolveUrl(item.linkUrl) ||
+      resolveUrl(item.button_link) ||
+      resolveUrl(item.buttonLink) ||
+      resolveUrl(item.button_url) ||
+      resolveUrl(item.buttonUrl)
+    );
+  }
+
+  return undefined;
+}
+
+function resolveHowLink(item: unknown): string | undefined {
+  const record = (item || {}) as Record<string, unknown>;
+  const fromCms =
+    resolveUrl(record.link) ||
+    resolveUrl(record.link_url) ||
+    resolveUrl(record.linkUrl) ||
+    resolveUrl(record.button_link) ||
+    resolveUrl(record.buttonLink) ||
+    resolveUrl(record.button_url) ||
+    resolveUrl(record.buttonUrl) ||
+    resolveUrl(record.cta) ||
+    resolveUrl(record.button);
+
+  if (fromCms) return fromCms;
+
+  const title = typeof record.title === 'string' ? record.title.toLowerCase() : '';
+  if (title.includes('wave')) return '/products/wave';
+  if (title.includes('custom') || title.includes('mediabox')) return '/products/mediabox';
+  if (title.includes('consulting')) return '/solutions/consulting';
+
+  return undefined;
+}
+
 export default async function ServerHow({ slug }: ServerHowProps) {
   if (!features.enabled) return <How />;
   try {
@@ -15,15 +70,7 @@ export default async function ServerHow({ slug }: ServerHowProps) {
       const items = homepage.how.items.map(i => ({
         title: i.title || '',
         desc: i.body_html || i.bodyHtml || '',
-        link:
-          i.link ||
-          i.link_url ||
-          i.linkUrl ||
-          i.button_link ||
-          i.buttonLink ||
-          i.button_url ||
-          i.buttonUrl ||
-          '/contact',
+        link: resolveHowLink(i),
         iconKey: i.icon_key || i.iconKey,
       }));
       return (

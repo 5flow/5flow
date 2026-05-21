@@ -48,6 +48,7 @@ export interface HomepageData {
 }
 
 function parseJsonArray<T = HomepageItemRaw>(value: unknown): T[] {
+  if (Array.isArray(value)) return value as T[];
   if (typeof value !== 'string') return [];
   try {
     const parsed = JSON.parse(value);
