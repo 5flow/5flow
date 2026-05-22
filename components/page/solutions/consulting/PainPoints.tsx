@@ -17,7 +17,6 @@ type PainPointsProps = {
   descriptionLine2?: string;
   items?: string[];
   summaryLine1?: string;
-  summaryLine2?: string;
 };
 
 export default function PainPoints({
@@ -27,8 +26,7 @@ export default function PainPoints({
   descriptionLine1 = 'As ecosystems grow, complexity has a way of sneaking in.',
   descriptionLine2 = 'More markets. More content. More stakeholders. More tools. But somehow... less visibility.',
   items,
-  summaryLine1 = 'Hidden capital rarely announces itself. It usually shows up as duplicated effort, disconnected',
-  summaryLine2 = 'processes, approval bottlenecks, and teams working harder just to keep things moving.',
+  summaryLine1 = 'Hidden capital rarely announces itself. It usually shows up as duplicated effort, disconnected processes, approval bottlenecks, and teams working harder just to keep things moving.',
 }: PainPointsProps) {
   const displayItems = items?.length ? items : painPoints;
 
@@ -57,9 +55,6 @@ export default function PainPoints({
         <p className="font-heading mt-8 w-full text-[20px] leading-[28px] font-bold tracking-tight md:mt-10 md:text-[30px] md:leading-[33px]">
           <span className="block">
             {summaryLine1}
-          </span>
-          <span className="block">
-            {summaryLine2}
           </span>
         </p>
       </FullBleedLines>
