@@ -40,7 +40,6 @@ function buildContactProperties(payload: DownloadLeadPayload) {
       email: payload.email,
       company: payload.company,
       country: payload.country,
-      hs_email_optout: payload.consentContact === true ? false : true,
       [HUBSPOT_CONTACT_PROPERTIES.downloadedResource]: payload.downloadedResource,
       [HUBSPOT_CONTACT_PROPERTIES.downloadedResourceUrl]: payload.downloadedResourceUrl,
       [HUBSPOT_CONTACT_PROPERTIES.leadSourcePage]: payload.sourcePage || payload.sourceUrl,
