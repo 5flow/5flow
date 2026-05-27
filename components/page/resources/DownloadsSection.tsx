@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { useState } from 'react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Card } from '@/components/ui/card';
+import DownloadLeadForm from '@/components/page/resources/DownloadLeadForm';
 import type { DownloadCardItem } from '@/lib/resources/downloads';
 
 type DownloadsSectionProps = {
@@ -9,6 +12,8 @@ type DownloadsSectionProps = {
 };
 
 export default function DownloadsSection({ items }: DownloadsSectionProps) {
+  const [selectedItem, setSelectedItem] = useState<DownloadCardItem | null>(null);
+
   if (items.length === 0) return null;
 
   return (
@@ -38,20 +43,20 @@ export default function DownloadsSection({ items }: DownloadsSectionProps) {
                     <b className="font-heading text-xl leading-tight tracking-tight sm:text-2xl">{item.title}</b>
                     <div className="text-base leading-tight tracking-tight sm:text-lg">{item.desc}</div>
                   </div>
-                  <Link
-                    href={item.href || '#'}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedItem(item)}
                     className="bg-primary text-primary-foreground hover:bg-primary/90 mt-auto inline-flex h-8 items-center px-4 text-sm font-semibold transition-colors"
-                    target={item.href?.startsWith('http') ? '_blank' : undefined}
-                    rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                   >
                     {item.buttonLabel || 'Download now'}
-                  </Link>
+                  </button>
                 </div>
               </div>
             </Card>
           ))}
         </div>
       </FullBleedLines>
+      {selectedItem ? <DownloadLeadForm item={selectedItem} onClose={() => setSelectedItem(null)} /> : null}
     </div>
   );
 }

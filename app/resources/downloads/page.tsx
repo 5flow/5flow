@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-// import PageHeader from '@/components/core/page-header';
-// import Hero from '@/components/page/resources/Hero';
-// import DownloadsSection from '@/components/page/resources/DownloadsSection';
-// import { getDownloadCards } from '@/lib/resources/downloads';
+import PageHeader from '@/components/core/page-header';
+import Hero from '@/components/page/resources/Hero';
+import DownloadsSection from '@/components/page/resources/DownloadsSection';
+import { getDownloadCards } from '@/lib/resources/downloads';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,24 +12,21 @@ export const metadata: Metadata = {
 };
 
 export default async function Downloads() {
-  // Temporarily hide the downloads page.
-  notFound();
+  const downloadItems = await getDownloadCards();
 
-  // const downloadItems = await getDownloadCards();
+  return (
+    <div className="relative">
+      <div className="container mx-auto mb-32">
+        <PageHeader title="downloads" />
 
-  // return (
-  //   <div className="relative">
-  //     <div className="container mx-auto mb-32">
-  //       <PageHeader title="downloads" />
-
-  //       <div className="flex flex-col gap-32">
-  //         <Hero
-  //           title="Download practical resources"
-  //           subtitle="Access expert guides, templates, and in-depth materials designed to help you streamline workflows, improve data flow, and drive operational efficiency."
-  //         />
-  //         <DownloadsSection items={downloadItems} />
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+        <div className="flex flex-col gap-32">
+          <Hero
+            title="Download practical resources"
+            subtitle="Access expert guides, templates, and in-depth materials designed to help you streamline workflows, improve data flow, and drive operational efficiency."
+          />
+          <DownloadsSection items={downloadItems} />
+        </div>
+      </div>
+    </div>
+  );
 }
