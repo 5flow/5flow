@@ -2,14 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { MoveRightIcon, XIcon } from 'lucide-react';
+import { MoveLeftIcon, MoveRightIcon, XIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import type { DownloadCardItem } from '@/lib/resources/downloads';
-import { countries as allCountries } from '@/lib/countries';
-import { cn } from '@/lib/utils';
 
 type DownloadLeadFormProps = {
   item: DownloadCardItem;
@@ -17,23 +15,15 @@ type DownloadLeadFormProps = {
 };
 
 type FormState = {
-  firstName: string;
-  lastName: string;
   email: string;
-  company: string;
-  country: string;
-  consentPrivacy: boolean;
   consentContact: boolean;
+  consentPrivacy: boolean;
 };
 
 const initialState: FormState = {
-  firstName: '',
-  lastName: '',
   email: '',
-  company: '',
-  country: '',
-  consentPrivacy: false,
   consentContact: false,
+  consentPrivacy: false,
 };
 
 function isValidEmail(email: string) {
@@ -73,6 +63,7 @@ function isWorkEmail(email: string) {
 
 export default function DownloadLeadForm({ item, onClose }: DownloadLeadFormProps) {
   const [values, setValues] = useState<FormState>(initialState);
+  const [step, setStep] = useState<1 | 2>(1);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
 
@@ -81,26 +72,38 @@ export default function DownloadLeadForm({ item, onClose }: DownloadLeadFormProp
     setErrors(current => ({ ...current, [key]: undefined }));
   }
 
-  function validate() {
-    const nextErrors: Partial<Record<keyof FormState, string>> = {};
+  function validateEmail() {
+    let message: string | undefined;
 
-    if (!values.lastName.trim()) nextErrors.lastName = 'Last name is required';
-    if (!values.email.trim()) nextErrors.email = 'Work email is required';
-    else if (!isValidEmail(values.email)) nextErrors.email = 'Enter a valid email address';
-    else if (!isWorkEmail(values.email)) nextErrors.email = 'Please use your work email (no Gmail/Yahoo/etc.)';
-    if (!values.company.trim()) nextErrors.company = 'Company is required';
-    if (!values.country.trim()) nextErrors.country = 'Country is required';
-    if (!values.consentPrivacy) nextErrors.consentPrivacy = 'Please confirm you have read the Privacy Policy';
+    if (!values.email.trim()) message = 'Company email is required';
+    else if (!isValidEmail(values.email)) message = 'Enter a valid email address';
+    else if (!isWorkEmail(values.email)) message = 'Please use your company email';
 
-    setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    setErrors(current => ({ ...current, email: message }));
+    return !message;
+  }
+
+  function goToPolicyStep() {
+    if (!validateEmail()) {
+      toast.error('Please enter a valid company email.');
+      return;
+    }
+
+    setStep(2);
   }
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!validate()) {
-      toast.error('Please complete the required fields.');
+    if (!validateEmail()) {
+      setStep(1);
+      toast.error('Please enter a valid company email.');
+      return;
+    }
+
+    if (!values.consentPrivacy) {
+      setErrors(current => ({ ...current, consentPrivacy: 'Please confirm your privacy consent.' }));
+      toast.error('Please confirm your privacy consent.');
       return;
     }
 
@@ -140,132 +143,134 @@ export default function DownloadLeadForm({ item, onClose }: DownloadLeadFormProp
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-8"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/35 p-4 sm:p-6 md:p-8  "
       role="dialog"
       aria-modal="true"
       aria-labelledby="download-form-title"
     >
-      <div className="bg-background text-foreground flex max-h-full w-full max-w-2xl flex-col overflow-y-auto border shadow-xl">
-        <div className="border-border flex items-start justify-between gap-4 border-b p-5">
-          <div className="flex flex-col gap-1">
-            <b id="download-form-title" className="font-heading text-2xl leading-tight">
-              {item.title}
-            </b>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Complete the form to access this resource.
-            </p>
-          </div>
-          <Button type="button" variant="ghost" size="icon" onClick={onClose} aria-label="Close download form">
-            <XIcon className="h-4 w-4" />
-          </Button>
-        </div>
+      <div className="border-border bg-background relative flex max-h-[calc(100dvh-2rem)] w-full max-w-3xl flex-col overflow-hidden border shadow-[0_20px_60px_rgba(15,23,42,0.2)] sm:max-h-[calc(100dvh-3rem)] md:max-h-[calc(100dvh-4rem)]">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={onClose}
+          aria-label="Close download form"
+          className="text-primary hover:bg-muted absolute top-3 right-3 z-10 rounded-none sm:top-4 sm:right-4"
+        >
+          <XIcon className="h-5 w-5" />
+        </Button>
 
-        <form onSubmit={submit} className="flex flex-col gap-5 p-5">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Input
-              placeholder="First Name"
-              value={values.firstName}
-              onChange={e => onChange('firstName', e.target.value)}
-              className="rounded-none"
-            />
-            <Input
-              placeholder="Last Name*"
-              required
-              value={values.lastName}
-              onChange={e => onChange('lastName', e.target.value)}
-              className="rounded-none"
-            />
-            <Input
-              type="email"
-              placeholder="Work Email*"
-              required
-              value={values.email}
-              onChange={e => onChange('email', e.target.value)}
-              className="rounded-none"
-            />
-            <Input
-              placeholder="Company*"
-              required
-              value={values.company}
-              onChange={e => onChange('company', e.target.value)}
-              className="rounded-none"
-            />
-            <select
-              required
-              value={values.country}
-              onChange={e => onChange('country', e.target.value)}
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-none border px-3 py-1 text-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-2"
-            >
-              <option value="" disabled>
-                Country*
-              </option>
-              {allCountries.map(country => (
-                <option key={country} value={country} className="text-foreground">
-                  {country}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {Object.values(errors).filter(Boolean).length > 0 && (
-            <div className="border-destructive/30 bg-destructive/10 text-destructive rounded-md border p-3 text-xs sm:text-sm">
-              <ul className="list-disc space-y-1 pl-4">
-                {Object.values(errors)
-                  .filter(Boolean)
-                  .map((message, index) => (
-                    <li key={index}>{message as string}</li>
-                  ))}
-              </ul>
+        <form onSubmit={submit} className="flex min-h-0 flex-col">
+          <div className="flex min-h-0 flex-col gap-6 overflow-y-auto p-5 pt-6 sm:gap-7 sm:p-8 md:p-10">
+            <div className="flex max-w-xl flex-col gap-2.5 pr-10">
+              <span className="font-heading text-primary text-xs font-bold tracking-wide uppercase">
+                Download resource
+              </span>
+              <h2
+                id="download-form-title"
+                className="font-heading text-primary text-2xl leading-tight font-bold sm:text-3xl md:text-4xl"
+              >
+                {step === 1
+                  ? 'Just enter your company email to get instant access.'
+                  : 'One last step before your download.'}
+              </h2>
+              <p className="font-body text-foreground/70 text-sm leading-5 sm:leading-6">{item.title}</p>
             </div>
-          )}
 
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-2">
-              <Checkbox
-                checked={values.consentPrivacy}
-                onCheckedChange={value => onChange('consentPrivacy', Boolean(value))}
-                className="rounded-none"
-              />
-              <p className="text-xs leading-relaxed">
-                {`I have read the `}
-                <Link href="/privacy" target="_blank" className="underline">
-                  Privacy Policy
-                </Link>
-                {`.*`}
-              </p>
-            </label>
-            <label className="flex items-center gap-2">
-              <Checkbox
-                checked={values.consentContact}
-                onCheckedChange={value => onChange('consentContact', Boolean(value))}
-                className="rounded-none"
-              />
-              <p className="text-xs leading-relaxed">
-                {`I authorize 5Flow to contact me by phone or email. I can opt out at any time.`}
-              </p>
-            </label>
+            {step === 1 ? (
+              <div className="flex flex-col gap-2">
+                <label htmlFor="download-email" className="font-body text-primary text-sm font-medium">
+                  Company email<span aria-hidden="true">*</span>
+                </label>
+                <Input
+                  id="download-email"
+                  type="email"
+                  placeholder="name@company.com"
+                  required
+                  autoComplete="email"
+                  value={values.email}
+                  onChange={e => onChange('email', e.target.value)}
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? 'download-email-error' : undefined}
+                  className="border-foreground/60 focus-visible:border-primary bg-background h-12 rounded-none border px-3 text-base shadow-none"
+                />
+                {errors.email ? (
+                  <p id="download-email-error" className="text-destructive font-body text-sm leading-5">
+                    {errors.email}
+                  </p>
+                ) : null}
+              </div>
+            ) : (
+              <div className="font-body flex max-w-2xl flex-col gap-4 text-sm leading-5 sm:text-base sm:leading-6">
+                <p>
+                  By checking the box below, you agree to receive communications from 5Flow. You can unsubscribe
+                  anytime.
+                </p>
+                <label className="flex items-start gap-3">
+                  <Checkbox
+                    checked={values.consentContact}
+                    onCheckedChange={value => onChange('consentContact', Boolean(value))}
+                    className="border-primary/50 mt-1 rounded-none"
+                  />
+                  <span className="text-primary">I agree to receive other communications from 5Flow.</span>
+                </label>
+
+                <p>
+                  To process your request, we need your permission to store and process your personal data. Please check
+                  the box below to confirm your consent.
+                </p>
+                <label className="flex items-start gap-3">
+                  <Checkbox
+                    checked={values.consentPrivacy}
+                    onCheckedChange={value => onChange('consentPrivacy', Boolean(value))}
+                    aria-invalid={Boolean(errors.consentPrivacy)}
+                    className="border-primary/50 mt-1 rounded-none"
+                  />
+                  <span className="text-primary">I agree to allow 5Flow to store and process my personal data.*</span>
+                </label>
+                {errors.consentPrivacy ? <p className="text-destructive text-sm">{errors.consentPrivacy}</p> : null}
+                <p>
+                  We care about your privacy. Learn how we handle your data in our{' '}
+                  <Link href="/privacy" target="_blank" className="text-primary underline underline-offset-2">
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
+              </div>
+            )}
           </div>
 
-          <div className="flex justify-end">
-            <Button
-              type="submit"
-              disabled={submitting || !values.consentPrivacy}
-              className="group/cta active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-0 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-150 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.99] active:ring-2 active:ring-offset-2"
-            >
-              <span
-                className={cn(
-                  'bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 inline-flex h-10 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:px-3',
-                )}
+          <div className="border-border bg-background flex shrink-0 flex-col gap-4 border-t p-5 sm:p-6">
+            <div className="flex flex-col gap-2">
+              <span className="font-body text-primary text-sm font-medium">{step}/2</span>
+              <div className="bg-muted h-3 w-full overflow-hidden rounded-full" aria-hidden="true">
+                <div
+                  className="bg-success h-full rounded-full transition-[width] duration-300 ease-[var(--easing-smooth)]"
+                  style={{ width: step === 1 ? '50%' : '100%' }}
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-end gap-3">
+              {step === 2 ? (
+                <Button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md px-4 text-sm font-bold transition-all duration-200 active:translate-x-px active:scale-[0.99] sm:min-w-32 sm:flex-none"
+                >
+                  <MoveLeftIcon className="h-4 w-4" />
+                  Previous
+                </Button>
+              ) : null}
+              <Button
+                type={step === 1 ? 'button' : 'submit'}
+                onClick={step === 1 ? goToPolicyStep : undefined}
+                disabled={submitting}
+                className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md px-4 text-sm font-bold transition-all duration-200 active:translate-x-px active:scale-[0.99] sm:min-w-32 sm:flex-none"
               >
-                {submitting ? 'Submitting...' : 'Get download'}
-              </span>
-              <span
-                className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 ml-0 inline-flex h-10 w-10 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:ml-2"
-                aria-hidden="true"
-              >
-                <MoveRightIcon className="h-4 w-4" />
-              </span>
-            </Button>
+                {submitting ? 'Submitting...' : step === 1 ? 'Next' : 'Submit'}
+                {step === 1 ? <MoveRightIcon className="h-4 w-4" /> : null}
+              </Button>
+            </div>
           </div>
         </form>
       </div>

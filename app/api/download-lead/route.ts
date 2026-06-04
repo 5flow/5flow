@@ -45,11 +45,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const data: DownloadLeadPayload = {
-      firstName: body.firstName ? body.firstName.toString().trim() : undefined,
-      lastName: (body.lastName || '').toString().trim(),
       email: (body.email || '').toString().trim(),
-      company: (body.company || '').toString().trim(),
-      country: (body.country || '').toString().trim(),
+      formType: 'Download',
       consentContact: Boolean(body.consentContact),
       downloadedResource: (body.downloadedResource || '').toString().trim(),
       downloadedResourceUrl: (body.downloadedResourceUrl || '').toString().trim(),
@@ -58,12 +55,9 @@ export async function POST(req: NextRequest) {
       referrer: body.referrer ? body.referrer.toString().trim() : undefined,
     };
 
-    if (!data.lastName) return badRequest('Last name is required');
-    if (!data.email) return badRequest('Work email is required');
+    if (!data.email) return badRequest('Company email is required');
     if (!isValidEmail(data.email)) return badRequest('Enter a valid email');
-    if (!isWorkEmail(data.email)) return badRequest('Please use your work email (no Gmail/Yahoo/etc.)');
-    if (!data.company) return badRequest('Company is required');
-    if (!data.country) return badRequest('Country is required');
+    if (!isWorkEmail(data.email)) return badRequest('Please use your company email');
     if (!body.consentPrivacy) return badRequest('Privacy consent is required');
     if (!data.downloadedResource) return badRequest('Downloaded resource is required');
     if (!data.downloadedResourceUrl) return badRequest('Downloaded resource URL is required');

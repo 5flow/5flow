@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
 import DownloadsSection from '@/components/page/resources/DownloadsSection';
+import ExploreMoreResources from '@/components/page/resources/ExploreMoreResources';
 import { getDownloadCards } from '@/lib/resources/downloads';
 
 export const dynamic = 'force-dynamic';
@@ -16,7 +17,7 @@ export default async function Downloads() {
 
   return (
     <div className="relative">
-      <div className="container mx-auto mb-32">
+      <div className="container mx-auto">
         <PageHeader title="downloads" />
 
         <div className="flex flex-col gap-32">
@@ -25,6 +26,7 @@ export default async function Downloads() {
             subtitle="Access expert guides, templates, and in-depth materials designed to help you streamline workflows, improve data flow, and drive operational efficiency."
           />
           <DownloadsSection items={downloadItems} />
+          <ExploreMoreResources />
         </div>
       </div>
     </div>

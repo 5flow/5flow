@@ -1,9 +1,6 @@
 export type DownloadLeadPayload = {
-  firstName?: string;
-  lastName: string;
   email: string;
-  company: string;
-  country: string;
+  formType: string;
   consentContact?: boolean;
   downloadedResource: string;
   downloadedResourceUrl: string;
@@ -18,6 +15,11 @@ type HubSpotContactResponse = {
 };
 
 const HUBSPOT_CONTACT_PROPERTIES = {
+  formType: 'n5flow_form_type',
+  formSourceUrl: 'n5flow_form_source_url',
+  formSourcePage: 'n5flow_form_source_page',
+  formReferrer: 'n5flow_form_referrer',
+  consentToContact: 'n5flow_consent_to_contact',
   downloadedResource: 'n5flow_downloaded_resource',
   downloadedResourceUrl: 'n5flow_downloaded_resource_url',
   leadSourcePage: 'n5flow_lead_source_page',
@@ -35,16 +37,17 @@ function getHubSpotToken() {
 function buildContactProperties(payload: DownloadLeadPayload) {
   return Object.fromEntries(
     Object.entries({
-      firstname: payload.firstName || undefined,
-      lastname: payload.lastName,
       email: payload.email,
-      company: payload.company,
-      country: payload.country,
+      [HUBSPOT_CONTACT_PROPERTIES.formType]: payload.formType,
+      [HUBSPOT_CONTACT_PROPERTIES.formSourceUrl]: payload.sourceUrl,
+      [HUBSPOT_CONTACT_PROPERTIES.formSourcePage]: payload.sourcePage || payload.sourceUrl,
+      [HUBSPOT_CONTACT_PROPERTIES.formReferrer]: payload.referrer || undefined,
+      [HUBSPOT_CONTACT_PROPERTIES.consentToContact]: payload.consentContact === true ? 'true' : 'false',
       [HUBSPOT_CONTACT_PROPERTIES.downloadedResource]: payload.downloadedResource,
       [HUBSPOT_CONTACT_PROPERTIES.downloadedResourceUrl]: payload.downloadedResourceUrl,
       [HUBSPOT_CONTACT_PROPERTIES.leadSourcePage]: payload.sourcePage || payload.sourceUrl,
       [HUBSPOT_CONTACT_PROPERTIES.referrer]: payload.referrer || undefined,
-    }).filter(([, value]) => value !== undefined && value !== ''),
+    }).filter(([, value]) => value !== undefined && value !== '')
   );
 }
 
