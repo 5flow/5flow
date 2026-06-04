@@ -161,7 +161,7 @@ export default function LeadForm({
       const sourcePage = window.location.pathname;
       const sourceUrl = window.location.href;
       const referrer = document.referrer || undefined;
-      const res = await fetch('/api/lead', {
+      const res = await fetch('/api/hubspot-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...values, sourcePage, sourceUrl, referrer }),
