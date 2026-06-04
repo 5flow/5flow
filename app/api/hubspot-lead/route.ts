@@ -1,0 +1,81 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { createOrUpdateHubSpotWebsiteLead, WebsiteLeadPayload } from '@/lib/hubspot';
+
+function badRequest(message: string) {
+  return NextResponse.json({ error: message }, { status: 400 });
+}
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isWorkEmail(email: string) {
+  const domain = email.split('@')[1]?.toLowerCase() || '';
+  if (!domain) return false;
+
+  const freeDomains = new Set([
+    'gmail.com',
+    'googlemail.com',
+    'yahoo.com',
+    'yahoo.co.uk',
+    'ymail.com',
+    'outlook.com',
+    'hotmail.com',
+    'live.com',
+    'msn.com',
+    'icloud.com',
+    'me.com',
+    'mac.com',
+    'aol.com',
+    'proton.me',
+    'protonmail.com',
+    'gmx.com',
+    'mail.com',
+    'yandex.com',
+    'mail.ru',
+    'pm.me',
+    'zoho.eu',
+  ]);
+
+  return !freeDomains.has(domain);
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+
+    const data: WebsiteLeadPayload = {
+      firstName: (body.firstName || '').toString().trim() || undefined,
+      lastName: (body.lastName || '').toString().trim(),
+      email: (body.email || '').toString().trim(),
+      phone: body.phone ? body.phone.toString().trim() : undefined,
+      company: (body.company || '').toString().trim(),
+      position: body.position ? body.position.toString().trim() : undefined,
+      zip: body.zip ? body.zip.toString().trim() : undefined,
+      country: (body.country || '').toString().trim(),
+      requestType: (body.requestType || '').toString().trim(),
+      message: body.message ? body.message.toString() : undefined,
+      consentContact: Boolean(body.consentContact),
+      sourcePage: body.sourcePage ? body.sourcePage.toString().trim() : undefined,
+      sourceUrl: body.sourceUrl ? body.sourceUrl.toString().trim() : undefined,
+      referrer: body.referrer ? body.referrer.toString().trim() : undefined,
+    };
+
+    if (!data.lastName) return badRequest('Last name is required');
+    if (!data.email) return badRequest('Email is required');
+    if (!data.company) return badRequest('Company is required');
+    if (!data.country) return badRequest('Country is required');
+    if (!body.consentPrivacy) return badRequest('Privacy consent is required');
+    if (!data.requestType) return badRequest('Type of request is required');
+    if (!isValidEmail(data.email)) return badRequest('Enter a valid email');
+    if (!isWorkEmail(data.email)) return badRequest('Please use your work email (no Gmail/Yahoo/etc.)');
+
+    const result = await createOrUpdateHubSpotWebsiteLead(data);
+
+    return NextResponse.json({ ok: true, result });
+  } catch (err: unknown) {
+    console.error('HubSpot lead submission failed', err);
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return NextResponse.json({ error: 'Failed to submit lead', detail: message }, { status: 500 });
+  }
+}

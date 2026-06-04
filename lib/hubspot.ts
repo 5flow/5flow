@@ -9,6 +9,23 @@ export type DownloadLeadPayload = {
   referrer?: string;
 };
 
+export type WebsiteLeadPayload = {
+  firstName?: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  company: string;
+  position?: string;
+  zip?: string;
+  country: string;
+  requestType: 'Demo' | 'General information' | 'Other' | string;
+  message?: string;
+  consentContact?: boolean;
+  sourcePage?: string;
+  sourceUrl?: string;
+  referrer?: string;
+};
+
 type HubSpotContactResponse = {
   id: string;
   properties?: Record<string, string | null>;
@@ -47,6 +64,27 @@ function buildContactProperties(payload: DownloadLeadPayload) {
       [HUBSPOT_CONTACT_PROPERTIES.downloadedResourceUrl]: payload.downloadedResourceUrl,
       [HUBSPOT_CONTACT_PROPERTIES.leadSourcePage]: payload.sourcePage || payload.sourceUrl,
       [HUBSPOT_CONTACT_PROPERTIES.referrer]: payload.referrer || undefined,
+    }).filter(([, value]) => value !== undefined && value !== '')
+  );
+}
+
+function buildWebsiteLeadProperties(payload: WebsiteLeadPayload) {
+  return Object.fromEntries(
+    Object.entries({
+      firstname: payload.firstName || undefined,
+      lastname: payload.lastName,
+      email: payload.email,
+      phone: payload.phone || undefined,
+      company: payload.company,
+      jobtitle: payload.position || undefined,
+      zip: payload.zip || undefined,
+      country: payload.country,
+      [HUBSPOT_CONTACT_PROPERTIES.formType]: payload.requestType,
+      [HUBSPOT_CONTACT_PROPERTIES.formSourceUrl]: payload.sourceUrl,
+      [HUBSPOT_CONTACT_PROPERTIES.formSourcePage]: payload.sourcePage || payload.sourceUrl,
+      [HUBSPOT_CONTACT_PROPERTIES.formReferrer]: payload.referrer || undefined,
+      [HUBSPOT_CONTACT_PROPERTIES.consentToContact]: payload.consentContact === true ? 'true' : 'false',
+      n5flow_form_message: buildWebsiteLeadMessage(payload),
     }).filter(([, value]) => value !== undefined && value !== '')
   );
 }
@@ -94,4 +132,45 @@ export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPay
   }
 
   return create.json as HubSpotContactResponse;
+}
+
+export async function createOrUpdateHubSpotWebsiteLead(payload: WebsiteLeadPayload) {
+  const properties = buildWebsiteLeadProperties(payload);
+
+  const update = await hubSpotFetch(`/crm/v3/objects/contacts/${encodeURIComponent(payload.email)}?idProperty=email`, {
+    method: 'PATCH',
+    body: JSON.stringify({ properties }),
+  });
+
+  if (update.res.ok) {
+    return update.json as HubSpotContactResponse;
+  }
+
+  if (update.res.status !== 404) {
+    throw new Error(`HubSpot contact update failed: ${update.res.status} ${JSON.stringify(update.json)}`);
+  }
+
+  const create = await hubSpotFetch('/crm/v3/objects/contacts', {
+    method: 'POST',
+    body: JSON.stringify({ properties }),
+  });
+
+  if (!create.res.ok) {
+    throw new Error(`HubSpot contact create failed: ${create.res.status} ${JSON.stringify(create.json)}`);
+  }
+
+  return create.json as HubSpotContactResponse;
+}
+
+function buildWebsiteLeadMessage(payload: WebsiteLeadPayload) {
+  const lines = [
+    payload.message ? `Message: ${payload.message}` : undefined,
+    payload.requestType ? `Request Type: ${payload.requestType}` : undefined,
+    payload.zip ? `ZIP: ${payload.zip}` : undefined,
+    payload.sourcePage ? `Source Page: ${payload.sourcePage}` : undefined,
+    payload.sourceUrl ? `Source URL: ${payload.sourceUrl}` : undefined,
+    payload.referrer ? `Referrer: ${payload.referrer}` : undefined,
+  ].filter(Boolean);
+
+  return lines.join('\n');
 }
