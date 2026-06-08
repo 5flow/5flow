@@ -60,8 +60,7 @@ const linkGroups = [
       { href: '/resources/case-studies', label: 'Case Studies' },
       { href: '/resources/webinars', label: 'Webinars' },
       { href: '/resources/podcast', label: 'Podcast' },
-      // Temporarily hidden.
-      // { href: '/resources/downloads', label: 'Downloads' },
+      { href: '/resources/downloads', label: 'Downloads' },
     ],
   },
 ];

@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { ArrowDown, BriefcaseBusiness, MoveUpRight, Play, Search, UsersRound } from 'lucide-react';
+import { ArrowDown, MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import { Button } from '@/components/ui/button';
 
 const spotifyHref = 'https://open.spotify.com/';
 
@@ -13,22 +14,25 @@ const episodes = [
 
 function SpotifyButton({ compact = false }: { compact?: boolean }) {
   return (
-    <Link
-      href={spotifyHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2"
-      aria-label="Listen on Spotify"
+    <Button
+      asChild
+      size={compact ? 'sm' : 'lg'}
+      className={`group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex w-fit origin-left items-center justify-start rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-0.5 active:scale-[0.99] active:ring-2 active:ring-offset-2 ${compact ? 'gap-1.5' : 'gap-3'}`}
     >
-      <span className={`bg-primary text-primary-foreground inline-flex items-center font-semibold ${compact ? 'h-7 px-3 text-[11px]' : 'h-9 px-4 text-xs'}`}>
+      <Link href={spotifyHref} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
+        <span
+          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-8 px-3 text-[11px] group-hover/cta-hero:px-4' : 'h-10 px-4 text-xs group-hover/cta-hero:px-5 sm:px-6 sm:group-hover/cta-hero:px-7'}`}
+        >
         Listen on Spotify
-      </span>
-      {!compact ? (
-        <span className="bg-primary text-primary-foreground inline-flex h-9 w-9 items-center justify-center">
-          <MoveUpRight className="h-4 w-4" />
         </span>
-      ) : null}
-    </Link>
+        <span
+          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
+          aria-hidden="true"
+        >
+          <MoveUpRight className={compact ? 'h-3.5 w-3.5' : 'h-4 w-4'} />
+        </span>
+      </Link>
+    </Button>
   );
 }
 
@@ -38,7 +42,7 @@ function EpisodeArtwork({ className = '' }: { className?: string }) {
 
 export default function PodcastPage() {
   return (
-    <div className="relative overflow-hidden">
+    <div className="font-heading relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-0">
         <FullBleedLines className="mt-32 flex w-full justify-end gap-8 md:mt-50">
           <b className="text-foreground text-4xl leading-none tracking-tight md:text-5xl">podcast</b>
@@ -72,29 +76,6 @@ export default function PodcastPage() {
         </section>
 
         <section className="mt-32 flex flex-col gap-8 md:mt-40">
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-center">
-            <div className="bg-muted flex w-fit flex-wrap p-1">
-              <button className="border-primary text-primary inline-flex h-11 items-center gap-2 border bg-background px-4 text-sm font-semibold">
-                <BriefcaseBusiness className="h-4 w-4" />
-                By Industry
-              </button>
-              <button className="inline-flex h-11 items-center gap-2 px-4 text-sm font-semibold">
-                <UsersRound className="h-4 w-4" />
-                By Roles
-              </button>
-              <button className="inline-flex h-11 items-center gap-2 px-4 text-sm font-semibold">
-                <Play className="h-4 w-4" />
-                By Use Case
-              </button>
-            </div>
-
-            <label className="border-foreground flex h-10 w-full items-center gap-2 rounded-md border px-3 md:w-64">
-              <Search className="h-4 w-4" />
-              <span className="sr-only">Search episodes</span>
-              <input className="min-w-0 flex-1 bg-transparent text-sm outline-none" placeholder="Search" />
-            </label>
-          </div>
-
           <FullBleedLines>
             <article className="grid min-h-[22rem] grid-cols-1 overflow-hidden rounded-2xl border md:grid-cols-2">
               <EpisodeArtwork className="m-1 min-h-72 md:min-h-full" />
@@ -139,8 +120,7 @@ export default function PodcastPage() {
                   ”
                 </span>
                 <blockquote className="font-heading mt-2 max-w-2xl text-2xl leading-tight tracking-tight md:text-3xl">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
+                  The shift isn&apos;t coming, it is already here. <br />We need to move now.
                 </blockquote>
               </div>
 

@@ -16,7 +16,7 @@ export default async function Downloads() {
   const downloadItems = await getDownloadCards();
 
   return (
-    <div className="relative">
+    <div className="font-heading relative">
       <div className="container mx-auto">
         <PageHeader title="downloads" />
 

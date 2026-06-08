@@ -18,20 +18,14 @@ function getFallbackDownloadCards(): DownloadCardItem[] {
     {
       title: 'Is your artwork process managing you?',
       desc: "Most teams know something's not working. This checklist helps you see exactly where and how much it's actually costing you.",
-      image: '/resources/how-we-saved.png',
+      image: '/resources/Downloads_Card_Cover-Checklist.webp',
       href: '#',
       buttonLabel: 'Download now',
     },
     {
       title: 'Geo Resource Commitment',
       desc: 'Discover how to guarantee system availability, even in worst-case scenarios. Learn how to recover in under 24 hours and minimize data loss with dedicated geo-redundant infrastructure.',
-      image: '/resources/Webinar_Cover-1-Secure_Food.png',
-      href: '#',
-      buttonLabel: 'Download now',
-    },
-    {
-      title: 'HEADLINE',
-      desc: 'Short description (2-3 lines)',
+      image: '/resources/Downloads_Card_Cover-GeoResourceCommitment.webp',
       href: '#',
       buttonLabel: 'Download now',
     },
