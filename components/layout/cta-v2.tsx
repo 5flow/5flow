@@ -59,7 +59,6 @@ const linkGroups = [
       { href: '/resources/blogs', label: 'Blog' },
       { href: '/resources/case-studies', label: 'Case Studies' },
       { href: '/resources/webinars', label: 'Webinars' },
-      { href: '/resources/podcast', label: 'Podcast' },
       { href: '/resources/downloads', label: 'Downloads' },
     ],
   },

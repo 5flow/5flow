@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowDown, MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import { Button } from '@/components/ui/button';
 
 const spotifyHref = 'https://open.spotify.com/';
+const youtubeHref = 'https://www.youtube.com/';
 
 const episodes = [
   { title: 'Episode 03', desc: 'Short problem-led summary (3-4 lines)' },
@@ -12,21 +14,21 @@ const episodes = [
   { title: 'Episode 01', desc: 'Short problem-led summary (3-4 lines)' },
 ];
 
-function SpotifyButton({ compact = false }: { compact?: boolean }) {
+function PodcastButton({ href, label, compact = false }: { href: string; label: string; compact?: boolean }) {
   return (
     <Button
       asChild
       size={compact ? 'sm' : 'lg'}
-      className={`group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex w-fit origin-left items-center justify-start rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-0.5 active:scale-[0.99] active:ring-2 active:ring-offset-2 ${compact ? 'gap-1.5' : 'gap-3'}`}
+      className={`group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex w-fit origin-left items-center justify-start rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-0.5 active:scale-[0.99] active:ring-2 active:ring-offset-2 ${compact ? 'gap-2' : 'gap-3'}`}
     >
-      <Link href={spotifyHref} target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
+      <Link href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
         <span
-          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-8 px-3 text-[11px] group-hover/cta-hero:px-4' : 'h-10 px-4 text-xs group-hover/cta-hero:px-5 sm:px-6 sm:group-hover/cta-hero:px-7'}`}
+          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-9 px-4 text-[13px] leading-none group-hover/cta-hero:px-5' : 'h-10 px-4 text-sm group-hover/cta-hero:px-5 sm:px-6 sm:group-hover/cta-hero:px-7'}`}
         >
-        Listen on Spotify
+          {label}
         </span>
         <span
-          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
+          className={`bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] ${compact ? 'h-9 w-9' : 'h-10 w-10'}`}
           aria-hidden="true"
         >
           <MoveUpRight className={compact ? 'h-3.5 w-3.5' : 'h-4 w-4'} />
@@ -51,9 +53,14 @@ export default function PodcastPage() {
 
         <section className="mt-12 flex flex-col gap-8 md:mt-10">
           <FullBleedLines>
-            <h1 className="font-heading max-w-4xl text-5xl leading-none font-bold tracking-tighter md:text-7xl">
-              Under Review
-            </h1>
+            <Image
+              src="/resources/5flow-podcast-logo-title-only.png"
+              width={834}
+              height={516}
+              alt="Under Review"
+              priority
+              className="h-auto w-full max-w-[30rem] object-contain md:max-w-[30rem]"
+            />
           </FullBleedLines>
 
           <FullBleedLines>
@@ -72,7 +79,10 @@ export default function PodcastPage() {
             </p>
           </FullBleedLines>
 
-          <SpotifyButton />
+          <div className="flex flex-wrap items-center gap-3">
+            <PodcastButton href={youtubeHref} label="Watch on YouTube" />
+            <PodcastButton href={spotifyHref} label="Listen on Spotify" />
+          </div>
         </section>
 
         <section className="mt-32 flex flex-col gap-8 md:mt-40">
@@ -82,7 +92,10 @@ export default function PodcastPage() {
               <div className="flex flex-col items-start gap-3 p-7">
                 <h2 className="font-heading text-xl font-bold tracking-tight">Latest Episode 04</h2>
                 <p className="text-sm tracking-tight md:text-base">Short problem-led summary (3-4 lines)</p>
-                <SpotifyButton />
+                <div className="flex flex-col items-start gap-2">
+                  <PodcastButton href={youtubeHref} label="Watch on YouTube" compact />
+                  <PodcastButton href={spotifyHref} label="Listen on Spotify" compact />
+                </div>
               </div>
             </article>
           </FullBleedLines>
@@ -95,7 +108,10 @@ export default function PodcastPage() {
                   <div className="flex flex-col items-start gap-2 p-2 pb-4">
                     <h2 className="font-heading text-lg font-bold tracking-tight">{episode.title}</h2>
                     <p className="text-sm tracking-tight">{episode.desc}</p>
-                    <SpotifyButton compact />
+                    <div className="flex flex-col items-start gap-2">
+                      <PodcastButton href={youtubeHref} label="Watch on YouTube" compact />
+                      <PodcastButton href={spotifyHref} label="Listen on Spotify" compact />
+                    </div>
                   </div>
                 </article>
               ))}
@@ -114,17 +130,17 @@ export default function PodcastPage() {
               </h2>
             </div>
 
-            <div className="relative mx-auto max-w-4xl">
-              <div className="bg-secondary min-h-72 rounded-4xl px-8 py-14 md:px-24 md:py-20">
+            <div className="relative mx-auto max-w-5xl">
+              <div className="bg-secondary relative z-0 min-h-72 rounded-4xl px-8 py-14 md:w-[84%] md:px-24 md:py-20 md:pr-64">
                 <span className="text-primary font-serif text-8xl leading-8 font-bold" aria-hidden="true">
                   ”
                 </span>
                 <blockquote className="font-heading mt-2 max-w-2xl text-2xl leading-tight tracking-tight md:text-3xl">
-                  The shift isn&apos;t coming, it is already here. <br />We need to move now.
+                  The shift isn&apos;t coming, it is already here. We need to move now.
                 </blockquote>
               </div>
 
-              <div className="mt-5 flex justify-end pr-4 md:pr-24">
+              <div className="relative z-20 mt-5 flex justify-start pl-4 md:ml-[22rem] md:pl-0">
                 <p className="text-primary text-base leading-tight md:text-xl">
                   <b className="block">Sriram Upadhyayula</b>
                   Chief Technology Officer 5Flow
@@ -132,7 +148,7 @@ export default function PodcastPage() {
               </div>
 
               <div
-                className="pointer-events-none absolute right-0 bottom-0 hidden h-[23rem] w-[16rem] bg-[url('/resources/podcast/sriram-upadhyayula.png')] bg-contain bg-bottom bg-no-repeat md:block"
+                className="pointer-events-none absolute right-6 bottom-0 z-10 hidden h-[26rem] w-[19rem] bg-[url('/resources/Upadhyayula-Sriram.webp')] bg-contain bg-bottom bg-no-repeat mix-blend-multiply md:block"
                 aria-hidden="true"
               />
             </div>
