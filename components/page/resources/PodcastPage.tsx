@@ -4,15 +4,10 @@ import { ArrowDown, MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import { Button } from '@/components/ui/button';
+import PodcastNotificationPopup from '@/components/page/resources/PodcastNotificationPopup';
 
 const spotifyHref = 'https://open.spotify.com/';
 const youtubeHref = 'https://www.youtube.com/';
-
-const episodes = [
-  { title: 'Episode 03', desc: 'Short problem-led summary (3-4 lines)' },
-  { title: 'Episode 02', desc: 'Short problem-led summary (3-4 lines)' },
-  { title: 'Episode 01', desc: 'Short problem-led summary (3-4 lines)' },
-];
 
 function PodcastButton({ href, label, compact = false }: { href: string; label: string; compact?: boolean }) {
   return (
@@ -45,6 +40,7 @@ function EpisodeArtwork({ className = '' }: { className?: string }) {
 export default function PodcastPage() {
   return (
     <div className="font-heading relative overflow-hidden">
+      <PodcastNotificationPopup />
       <div className="container mx-auto px-4 sm:px-0">
         <FullBleedLines className="mt-32 flex w-full justify-end gap-8 md:mt-50">
           <b className="text-foreground text-4xl leading-none tracking-tight md:text-5xl">podcast</b>
@@ -90,7 +86,7 @@ export default function PodcastPage() {
             <article className="grid min-h-[22rem] grid-cols-1 overflow-hidden rounded-2xl border md:grid-cols-2">
               <EpisodeArtwork className="m-1 min-h-72 md:min-h-full" />
               <div className="flex flex-col items-start gap-3 p-7">
-                <h2 className="font-heading text-xl font-bold tracking-tight">Latest Episode 04</h2>
+                <h2 className="font-heading text-xl font-bold tracking-tight">Latest Episode 01</h2>
                 <p className="text-sm tracking-tight md:text-base">Short problem-led summary (3-4 lines)</p>
                 <div className="flex flex-col items-start gap-2">
                   <PodcastButton href={youtubeHref} label="Watch on YouTube" compact />
@@ -98,24 +94,6 @@ export default function PodcastPage() {
                 </div>
               </div>
             </article>
-          </FullBleedLines>
-
-          <FullBleedLines>
-            <div className="grid grid-cols-1 gap-4 py-2 md:grid-cols-3">
-              {episodes.map(episode => (
-                <article key={episode.title} className="flex min-h-[22rem] flex-col rounded-2xl border p-1">
-                  <EpisodeArtwork className="h-56 w-full md:h-52" />
-                  <div className="flex flex-col items-start gap-2 p-2 pb-4">
-                    <h2 className="font-heading text-lg font-bold tracking-tight">{episode.title}</h2>
-                    <p className="text-sm tracking-tight">{episode.desc}</p>
-                    <div className="flex flex-col items-start gap-2">
-                      <PodcastButton href={youtubeHref} label="Watch on YouTube" compact />
-                      <PodcastButton href={spotifyHref} label="Listen on Spotify" compact />
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
           </FullBleedLines>
         </section>
 
@@ -130,27 +108,12 @@ export default function PodcastPage() {
               </h2>
             </div>
 
-            <div className="relative mx-auto max-w-5xl">
-              <div className="bg-secondary relative z-0 min-h-72 rounded-4xl px-8 py-14 md:w-[84%] md:px-24 md:py-20 md:pr-64">
-                <span className="text-primary font-serif text-8xl leading-8 font-bold" aria-hidden="true">
-                  ”
-                </span>
-                <blockquote className="font-heading mt-2 max-w-2xl text-2xl leading-tight tracking-tight md:text-3xl">
-                  The shift isn&apos;t coming, it is already here. We need to move now.
-                </blockquote>
-              </div>
-
-              <div className="relative z-20 mt-5 flex justify-start pl-4 md:ml-[22rem] md:pl-0">
-                <p className="text-primary text-base leading-tight md:text-xl">
-                  <b className="block">Sriram Upadhyayula</b>
-                  Chief Technology Officer 5Flow
-                </p>
-              </div>
-
-              <div
-                className="pointer-events-none absolute right-6 bottom-0 z-10 hidden h-[26rem] w-[19rem] bg-[url('/resources/Upadhyayula-Sriram.webp')] bg-contain bg-bottom bg-no-repeat mix-blend-multiply md:block"
-                aria-hidden="true"
-              />
+            <div className="relative mx-auto aspect-[800/360] w-full max-w-[800px] bg-[url('/resources/quotes-podcast-2-sriram.png')] bg-contain bg-center bg-no-repeat">
+              <blockquote className="absolute top-[40%] left-[16.5%] max-w-[60%] -translate-y-1/2 text-[clamp(0.8rem,3.1vw,2rem)] leading-[1.18] tracking-tight">
+                The shift isn&apos;t coming, it is already here.
+                
+                We need to move now.
+              </blockquote>
             </div>
           </div>
         </section>

@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { identifyHubSpotVisitor } from '@/lib/hubspot-browser';
 import type { DownloadCardItem } from '@/lib/resources/downloads';
 
 type DownloadLeadFormProps = {
@@ -125,6 +126,7 @@ export default function DownloadLeadForm({ item, onClose }: DownloadLeadFormProp
 
       const json = await res.json();
       if (!res.ok) throw new Error(json?.detail || json?.error || 'Submission failed');
+      identifyHubSpotVisitor({ email: values.email });
 
       toast.success('Thanks! Your download is ready.');
       setValues(initialState);

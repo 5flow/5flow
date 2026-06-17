@@ -75,13 +75,13 @@ export default function ExploreMoreResources() {
                   type="button"
                   onPointerEnter={openOnDesktopHover}
                   onPointerLeave={closeOnDesktopLeave}
-                  className="group/resource active:ring-primary/50 active:ring-offset-background inline-flex rounded-none font-semibold tracking-tight transition-all duration-200 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.99] active:ring-2 active:ring-offset-2"
+                  className="group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex w-fit origin-left items-center justify-start gap-3 rounded-none font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-0.5 active:scale-[0.99] active:ring-2 active:ring-offset-2"
                 >
-                  <span className="bg-primary text-primary-foreground group-hover/resource:bg-primary/90 inline-flex h-9 items-center px-3 text-xs transition-colors">
+                  <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-10 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-5 sm:px-6 sm:group-hover/cta-hero:px-7">
                     Select resource
                   </span>
-                  <span className="bg-primary text-primary-foreground group-hover/resource:bg-primary/90 ml-1 inline-flex h-9 w-9 items-center justify-center transition-colors">
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/resource:rotate-180" />
+                  <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-10 w-10 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)]">
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/cta-hero:rotate-180" />
                   </span>
                 </button>
               </DropdownMenuTrigger>
@@ -102,7 +102,9 @@ export default function ExploreMoreResources() {
                         <span className="font-heading text-foreground text-sm font-bold tracking-tight">
                           {resource.label}
                         </span>
-                        <span className="text-muted-foreground font-body text-xs leading-4">{resource.description}</span>
+                        <span className="text-muted-foreground font-body text-xs leading-4">
+                          {resource.description}
+                        </span>
                       </span>
                       <span className="bg-primary text-primary-foreground flex h-8 w-8 shrink-0 items-center justify-center transition-transform duration-200 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5">
                         <ArrowUpRight className="!text-primary-foreground h-4 w-4" />

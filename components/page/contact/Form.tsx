@@ -20,6 +20,7 @@ const Form = () => {
 
         <LeadForm
           className="flex-1 p-4 md:gap-8 md:p-0"
+          feedbackMode="inline"
           title={
             <b className="text-success font-heading flex w-full text-4xl leading-none tracking-tight sm:text-5xl md:text-6xl">
               Contact Us

@@ -4,6 +4,7 @@ import { ReactLenis } from 'lenis/react';
 import { centuryGothic, metropolis } from '@/lib/fonts';
 import { hideTranslationWidget, customizeAccessibilityWidget } from '@/lib/accessibility-widget';
 import { Toaster } from '@/components/ui/sonner';
+import { HubSpotPageTracker } from '@/components/core/hubspot-page-tracker';
 import { Footer } from '@/components/layout';
 import { CtaV2 } from '@/components/layout/cta-v2';
 import { ServerNavigation } from '@/components/layout/navigation.server';
@@ -22,6 +23,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const hubSpotPortalId = process.env.HUBSPOT_PORTAL_ID;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -37,6 +40,15 @@ export default function RootLayout({
           src="https://cdn-cookieyes.com/client_data/2c83cea1e3263d53080b1b74/script.js"
           strategy="afterInteractive"
         ></Script>
+        {hubSpotPortalId ? (
+          <Script
+            id="hs-script-loader"
+            src={`https://js.hs-scripts.com/${hubSpotPortalId}.js`}
+            strategy="afterInteractive"
+            async
+            defer
+          />
+        ) : null}
       </head>
       <body
         className={`${centuryGothic.variable} ${metropolis.variable} bg-background text-foreground flex min-h-screen flex-col font-sans antialiased`}
@@ -65,6 +77,7 @@ export default function RootLayout({
         </Script>
 
         <ReactLenis root />
+        <HubSpotPageTracker />
         <ServerNavigation />
         <main className="relative flex-1">
           {/* <PatternOverlay side="both" margin="container" containerAlign="outside" /> */}
