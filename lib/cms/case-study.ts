@@ -116,15 +116,18 @@ export async function getCmsCaseStudyCards(): Promise<CaseStudyCardItem[]> {
     if (!categoryId) return [];
 
     const posts = (await wpFetch(
-      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100`,
+      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100&orderby=date&order=desc`,
     )) as WpCaseStudyPost[];
 
     if (posts.length === 0) return [];
 
-    const featuredPost = posts.find(post => isFeaturedCaseStudy(post.acf));
-    const selectedPost = featuredPost || posts[0];
+    const featuredPostIndex = posts.findIndex(post => isFeaturedCaseStudy(post.acf));
+    const orderedPosts =
+      featuredPostIndex === -1
+        ? posts
+        : [posts[featuredPostIndex], ...posts.filter((_, index) => index !== featuredPostIndex)];
 
-    return [mapCaseStudy(selectedPost)];
+    return orderedPosts.map(mapCaseStudy);
   } catch (error) {
     console.error('Error fetching CMS case studies:', error);
     return [];
