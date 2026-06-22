@@ -39,6 +39,8 @@ type HubSpotContactResponse = {
   properties?: Record<string, string | null>;
 };
 
+const DEFAULT_WEBSITE_FORMS_SUBSCRIPTION_ID = '3002423732';
+
 const HUBSPOT_CONTACT_PROPERTIES = {
   formType: 'n5flow_form_type',
   formSourceUrl: 'n5flow_form_source_url',
@@ -59,6 +61,10 @@ function getHubSpotToken() {
     throw new Error('Missing HubSpot env var: HUBSPOT_ACCESS_TOKEN');
   }
   return token;
+}
+
+function getWebsiteFormsSubscriptionId() {
+  return process.env.HUBSPOT_WEBSITE_FORMS_SUBSCRIPTION_ID || DEFAULT_WEBSITE_FORMS_SUBSCRIPTION_ID;
 }
 
 function buildContactProperties(payload: DownloadLeadPayload) {
@@ -132,6 +138,24 @@ async function hubSpotFetch(path: string, init: RequestInit) {
   return { res, json };
 }
 
+async function subscribeToWebsiteForms(payload: { email: string; consentContact?: boolean; formLabel: string }) {
+  if (payload.consentContact !== true) return;
+
+  const subscribe = await hubSpotFetch('/communication-preferences/v3/subscribe', {
+    method: 'POST',
+    body: JSON.stringify({
+      emailAddress: payload.email,
+      subscriptionId: getWebsiteFormsSubscriptionId(),
+      legalBasis: 'CONSENT_WITH_NOTICE',
+      legalBasisExplanation: `Contact submitted the ${payload.formLabel} form and checked the 5Flow communication consent checkbox.`,
+    }),
+  });
+
+  if (!subscribe.res.ok) {
+    throw new Error(`HubSpot subscription update failed: ${subscribe.res.status} ${JSON.stringify(subscribe.json)}`);
+  }
+}
+
 export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPayload) {
   const properties = buildContactProperties(payload);
 
@@ -141,6 +165,7 @@ export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPay
   });
 
   if (update.res.ok) {
+    await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'download' });
     return update.json as HubSpotContactResponse;
   }
 
@@ -156,6 +181,8 @@ export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPay
   if (!create.res.ok) {
     throw new Error(`HubSpot contact create failed: ${create.res.status} ${JSON.stringify(create.json)}`);
   }
+
+  await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'download' });
 
   return create.json as HubSpotContactResponse;
 }
@@ -169,6 +196,7 @@ export async function createOrUpdateHubSpotWebsiteLead(payload: WebsiteLeadPaylo
   });
 
   if (update.res.ok) {
+    await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'website contact' });
     return update.json as HubSpotContactResponse;
   }
 
@@ -184,6 +212,8 @@ export async function createOrUpdateHubSpotWebsiteLead(payload: WebsiteLeadPaylo
   if (!create.res.ok) {
     throw new Error(`HubSpot contact create failed: ${create.res.status} ${JSON.stringify(create.json)}`);
   }
+
+  await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'website contact' });
 
   return create.json as HubSpotContactResponse;
 }
