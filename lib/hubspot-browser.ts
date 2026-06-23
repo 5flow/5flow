@@ -3,6 +3,7 @@ type HubSpotIdentifyProperties = {
   firstname?: string;
   lastname?: string;
   company?: string;
+  phone?: string;
 };
 
 declare global {
@@ -18,4 +19,3 @@ export function identifyHubSpotVisitor(properties: HubSpotIdentifyProperties) {
   window._hsq.push(['identify', properties]);
   window._hsq.push(['trackPageView']);
 }
-

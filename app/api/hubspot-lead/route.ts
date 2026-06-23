@@ -40,15 +40,32 @@ function isWorkEmail(email: string) {
   return !freeDomains.has(domain);
 }
 
+function normalizePhone(body: Record<string, unknown>) {
+  const phoneCountryCode = body.phoneCountryCode ? body.phoneCountryCode.toString().trim() : '';
+  const phone = body.phone ? body.phone.toString().trim() : '';
+
+  if (phoneCountryCode && phone && !phone.startsWith('+')) {
+    return `${phoneCountryCode} ${phone}`;
+  }
+
+  return phone;
+}
+
+function isValidPhone(phone: string) {
+  const digitCount = phone.replace(/\D/g, '').length;
+  return digitCount >= 7 && digitCount <= 18 && /^\+\d[\d-]*\s+[0-9\s().-]+$/.test(phone);
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const phone = normalizePhone(body);
 
     const data: WebsiteLeadPayload = {
       firstName: (body.firstName || '').toString().trim() || undefined,
       lastName: (body.lastName || '').toString().trim(),
       email: (body.email || '').toString().trim(),
-      phone: body.phone ? body.phone.toString().trim() : undefined,
+      phone,
       company: (body.company || '').toString().trim(),
       position: body.position ? body.position.toString().trim() : undefined,
       zip: body.zip ? body.zip.toString().trim() : undefined,
@@ -63,12 +80,14 @@ export async function POST(req: NextRequest) {
 
     if (!data.lastName) return badRequest('Last name is required');
     if (!data.email) return badRequest('Email is required');
+    if (!data.phone) return badRequest('Phone number is required');
     if (!data.company) return badRequest('Company is required');
     if (!data.country) return badRequest('Country is required');
     if (!body.consentPrivacy) return badRequest('Privacy consent is required');
     if (!data.requestType) return badRequest('Type of request is required');
     if (!isValidEmail(data.email)) return badRequest('Enter a valid email');
     if (!isWorkEmail(data.email)) return badRequest('Please use your work email (no Gmail/Yahoo/etc.)');
+    if (!isValidPhone(data.phone)) return badRequest('Enter a valid phone number with country code');
 
     const result = await createOrUpdateHubSpotWebsiteLead(data);
 
