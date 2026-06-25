@@ -32,6 +32,7 @@ type FormState = {
   message: string;
   consentPrivacy: boolean;
   consentContact: boolean;
+  consentMarketing: boolean;
 };
 
 const initialState: FormState = {
@@ -49,6 +50,7 @@ const initialState: FormState = {
   message: '',
   consentPrivacy: false,
   consentContact: false,
+  consentMarketing: false,
 };
 
 type LeadFormProps = {
@@ -706,6 +708,14 @@ export default function LeadForm({
                   <p className="text-xs leading-relaxed">
                     {`We'd love to keep in touch with solutions that may be of interest to you. Check this box if you authorize 5Flow to contact you by phone or email. You can opt out at any time.`}
                   </p>
+                </label>
+                <label className="flex items-center gap-2">
+                  <Checkbox
+                    checked={values.consentMarketing}
+                    onCheckedChange={v => onChange('consentMarketing', Boolean(v))}
+                    className="border-border bg-background cursor-pointer rounded-none"
+                  />
+                  <p className="text-xs leading-relaxed">Subscribe to the Marketing Information</p>
                 </label>
               </div>
             ) : (

@@ -86,6 +86,7 @@ export type LeadPayload = {
   requestType: 'Demo' | 'General information' | 'Other' | string;
   message?: string;
   consentContact?: boolean; // user opted-in to be contacted
+  consentMarketing?: boolean;
   sourcePage?: string;
   sourceUrl?: string;
   referrer?: string;
@@ -132,7 +133,7 @@ export async function createZohoLead(payload: LeadPayload) {
     Country: payload.country,
     Lead_Source: payload.requestType || 'Website',
     Description: buildDescription(payload),
-    Email_Opt_Out: payload.consentContact === true ? false : true,
+    Email_Opt_Out: payload.consentMarketing === true ? false : true,
     Website_Source_URL: payload.sourceUrl || undefined,
   };
 
@@ -160,6 +161,7 @@ function buildDescription(p: LeadPayload) {
   const lines = [
     p.message ? `Message: ${p.message}` : undefined,
     p.requestType ? `Request Type: ${p.requestType}` : undefined,
+    `Subscribed to Marketing Information: ${p.consentMarketing === true ? 'Yes' : 'No'}`,
     p.zip ? `ZIP: ${p.zip}` : undefined,
     p.sourcePage ? `Source Page: ${p.sourcePage}` : undefined,
     p.sourceUrl ? `Source URL: ${p.sourceUrl}` : undefined,

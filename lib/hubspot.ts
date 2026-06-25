@@ -21,6 +21,7 @@ export type WebsiteLeadPayload = {
   requestType: 'Demo' | 'General information' | 'Other' | string;
   message?: string;
   consentContact?: boolean;
+  consentMarketing?: boolean;
   sourcePage?: string;
   sourceUrl?: string;
   referrer?: string;
@@ -39,7 +40,7 @@ type HubSpotContactResponse = {
   properties?: Record<string, string | null>;
 };
 
-const DEFAULT_WEBSITE_FORMS_SUBSCRIPTION_ID = '3002423732';
+const DEFAULT_ONE_TO_ONE_SUBSCRIPTION_ID = '1265798245';
 
 const HUBSPOT_CONTACT_PROPERTIES = {
   formType: 'n5flow_form_type',
@@ -63,8 +64,8 @@ function getHubSpotToken() {
   return token;
 }
 
-function getWebsiteFormsSubscriptionId() {
-  return process.env.HUBSPOT_WEBSITE_FORMS_SUBSCRIPTION_ID || DEFAULT_WEBSITE_FORMS_SUBSCRIPTION_ID;
+function getOneToOneSubscriptionId() {
+  return process.env.HUBSPOT_ONE_TO_ONE_SUBSCRIPTION_ID || DEFAULT_ONE_TO_ONE_SUBSCRIPTION_ID;
 }
 
 function buildContactProperties(payload: DownloadLeadPayload) {
@@ -138,16 +139,21 @@ async function hubSpotFetch(path: string, init: RequestInit) {
   return { res, json };
 }
 
-async function subscribeToWebsiteForms(payload: { email: string; consentContact?: boolean; formLabel: string }) {
-  if (payload.consentContact !== true) return;
+async function subscribeToOneToOne(payload: {
+  email: string;
+  consent?: boolean;
+  formLabel: string;
+  consentLabel?: string;
+}) {
+  if (payload.consent !== true) return;
 
   const subscribe = await hubSpotFetch('/communication-preferences/v3/subscribe', {
     method: 'POST',
     body: JSON.stringify({
       emailAddress: payload.email,
-      subscriptionId: getWebsiteFormsSubscriptionId(),
+      subscriptionId: getOneToOneSubscriptionId(),
       legalBasis: 'CONSENT_WITH_NOTICE',
-      legalBasisExplanation: `Contact submitted the ${payload.formLabel} form and checked the 5Flow communication consent checkbox.`,
+      legalBasisExplanation: `Contact submitted the ${payload.formLabel} form and checked the 5Flow ${payload.consentLabel || 'communication consent'} checkbox.`,
     }),
   });
 
@@ -165,7 +171,6 @@ export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPay
   });
 
   if (update.res.ok) {
-    await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'download' });
     return update.json as HubSpotContactResponse;
   }
 
@@ -181,8 +186,6 @@ export async function createOrUpdateHubSpotDownloadLead(payload: DownloadLeadPay
   if (!create.res.ok) {
     throw new Error(`HubSpot contact create failed: ${create.res.status} ${JSON.stringify(create.json)}`);
   }
-
-  await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'download' });
 
   return create.json as HubSpotContactResponse;
 }
@@ -196,7 +199,12 @@ export async function createOrUpdateHubSpotWebsiteLead(payload: WebsiteLeadPaylo
   });
 
   if (update.res.ok) {
-    await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'website contact' });
+    await subscribeToOneToOne({
+      email: payload.email,
+      consent: payload.consentMarketing,
+      formLabel: 'website contact',
+      consentLabel: 'marketing information subscription',
+    });
     return update.json as HubSpotContactResponse;
   }
 
@@ -213,7 +221,12 @@ export async function createOrUpdateHubSpotWebsiteLead(payload: WebsiteLeadPaylo
     throw new Error(`HubSpot contact create failed: ${create.res.status} ${JSON.stringify(create.json)}`);
   }
 
-  await subscribeToWebsiteForms({ email: payload.email, consentContact: payload.consentContact, formLabel: 'website contact' });
+  await subscribeToOneToOne({
+    email: payload.email,
+    consent: payload.consentMarketing,
+    formLabel: 'website contact',
+    consentLabel: 'marketing information subscription',
+  });
 
   return create.json as HubSpotContactResponse;
 }
@@ -250,6 +263,7 @@ function buildWebsiteLeadMessage(payload: WebsiteLeadPayload) {
   const lines = [
     payload.message ? `Message: ${payload.message}` : undefined,
     payload.requestType ? `Request Type: ${payload.requestType}` : undefined,
+    `Subscribed to Marketing Information: ${payload.consentMarketing === true ? 'Yes' : 'No'}`,
     payload.zip ? `ZIP: ${payload.zip}` : undefined,
     payload.sourcePage ? `Source Page: ${payload.sourcePage}` : undefined,
     payload.sourceUrl ? `Source URL: ${payload.sourceUrl}` : undefined,
