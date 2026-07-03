@@ -1,6 +1,6 @@
 export default function PodcastVideoPopup() {
   return (
-    <div className="relative m-1 aspect-video overflow-hidden rounded-2xl bg-black">
+    <div className="relative aspect-video overflow-hidden rounded-2xl bg-black md:h-full md:min-h-[21rem] md:aspect-auto">
       <iframe
         className="absolute inset-0 h-full w-full"
         src="https://www.youtube.com/embed/1dUPMP1-VzE?rel=0"

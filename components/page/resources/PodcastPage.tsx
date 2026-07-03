@@ -63,7 +63,7 @@ export default function PodcastPage() {
           </FullBleedLines>
 
           <FullBleedLines>
-            <p className="max-w-3xl py-2 text-sm leading-5 tracking-tight md:text-base">
+            <p className="font-body max-w-3xl py-2 text-sm leading-5 tracking-tight md:text-[20px] md:leading-[28px]">
               From artwork managers to regulatory leaders and brand operators:
               <br />
               Under Review explores the realities behind approvals, compliance, AI &amp;
@@ -77,20 +77,20 @@ export default function PodcastPage() {
 
         <section className="mt-32 flex flex-col gap-8 md:mt-40">
           <FullBleedLines>
-            <article className="grid min-h-[22rem] grid-cols-1 overflow-hidden rounded-2xl border md:grid-cols-2">
+            <article className="grid min-h-[22rem] grid-cols-1 gap-4 overflow-hidden rounded-2xl border p-2 md:grid-cols-2 md:gap-6">
               <PodcastVideoPopup />
-              <div className="flex flex-col items-start gap-4 p-7 md:p-9">
+              <div className="flex flex-col items-start gap-4 p-5 md:p-6">
                 <div>
-                  <p className="text-sm tracking-tight">Episode 01</p>
+                  <p className="text-sm tracking-tight font-bold">Episode 01</p>
                   <h2 className="font-heading mt-2 text-2xl leading-tight font-bold tracking-tight md:text-3xl">
                     Rebuilding packaging workflows with AI
                   </h2>
                 </div>
                 <WatchButton compact />
-                <p className="max-w-xl text-sm leading-relaxed tracking-tight md:text-base">
+                <p className="font-body max-w-xl text-sm leading-relaxed tracking-tight md:text-[16px] md:leading-[28px]">
                   Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula, CTO of Propelis
                 </p>
-                <p className="max-w-xl text-sm leading-relaxed tracking-tight md:text-base">
+                <p className="font-body max-w-xl text-sm leading-relaxed tracking-tight md:text-[16px] md:leading-[28px]">
                   “AI isn&apos;t coming to packaging. It&apos;s already here.” In this episode, Sriram breaks down
                   why the real gains come from rebuilding workflows, not adding tools, and how AI can take the
                   “dirty work” off packaging teams so they can focus on what actually matters.
@@ -122,7 +122,7 @@ export default function PodcastPage() {
               </div>
 
               <div className="flex flex-col gap-6 text-center sm:gap-4 sm:text-left">
-                <p className="text-background max-w-3xl leading-relaxed tracking-tight">
+                <p className="font-body text-background max-w-3xl text-sm leading-5 tracking-tight md:text-[20px] md:leading-[28px]">
                   Discover how WAVE helps you translate artwork and content processes at scale. Bring more
                   structure, visibility, and control to your operations — whether across teams, markets, or complex
                   product portfolios.

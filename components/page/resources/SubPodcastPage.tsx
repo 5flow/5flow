@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play, Quote } from 'lucide-react';
+import { Play } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Button } from '@/components/ui/button';
 import { Contact } from '@/components/layout';
@@ -21,13 +21,15 @@ const topics = [
 
 function QuoteCallout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative mx-auto my-14 max-w-3xl pl-10 md:my-20 md:pl-14">
-      <Quote
-        className="text-primary absolute top-0 left-0 h-10 w-10 fill-current md:h-14 md:w-14"
-        strokeWidth={1.4}
-        aria-hidden="true"
+    <div className="relative mx-auto my-14 aspect-[700/190] w-full max-w-[700px] md:my-20">
+      <Image
+        src="/resources/Quotes Placeholder Podcast.png"
+        alt=""
+        fill
+        sizes="(min-width: 768px) 700px, 100vw"
+        className="object-contain"
       />
-      <blockquote className="bg-secondary rounded-2xl px-8 py-8 text-lg leading-relaxed font-bold tracking-tight md:px-14 md:py-10 md:text-2xl">
+      <blockquote className="font-heading relative z-10 flex h-full items-center px-[21%] pr-[7%] text-lg leading-snug font-bold tracking-tight md:text-[21px]">
         {children}
       </blockquote>
     </div>
@@ -76,37 +78,26 @@ export default function SubPodcastPage() {
           <div className="bg-primary h-10 w-10" />
         </FullBleedLines>
 
-        <FullBleedLines className="mt-10 md:mt-14">
-          <Image
-            src="/resources/5flow-podcast-logo-title-only.png"
-            width={834}
-            height={516}
-            alt="Under Review"
-            priority
-            className="h-auto w-full max-w-[22rem] object-contain md:max-w-[30rem]"
-          />
-        </FullBleedLines>
-
-        <section className="mt-20 md:mt-28">
+        <section className="mt-16 md:mt-24">
           <FullBleedLines>
             <article className="grid items-start overflow-hidden rounded-2xl border md:grid-cols-[1.55fr_1fr]">
               <PodcastVideoPopup />
 
               <div className="flex flex-col items-start gap-3 p-5 md:p-6">
                 <div>
-                  <p className="text-sm tracking-tight">Episode 01</p>
+                  <p className="text-sm tracking-tight font-bold">Episode 01</p>
                   <h1 className="mt-1 text-3xl leading-[0.96] font-bold tracking-tight md:text-4xl">
                     Rebuilding packaging workflows with AI
                   </h1>
                 </div>
 
-                <p className="text-base leading-snug tracking-tight md:text-xl">
+                <p className="font-body text-base leading-snug tracking-tight md:text-xl">
                   with Sriram Upadhyayula
                   <br />
                   [Chief Technology Officer 5Flow]
                 </p>
 
-                <p className="text-sm leading-relaxed tracking-tight md:text-base">
+                <p className="font-body text-sm leading-relaxed tracking-tight md:text-base">
                   In the first episode of Under Review, Sriram Upadhyayula, CTO of Propelis and president of 5FLOW,
                   argues that AI has already changed the packaging and branding industry, and that the gap between
                   leaders and laggards is widening by the day. His core point is that the value of AI doesn&apos;t
@@ -122,9 +113,9 @@ export default function SubPodcastPage() {
         </section>
 
         <main className="mx-auto max-w-6xl py-16 md:py-24">
-          <article className="space-y-14 text-base leading-relaxed tracking-tight md:text-lg">
+          <article className="font-body space-y-14 text-sm leading-5 tracking-tight md:text-[20px] md:leading-[28px]">
             <section>
-              <h2 className="text-xl font-bold tracking-tight md:text-2xl">Topics discussed:</h2>
+              <h2 className="font-heading text-xl font-bold tracking-tight md:text-2xl">Topics discussed:</h2>
               <ul className="mt-5 list-disc space-y-2 pl-6">
                 {topics.map(topic => (
                   <li key={topic}>{topic}</li>
@@ -133,7 +124,7 @@ export default function SubPodcastPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">Why is this AI shift different from past technology cycles?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">Why is this AI shift different from past technology cycles?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Sriram has spent 25 years leading digital transformation, data, and AI projects for Fortune 500
@@ -160,7 +151,7 @@ export default function SubPodcastPage() {
             </QuoteCallout>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">What does AI actually change for packaging and brand teams?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">What does AI actually change for packaging and brand teams?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   The biggest near-term shift, according to Sriram, is the removal of friction that artwork
@@ -180,7 +171,7 @@ export default function SubPodcastPage() {
             <QuoteCallout>“AI will not replace people. People who use AI will replace people who don&apos;t use AI.”</QuoteCallout>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">Which workflow problems is 5FLOW solving with AI first?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">Which workflow problems is 5FLOW solving with AI first?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Sriram points to two concrete bottlenecks. The first is briefing: client briefs arrive as Word
@@ -204,7 +195,7 @@ export default function SubPodcastPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">What does AI adoption actually look like in practice?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">What does AI adoption actually look like in practice?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Adoption starts slow, Sriram says, but it follows a hockey-stick curve once AI is embedded in the
@@ -226,7 +217,7 @@ export default function SubPodcastPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">How mature is the packaging industry on AI right now?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">How mature is the packaging industry on AI right now?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Most companies are still early, Sriram says. He describes a landscape of ad hoc AI usage, missing
@@ -248,7 +239,7 @@ export default function SubPodcastPage() {
             </QuoteCallout>
 
             <section>
-              <h2 className="text-xl font-bold md:text-2xl">What is 5FLOW building?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">What is 5FLOW building?</h2>
               <div className="mt-5 space-y-4">
                 <p>
                   5FLOW&apos;s product thinking runs on four principles, which Sriram sums up as augment, automate,
