@@ -85,7 +85,7 @@ export default function SubPodcastPage() {
 
               <div className="flex flex-col items-start gap-3 p-5 md:p-6">
                 <div>
-                  <p className="text-sm tracking-tight font-bold">Episode 01</p>
+                  <p className="text-lg tracking-tight font-bold">Episode 01</p>
                   <h1 className="mt-1 text-3xl leading-[0.96] font-bold tracking-tight md:text-4xl">
                     Rebuilding packaging workflows with AI
                   </h1>
