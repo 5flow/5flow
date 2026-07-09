@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import SubPodcastPage from '@/components/page/resources/SubPodcastPage';
+import EpisodeOnePage from '@/components/page/resources/EpisodeOnePage';
 
 export const metadata: Metadata = {
   title: 'Rebuilding Packaging Workflows with AI | Under Review',
@@ -11,6 +11,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SubPodcast() {
-  return <SubPodcastPage />;
+export default function EpisodeOne() {
+  return <EpisodeOnePage />;
 }

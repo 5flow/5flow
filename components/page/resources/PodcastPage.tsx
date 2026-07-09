@@ -8,7 +8,7 @@ import PodcastNotificationPopup from '@/components/page/resources/PodcastNotific
 import PodcastVideoPopup from '@/components/page/resources/PodcastVideoPopup';
 import { Contact } from '@/components/layout';
 
-const youtubeHref = '/resources/sub-podcast';
+const youtubeHref = '/resources/podcast/episode-1';
 
 function WatchButton({ compact = false }: { compact?: boolean }) {
   return (

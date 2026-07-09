@@ -69,7 +69,7 @@ function SpotifyButton() {
   );
 }
 
-export default function SubPodcastPage() {
+export default function EpisodeOnePage() {
   return (
     <div className="font-heading relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-0">
