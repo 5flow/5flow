@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Contact } from '@/components/layout';
 import PodcastVideoPopup from '@/components/page/resources/PodcastVideoPopup';
 
-const spotifyHref = 'https://open.spotify.com/';
+const spotifyHref = 'https://open.spotify.com/episode/5GiTVk8fLDNPoZimB4xLHh?si=yIuwSgckSA2IHAVlV-CxyQ';
 
 const topics = [
   'Why this AI shift is different from past technology cycles',
