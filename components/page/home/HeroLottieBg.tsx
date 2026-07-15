@@ -210,7 +210,7 @@ const HeroLottieBg = () => {
             src={getFrameSrc(currentFrame)}
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover"
+            className="h-full w-full origin-top scale-[1.08] object-cover object-top"
             fetchPriority="high"
           />
         </div>

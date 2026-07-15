@@ -82,9 +82,6 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </Link>
         </FullBleedLines>
       </div>
-
-      {/* Bottom fade gradient with blur blend */}
-      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[96px] w-screen -translate-x-1/2 bg-gradient-to-t from-white/80 to-transparent [mask-image:linear-gradient(to_top,black,transparent)] backdrop-blur-sm" />
     </div>
   );
 };
