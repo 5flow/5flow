@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function Webinars() {
-  const webinarCtaHref = 'https://www.events.5flowtech.com/fr/webinaire-securefood';
+  const webinarCtaHref = 'https://www.event.5flowtech.com/fr/webinaire-securefood';
 
   const webinarItems: WebinarCardItem[] = [
     {
