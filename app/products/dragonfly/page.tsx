@@ -213,11 +213,11 @@ function resolveIconComponent(iconKey?: string) {
   return Icon || null;
 }
 
-export default async function Dragonfly() {
+export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getProduct>> | null;
   if (features.enabled) {
     try {
-      cms = await getProduct('dragonfly');
+      cms = await getProduct(cmsSlug);
     } catch {}
   }
 
@@ -361,6 +361,10 @@ export default async function Dragonfly() {
       </div>
     </div>
   );
+}
+
+export default async function Dragonfly() {
+  return <DragonflyPage />;
 }
 
 

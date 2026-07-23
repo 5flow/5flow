@@ -205,11 +205,11 @@ function resolveIconComponent(iconKey?: string) {
   return Icon || null;
 }
 
-export default async function Mediabox() {
+export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getProduct>> | null;
   if (features.enabled) {
     try {
-      cms = await getProduct('mediabox');
+      cms = await getProduct(cmsSlug);
     } catch {}
   }
 
@@ -349,6 +349,10 @@ export default async function Mediabox() {
       </div>
     </div>
   );
+}
+
+export default async function Mediabox() {
+  return <MediaboxPage />;
 }
 
 

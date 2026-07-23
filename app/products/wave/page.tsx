@@ -211,11 +211,11 @@ function resolveIconComponent(iconKey?: string) {
   return Icon || null;
 }
 
-export default async function Wave() {
+export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getProduct>> | null;
   if (features.enabled) {
     try {
-      cms = await getProduct('wave');
+      cms = await getProduct(cmsSlug);
     } catch {}
   }
 
@@ -357,6 +357,10 @@ export default async function Wave() {
       </div>
     </div>
   );
+}
+
+export default async function Wave() {
+  return <WavePage />;
 }
 
 
