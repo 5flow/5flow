@@ -4,13 +4,7 @@ import { MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-export type WebinarCardItem = {
-  title: string;
-  desc: string;
-  image: string;
-  link: string;
-};
+import type { WebinarCardItem } from '@/lib/resources/webinars';
 
 type WebinarsSectionProps = {
   items: WebinarCardItem[];
@@ -42,7 +36,7 @@ export default function WebinarsSection({ items }: WebinarsSectionProps) {
                       className="group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex w-fit origin-left items-center justify-start gap-3 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-0.5 active:scale-[0.99] active:ring-2 active:ring-offset-2"
                     >
                       <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-10 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-5 sm:px-6 sm:group-hover/cta-hero:px-7">
-                        Watch now
+                        {item.buttonLabel || 'Watch now'}
                       </span>
                       <span
                         className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-10 w-10 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)]"

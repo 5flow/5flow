@@ -2,24 +2,18 @@ import type { Metadata } from 'next';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
-import WebinarsSection, { type WebinarCardItem } from '@/components/page/resources/WebinarsSection';
+import WebinarsSection from '@/components/page/resources/WebinarsSection';
+import { getWebinarCards } from '@/lib/resources/webinars';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Industry Expert Webinars | 5Flow',
   description: 'Explore 5Flow webinars and expert sessions.',
 };
 
-export default function Webinars() {
-  const webinarCtaHref = 'https://www.event.5flowtech.com/fr/webinaire-securefood';
-
-  const webinarItems: WebinarCardItem[] = [
-    {
-      title: 'Unlock 30% better quality control',
-      desc: 'Discover proven strategies to enhance product data accuracy and labeling processes, ensuring 100% compliance.',
-      image: '/resources/Webinar_Cover-1-Secure_Food.png',
-      link: webinarCtaHref,
-    },
-  ];
+export default async function Webinars() {
+  const webinarItems = await getWebinarCards();
 
   return (
     <div className="relative">
