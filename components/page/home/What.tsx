@@ -53,15 +53,19 @@ const fallbackItems: WhatItem[] = [
 const What = ({ title, items }: WhatProps) => {
   const data = items && items.length > 0 ? items : fallbackItems;
   const sectionTitle = title || 'Breaking barriers in the modern content supply chain';
+  const highlightWords = ['modern', 'modernen', 'content'];
+
   return (
     <div className="text-foreground flex w-full flex-col gap-4 md:gap-8">
       <div className="px-2 py-8">
         <FullBleedLines className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <h2 className="font-heading w-full max-w-full text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:max-w-5xl md:text-left md:text-[64px]">
             {sectionTitle.split(' ').map((word, i) => {
-              const highlightWords = ['modern', 'content'];
-              return highlightWords.includes(word) ? (
-                <span key={i}><InlineHighlight>{word}</InlineHighlight> </span>
+              const normalized = word.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+              return highlightWords.includes(normalized) ? (
+                <span key={i}>
+                  <InlineHighlight>{word}</InlineHighlight>{' '}
+                </span>
               ) : (
                 <span key={i}>{word} </span>
               );
@@ -82,7 +86,7 @@ const What = ({ title, items }: WhatProps) => {
             return (
               <div
                 key={i}
-                className="bg-background box-border flex h-[200px] flex-col gap-8 rounded-2xl p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:p-6 md:h-[252px]"
+                className="bg-background box-border flex min-h-[200px] flex-col gap-6 rounded-2xl p-4 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:p-6 md:min-h-[252px] md:gap-8"
               >
                 <div className="flex w-full items-start justify-between">
                   <p className="text-2xl leading-tight font-bold tracking-tight sm:text-4xl sm:leading-none md:text-[36px]">{card.title}</p>

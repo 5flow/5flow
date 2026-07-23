@@ -39,7 +39,14 @@ function resolveUrl(value: unknown): string | undefined {
   return undefined;
 }
 
-function resolveHowLink(item: unknown): string | undefined {
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function resolveHowLink(item: unknown, index?: number): string | undefined {
   const record = (item || {}) as Record<string, unknown>;
   const fromCms =
     resolveUrl(record.link) ||
@@ -54,10 +61,17 @@ function resolveHowLink(item: unknown): string | undefined {
 
   if (fromCms) return fromCms;
 
-  const title = typeof record.title === 'string' ? record.title.toLowerCase() : '';
+  const title = typeof record.title === 'string' ? normalizeText(record.title) : '';
   if (title.includes('wave')) return '/products/wave';
-  if (title.includes('custom') || title.includes('mediabox')) return '/products/mediabox';
-  if (title.includes('consulting')) return '/solutions/consulting';
+  if (title.includes('custom') || title.includes('mediabox') || title.includes('individuelle')) {
+    return '/products/mediabox';
+  }
+  if (title.includes('consulting') || title.includes('beratung')) return '/solutions/consulting';
+
+  const fallbackLinks = ['/products/wave', '/products/mediabox', '/solutions/consulting'];
+  if (typeof index === 'number' && index >= 0 && index < fallbackLinks.length) {
+    return fallbackLinks[index];
+  }
 
   return undefined;
 }
@@ -67,10 +81,10 @@ export default async function ServerHow({ slug }: ServerHowProps) {
   try {
     const homepage = await getHomepage(slug);
     if (homepage?.how?.items?.length) {
-      const items = homepage.how.items.map(i => ({
+      const items = homepage.how.items.map((i, index) => ({
         title: i.title || '',
         desc: i.body_html || i.bodyHtml || '',
-        link: resolveHowLink(i),
+        link: resolveHowLink(i, index),
         iconKey: i.icon_key || i.iconKey,
       }));
       return (
