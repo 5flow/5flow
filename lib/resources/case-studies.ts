@@ -4,6 +4,7 @@ export type CaseStudyCardItem = {
   title: string;
   desc: string;
   image: string;
+  imageFocus?: string;
   link: string;
 };
 
@@ -12,6 +13,7 @@ export type CaseStudy = {
   title: string;
   date: string;
   image: string;
+  imageFocus?: string;
   content: string;
 };
 

@@ -19,6 +19,8 @@ type WpCaseStudyPost = {
     card_title?: string;
     card_desc?: string;
     card_image?: string | { url?: string; sizes?: Record<string, string> };
+    card_image_focus?: string;
+    case_study_detail_image_focus?: string;
     is_featured_case_study?: boolean | number | string;
     image_focus?: string;
   };
@@ -88,11 +90,13 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
   const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.excerpt?.rendered || ''));
   const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
   const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
+  const imageFocus = post.acf?.card_image_focus || post.acf?.image_focus;
 
   return {
     title,
     desc,
     image,
+    imageFocus,
     link: `/resources/case-studies/${post.slug}`,
   };
 }
@@ -100,12 +104,14 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
 function mapCaseStudyDetail(post: WpCaseStudyPost): CaseStudy {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
   const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
+  const imageFocus = post.acf?.case_study_detail_image_focus || post.acf?.image_focus;
 
   return {
     slug: post.slug,
     title,
     date: post.date,
     image,
+    imageFocus,
     content: post.content?.rendered || '',
   };
 }

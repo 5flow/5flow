@@ -11,7 +11,14 @@ export default async function CaseStudyPost({ params }: { params: Promise<{ slug
     <div className="relative">
       {post.image ? (
         <div className="relative h-[45vh] min-h-[320px] w-full md:h-[60vh] md:min-h-[520px]">
-          <Image src={post.image} alt={post.title} fill className="object-cover" priority />
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            className="object-cover"
+            style={{ objectPosition: post.imageFocus || 'center' }}
+            priority
+          />
         </div>
       ) : null}
 
