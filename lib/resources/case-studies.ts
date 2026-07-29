@@ -14,6 +14,7 @@ export type CaseStudy = {
   date: string;
   image: string;
   imageFocus?: string;
+  desktopImageHeight?: string;
   content: string;
 };
 

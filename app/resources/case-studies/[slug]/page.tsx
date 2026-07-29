@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { CSSProperties } from 'react';
 import HtmlContent from '@/components/core/html-content';
 import { getCaseStudyBySlug, getCaseStudySlugs } from '@/lib/resources/case-studies';
 
@@ -10,7 +11,10 @@ export default async function CaseStudyPost({ params }: { params: Promise<{ slug
   return (
     <div className="relative">
       {post.image ? (
-        <div className="relative h-[45vh] min-h-[320px] w-full md:h-[60vh] md:min-h-[520px]">
+        <div
+          className="relative h-[45vh] min-h-[320px] w-full md:h-[var(--case-study-hero-height)] md:min-h-[520px]"
+          style={{ '--case-study-hero-height': post.desktopImageHeight || '60vh' } as CSSProperties}
+        >
           <Image
             src={post.image}
             alt={post.title}

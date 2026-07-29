@@ -68,6 +68,29 @@ function resolveAcfImage(imageField: AcfImageField): string | undefined {
   return undefined;
 }
 
+function isCssLength(value: string): boolean {
+  return /^\d+(\.\d+)?(px|rem|em|vh|dvh|svh|lvh|%)$/i.test(value.trim());
+}
+
+function parseImageFocusConfig(value?: string): { imageFocus?: string; desktopImageHeight?: string } {
+  if (!value) return {};
+
+  const heightMatch = value.match(/(?:desktop[-_\s]?height|height)\s*:\s*([0-9.]+(?:px|rem|em|vh|dvh|svh|lvh|%))/i);
+  const desktopImageHeight = heightMatch?.[1];
+  const parts = value
+    .replace(heightMatch?.[0] || '', '')
+    .split(/[;|]/)
+    .map(part => part.trim())
+    .filter(Boolean);
+  const heightOnlyPart = parts.find(isCssLength);
+  const imageFocus = parts.filter(part => part !== heightOnlyPart).join(' ').trim() || undefined;
+
+  return {
+    imageFocus,
+    desktopImageHeight: desktopImageHeight || heightOnlyPart,
+  };
+}
+
 function isFeaturedCaseStudy(value?: WpCaseStudyPost['acf']) {
   const raw = value?.is_featured_case_study;
   return raw === true || raw === 1 || raw === '1' || raw === 'true';
@@ -90,7 +113,7 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
   const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.excerpt?.rendered || ''));
   const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
   const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
-  const imageFocus = post.acf?.card_image_focus || post.acf?.image_focus;
+  const { imageFocus } = parseImageFocusConfig(post.acf?.card_image_focus || post.acf?.image_focus);
 
   return {
     title,
@@ -104,7 +127,9 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
 function mapCaseStudyDetail(post: WpCaseStudyPost): CaseStudy {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
   const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
-  const imageFocus = post.acf?.case_study_detail_image_focus || post.acf?.image_focus;
+  const { imageFocus, desktopImageHeight } = parseImageFocusConfig(
+    post.acf?.case_study_detail_image_focus || post.acf?.image_focus,
+  );
 
   return {
     slug: post.slug,
@@ -112,6 +137,7 @@ function mapCaseStudyDetail(post: WpCaseStudyPost): CaseStudy {
     date: post.date,
     image,
     imageFocus,
+    desktopImageHeight,
     content: post.content?.rendered || '',
   };
 }
