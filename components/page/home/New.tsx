@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { MoveUpRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InlineHighlight from '@/components/core/inline-highlight';
+import { getCmsBlogs } from '@/lib/cms/blog';
+import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
+import { getCmsWebinarCards } from '@/lib/cms/webinar';
 
 type ResourceCard = {
   title: string;
@@ -19,7 +22,7 @@ const staticCards: ResourceCard[] = [
   {
     title: 'Rebuilding packaging workflows with AI',
     desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
-    image: '/resources/5flow-podcast-logo-title-only.png',
+    image: 'https://img.youtube.com/vi/1dUPMP1-VzE/maxresdefault.jpg',
     link: '/resources/podcast/episode-1',
     buttonLabel: 'Watch now',
     icon: 'play',
@@ -48,6 +51,57 @@ const staticCards: ResourceCard[] = [
     buttonLabel: 'Read more',
   },
 ];
+
+async function getWordPressCards(): Promise<ResourceCard[]> {
+  if (!process.env.WP_BASE_URL) return staticCards;
+
+  try {
+    const [caseStudies, webinars, blogs] = await Promise.all([
+      getCmsCaseStudyCards(),
+      getCmsWebinarCards(),
+      getCmsBlogs(),
+    ]);
+
+    const cards: ResourceCard[] = [
+      staticCards[0],
+      caseStudies[0]
+        ? {
+            title: caseStudies[0].title,
+            desc: caseStudies[0].desc,
+            image: caseStudies[0].image,
+            imageFocus: caseStudies[0].imageFocus,
+            link: caseStudies[0].link,
+            buttonLabel: 'Read case study',
+          }
+        : staticCards[1],
+      webinars[0]
+        ? {
+            title: webinars[0].title,
+            desc: webinars[0].desc,
+            image: webinars[0].image,
+            link: webinars[0].link,
+            buttonLabel: webinars[0].buttonLabel || 'Watch now',
+            icon: 'play',
+          }
+        : staticCards[2],
+      blogs[0]
+        ? {
+            title: blogs[0].title,
+            desc: blogs[0].desc,
+            date: blogs[0].date,
+            image: blogs[0].image,
+            imageFocus: blogs[0].imageFocus,
+            link: blogs[0].link,
+            buttonLabel: 'Read more',
+          }
+        : staticCards[3],
+    ];
+
+    return cards;
+  } catch {
+    return staticCards;
+  }
+}
 
 function formatDate(date?: string): string | undefined {
   if (!date) return undefined;
@@ -108,7 +162,9 @@ function Card({ item }: { item: ResourceCard }) {
   );
 }
 
-export default function New() {
+export default async function New() {
+  const cards = await getWordPressCards();
+
   return (
     <section className="text-foreground w-full px-2 py-12 md:py-20">
       <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
@@ -122,7 +178,7 @@ export default function New() {
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {staticCards.map(item => (
+        {cards.map(item => (
           <Card key={`${item.buttonLabel}-${item.link}`} item={item} />
         ))}
       </div>
