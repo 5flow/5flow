@@ -3,12 +3,6 @@ import Link from 'next/link';
 import { MoveUpRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InlineHighlight from '@/components/core/inline-highlight';
-import { getBlogCards } from '@/lib/resources/blogs';
-import { getCaseStudyCards } from '@/lib/resources/case-studies';
-import { getWebinarCards } from '@/lib/resources/webinars';
-import { getCmsBlogs } from '@/lib/cms/blog';
-import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
-import { getCmsWebinarCards } from '@/lib/cms/webinar';
 
 type ResourceCard = {
   title: string;
@@ -21,14 +15,39 @@ type ResourceCard = {
   icon?: 'play';
 };
 
-const podcastCard: ResourceCard = {
-  title: 'Rebuilding packaging workflows with AI',
-  desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
-  image: '/resources/5flow-podcast-logo-title-only.png',
-  link: '/resources/podcast/episode-1',
-  buttonLabel: 'Watch now',
-  icon: 'play',
-};
+const staticCards: ResourceCard[] = [
+  {
+    title: 'Rebuilding packaging workflows with AI',
+    desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
+    image: '/resources/5flow-podcast-logo-title-only.png',
+    link: '/resources/podcast/episode-1',
+    buttonLabel: 'Watch now',
+    icon: 'play',
+  },
+  {
+    title: 'Driving 50% capacity growth in artwork operations with WAVE',
+    desc: 'Managing high-volume packaging artwork across multiple brands and SKUs.',
+    image: '/resources/how-we-saved.png',
+    link: '/resources/case-studies',
+    buttonLabel: 'Read case study',
+  },
+  {
+    title: 'Packaging regulations do not have to slow your team down',
+    desc: 'Discover practical ways to keep packaging reviews moving with more control.',
+    image: '/resources/Webinar_Cover-1-Secure_Food.png',
+    link: '/resources/webinars',
+    buttonLabel: 'Watch now',
+    icon: 'play',
+  },
+  {
+    title: 'Why time-to-market still stalls even after your tech stack upgrade',
+    desc: 'A practical look at where packaging workflows slow down and how teams can move faster.',
+    date: '2026-04-21',
+    image: '/resources/when-final-isnt.jpg',
+    link: '/resources/blogs',
+    buttonLabel: 'Read more',
+  },
+];
 
 function formatDate(date?: string): string | undefined {
   if (!date) return undefined;
@@ -89,78 +108,7 @@ function Card({ item }: { item: ResourceCard }) {
   );
 }
 
-async function getLatestBlogCard() {
-  if (process.env.WP_BASE_URL) {
-    const cmsBlogs = await getCmsBlogs();
-    if (cmsBlogs.length > 0) return cmsBlogs[0];
-  }
-
-  const blogs = await getBlogCards();
-  return blogs[0];
-}
-
-async function getLatestCaseStudyCard() {
-  if (process.env.WP_BASE_URL) {
-    const cmsCaseStudies = await getCmsCaseStudyCards();
-    if (cmsCaseStudies.length > 0) return cmsCaseStudies[0];
-  }
-
-  const caseStudies = await getCaseStudyCards();
-  return caseStudies[0];
-}
-
-async function getLatestWebinarCard() {
-  if (process.env.WP_BASE_URL) {
-    const cmsWebinars = await getCmsWebinarCards();
-    if (cmsWebinars.length > 0) return cmsWebinars[0];
-  }
-
-  const webinars = await getWebinarCards();
-  return webinars[0];
-}
-
-export default async function New() {
-  const [latestBlog, latestCaseStudy, latestWebinar] = await Promise.all([
-    getLatestBlogCard(),
-    getLatestCaseStudyCard(),
-    getLatestWebinarCard(),
-  ]);
-
-  const cards: ResourceCard[] = [
-    podcastCard,
-    latestCaseStudy
-      ? {
-          title: latestCaseStudy.title,
-          desc: latestCaseStudy.desc,
-          image: latestCaseStudy.image,
-          link: latestCaseStudy.link,
-          buttonLabel: 'Read case study',
-          imageFocus: latestCaseStudy.imageFocus,
-        }
-      : null,
-    latestWebinar
-      ? {
-          title: latestWebinar.title,
-          desc: latestWebinar.desc,
-          image: latestWebinar.image,
-          link: latestWebinar.link,
-          buttonLabel: latestWebinar.buttonLabel || 'Watch now',
-          icon: 'play',
-        }
-      : null,
-    latestBlog
-      ? {
-          title: latestBlog.title,
-          desc: latestBlog.desc,
-          date: latestBlog.date,
-          image: latestBlog.image,
-          link: latestBlog.link,
-          buttonLabel: 'Read more',
-          imageFocus: latestBlog.imageFocus,
-        }
-      : null,
-  ].filter((card): card is ResourceCard => Boolean(card));
-
+export default function New() {
   return (
     <section className="text-foreground w-full px-2 py-12 md:py-20">
       <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
@@ -174,7 +122,7 @@ export default async function New() {
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map(item => (
+        {staticCards.map(item => (
           <Card key={`${item.buttonLabel}-${item.link}`} item={item} />
         ))}
       </div>
