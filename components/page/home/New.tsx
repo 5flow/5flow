@@ -22,7 +22,7 @@ const staticCards: ResourceCard[] = [
   {
     title: 'Rebuilding packaging workflows with AI',
     desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
-    image: 'https://img.youtube.com/vi/1dUPMP1-VzE/maxresdefault.jpg',
+    image: '/home/podcast_thumb_youtube.webp',
     link: '/resources/podcast/episode-1',
     buttonLabel: 'Watch now',
     icon: 'play',
