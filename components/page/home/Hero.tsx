@@ -14,6 +14,34 @@ type Props = {
   buttonUrl?: string;
 };
 
+function renderHeroTitle(title?: string) {
+  const displayTitle = title ?? 'Bring packaging to market.';
+
+  if (displayTitle === 'Bring packaging to market.') {
+    return (
+      <>
+        Bring packaging
+        <br />
+        <InlineHighlight>to market.</InlineHighlight>
+      </>
+    );
+  }
+
+  return displayTitle.split(' ').map((word, i, arr) => {
+    const highlightWords = ['to', 'market.'];
+    const isLastWord = i === arr.length - 1;
+    const shouldBreakBefore = word.toLowerCase() === 'to';
+
+    return (
+      <span key={i}>
+        {shouldBreakBefore ? <br /> : null}
+        {highlightWords.includes(word.toLowerCase()) ? <InlineHighlight>{word}</InlineHighlight> : word}
+        {!isLastWord && ' '}
+      </span>
+    );
+  });
+}
+
 const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
   return (
     <div className="relative flex min-h-dvh flex-col justify-center">
@@ -26,27 +54,13 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
         <div className="mt-12 flex flex-col gap-[26px] md:mt-24">
           <FullBleedLines>
             <p className="font-heading text-foreground max-w-full text-4xl leading-tight font-semibold tracking-tighter sm:max-w-2xl sm:text-8xl sm:leading-none md:max-w-2xl md:text-[80px]">
-              {(title ?? 'Take brand vision to market reality').split(' ').map((word, i, arr) => {
-                const highlightWords = ['reality'];
-                const isLastWord = i === arr.length - 1;
-                return highlightWords.includes(word.toLowerCase()) ? (
-                  <span key={i}>
-                    <InlineHighlight>{word}</InlineHighlight>
-                    {!isLastWord && ' '}
-                  </span>
-                ) : (
-                  <span key={i}>
-                    {word}
-                    {!isLastWord && ' '}
-                  </span>
-                );
-              })}
+              {renderHeroTitle(title)}
             </p>
           </FullBleedLines>
 
           <FullBleedLines>
             <h1 className="font-heading text-primary text-2xl leading-tight tracking-tighter sm:text-5xl sm:leading-none md:text-[48px]">
-              {subTitle ?? 'Faster. Smarter. At scale.'}
+              {subTitle ?? 'Without the chaos.'}
             </h1>
           </FullBleedLines>
         </div>
@@ -56,9 +70,11 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
               <HtmlContent html={bodyHtml} />
             ) : (
               <>
-                5FLOW helps global brands unify workflows, speed up execution, and keep every touchpoint consistent.
-                With our expertise in packaging, content, and creative production powered by
-                intelligent automation, we transform the way brands operate in today&apos;s connected world.
+                <b>AI-powered software</b>, expert consulting and tailored solutions to
+                <br />
+                help you <b>simplify approvals, reduce risk and get products to</b>
+                <br />
+                <b>market faster.</b>
               </>
             )}
           </div>

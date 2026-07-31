@@ -10,6 +10,9 @@ type ContactProps = {
   highlightedText?: string;
   trailingText?: string;
   heading?: React.ReactNode;
+  subheading?: React.ReactNode;
+  subheadingClassName?: string;
+  formTitle?: React.ReactNode;
   headingClassName?: string;
   className?: string;
   headingWrapperClassName?: string;
@@ -20,6 +23,9 @@ export function Contact({
   highlightedText = 'work today.',
   trailingText = '',
   heading,
+  subheading,
+  subheadingClassName = '',
+  formTitle,
   headingClassName = '',
   className = '',
   headingWrapperClassName = '',
@@ -35,6 +41,11 @@ export function Contact({
             </>
           )}
         </p>
+        {subheading ? (
+          <p className={`text-primary mt-6 text-center text-2xl leading-tight tracking-normal md:text-[48px] ${subheadingClassName}`}>
+            {subheading}
+          </p>
+        ) : null}
       </FullBleedLines>
 
       <FullBleedLines>
@@ -51,7 +62,7 @@ export function Contact({
               title={
                 <InlineHighlight className="bg-success">
                   <span className="font-heading text-foreground px-1 text-4xl leading-none font-bold tracking-tighter sm:text-5xl md:text-[64px]">
-                    Contact us
+                    {formTitle || 'Contact us'}
                   </span>
                 </InlineHighlight>
               }

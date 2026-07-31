@@ -87,6 +87,7 @@ const NAV_ITEMS: NavItem[] = [
       columns: 1,
     },
   },
+  { type: 'link', href: '/ai-solutions', label: 'AI SOLUTIONS', keyId: 'ai-solutions' },
   {
     type: 'dropdown',
     href: '/applications/role/brand-manager',

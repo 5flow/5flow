@@ -32,6 +32,7 @@ const linkGroups = [
       { href: '/solutions/integration', label: 'Integration' },
       { href: '/solutions/data-analysis', label: 'Data Analysis' },
       { href: '/solutions/consulting', label: 'Consulting' },
+      { href: '/ai-solutions', label: 'AI Solutions' },
     ],
   },
   {

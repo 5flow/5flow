@@ -1,145 +1,79 @@
-  import Link from 'next/link';
-  import Image from 'next/image';
-  import { ArrowUpRight, Shuffle } from 'lucide-react';
-  import * as Lucide from 'lucide-react';
-  import { Button } from '@/components/ui/button';
-  import FullBleedLines from '@/components/core/full-bleed-lines';
-  import InlineHighlight from '@/components/core/inline-highlight';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowDownLeft, MoveUpRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import InlineHighlight from '@/components/core/inline-highlight';
 
-  type WhyCard = { title: string; iconKey?: string; link?: string };
-  type WhyProps = { title?: string; bodyHtml?: string; cards?: WhyCard[] };
+type WhyCard = { title: string; iconKey?: string; link?: string };
+type WhyProps = { title?: string; bodyHtml?: string; cards?: WhyCard[] };
 
-  function toPascalCase(key: string): string {
-    return key
-      .split(/[^a-zA-Z0-9]+/)
-      .filter(Boolean)
-      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-      .join('');
-  }
+const Why = (_props: WhyProps) => {
+  void _props;
 
-  const fallbackCards: WhyCard[] = [
-    { title: 'From fragmented workflows → to connected systems', iconKey: 'shuffle', link: '/contact' },
-    { title: 'From slow cycles → to agile execution', iconKey: 'zap', link: '/contact' },
-    { title: 'From manual work → to brand enablement at scale', iconKey: 'scaling', link: '/contact' },
-  ];
+  return (
+    <section className="text-foreground w-full px-2 py-10 md:py-16">
+      <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-start">
+        <div>
+          <div className="flex items-start justify-between gap-6">
+            <h2 className="font-heading text-[42px] leading-[1.05] font-bold tracking-normal sm:text-5xl md:text-[64px]">
+              Built for packaging.
+              <br />
+              <InlineHighlight>Powered by AI.</InlineHighlight>
+            </h2>
+            <ArrowDownLeft className="text-accent1 mt-4 hidden h-24 w-24 shrink-0 lg:block" strokeWidth={1.6} />
+          </div>
 
-  const Why = ({ title, bodyHtml, cards }: WhyProps) => {
-    const sectionTitle = title || 'Redefining the way brands create, scale, and deliver.';
-    const data = cards && cards.length > 0 ? cards : fallbackCards;
-    return (
-      <div className="flex flex-col gap-4 md:gap-8">
-        <FullBleedLines className="font-heading mx-auto w-full max-w-4xl gap-16 px-2 py-8">
-          <p className="text-center text-4xl leading-tight font-bold tracking-tight sm:text-6xl sm:leading-none md:text-[64px]">
-            {sectionTitle.split(' ').map((word, i) => {
-              const highlightWords = ['create,', 'scale,', 'deliver.'];
-              return highlightWords.includes(word) ? (
-                <span key={i}><InlineHighlight>{word.replace(/[,\.]/, '')}</InlineHighlight> </span>
-              ) : (
-                <span key={i}>{word} </span>
-              );
-            })}
+          <p className="mt-10 max-w-[860px] text-xl leading-7 font-semibold tracking-normal text-[#262626]">
+            AI only matters when it solves real packaging challenges. That&apos;s why we build AI into the workflows
+            where delays, errors and compliance risks happen.
           </p>
-        </FullBleedLines>
 
-        <FullBleedLines>
-          <div className="w-full">
-            <div className="bg-primary flex w-full flex-col items-start justify-between gap-6 rounded-2xl py-8 md:flex-row md:items-center md:gap-0 md:py-0">
-              <Image
-                className="mr-10 hidden h-45 w-44 object-cover sm:h-36 sm:w-36 md:flex md:h-[460px] md:w-[450px]"
-                width={450}
-                height={450}
-                alt="rings showcasing brand identity"
-                src="/svg/rings.svg"
-              />
+          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1fr] lg:items-stretch">
+            <div className="bg-background flex min-h-[330px] flex-col rounded-lg p-8 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
+              <h3 className="font-heading text-[42px] leading-[1.05] font-bold tracking-normal text-[#262626]">
+                QC Assist
+              </h3>
+              <p className="text-primary mt-8 max-w-[520px] text-[30px] leading-[1.16] font-bold tracking-normal">
+                Catch issues before they become approval delays.
+              </p>
+              <p className="mt-6 max-w-[540px] text-xl leading-7 font-semibold tracking-normal text-[#303030]">
+                Identify spelling, barcode and compliance issues earlier with AI-assisted quality checks embedded
+                directly into your review workflow.
+              </p>
 
-              <div className="flex flex-col gap-8 p-2 md:pr-8">
-                <p className="text-background max-w-4xl px-4 text-center text-sm leading-[150%] font-normal tracking-tight sm:text-base md:px-0 md:text-left md:text-base">
-                  {bodyHtml ||
-                    '5FLOW started as a cloud-smart technology spin-off of the Matthews International Group in 2011. Now, part of the Propelis Group, 5FLOW combines over 150 years of creative, packaging, and brand production leadership with a technology-driven edge.'}
-                </p>
-
-                <div className="w-full">
-                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                    {data.map((card, idx) => {
-                      const Icon = (() => {
-                        if (!card.iconKey) return Shuffle;
-                        const pascal = toPascalCase(card.iconKey);
-                        const Dynamic = (Lucide as Record<string, any>)[pascal];
-                        return Dynamic || Shuffle;
-                      })();
-
-                      // Per-icon responsive sizes (mobile first)
-                      const iconSizeClass = (() => {
-                        switch (card.iconKey) {
-                          case 'shuffle':
-                            // smaller on mobile, larger on md+
-                            return 'h-8 w-8 md:h-12 md:w-12';
-                          case 'zap':
-                            return 'h-8 w-8 md:h-10 md:w-10';
-                          case 'scaling':
-                            return 'h-8 w-8 md:h-8 md:w-8';
-                          default:
-                            return 'h-8 w-8 md:h-10 md:w-10';
-                        }
-                      })();
-
-                      // Reduce left padding for the last (third) card only
-                      // Apply smaller left padding on mobile and md+
-                      const leftPad = idx === data.length - 1 ? 'pl-4 md:pl-2' : '';
-
-                      const isWide = idx === data.length - 1; // last card spans columns when 3 fallback cards
-                      return (
-                        <div
-                          key={idx}
-                          className={`bg-background flex flex-col items-start justify-between gap-4 rounded-lg p-3 ${leftPad} ${
-                            isWide ? 'md:col-span-2 md:flex-row md:items-center' : 'md:flex-row md:items-center'
-                          }`}
-                        >
-                          <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-6">
-                            <p className="max-w-72 text-2xl leading-tight font-bold tracking-tight sm:text-3xl sm:leading-none md:text-xl">
-                              {card.title}
-                            </p>
-                          </div>
-                          {card.link && (
-                            <Link href={card.link}>
-                              <Button
-                                className="bg-primary hover:ring-primary/50 hover:ring-offset-background mt-2 size-12 origin-center cursor-pointer rounded-none px-2 py-1 transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6 md:mt-0 md:ml-auto md:size-16 md:px-4 md:py-2"
-                                aria-label="Contact"
-                              >
-                                <ArrowUpRight className="size-6 sm:size-8" />
-                              </Button>
-                            </Link>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="flex w-full justify-center md:justify-end">
-                  <Button
-                    asChild
-                    className="group/cta active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-0 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-150 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.99] active:ring-2 active:ring-offset-2 has-[>svg]:px-0"
+              <Button
+                asChild
+                size="lg"
+                className="group/cta-hero active:ring-primary/50 active:ring-offset-background mt-8 inline-flex origin-left items-center justify-start gap-3 self-start rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-px active:scale-[0.99] active:ring-2 active:ring-offset-2"
+              >
+                <Link href="/contact" aria-label="Learn more about QC Assist">
+                  <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-7 sm:h-10 sm:px-6">
+                    Learn more
+                  </span>
+                  <span
+                    className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] sm:h-10 sm:w-10"
+                    aria-hidden="true"
                   >
-                    <Link href="/about" aria-label="About 5Flow">
-                      <span className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:px-3">
-                        Read About Us
-                      </span>
-                      <span
-                        className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 ml-0 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:ml-2"
-                        aria-hidden="true"
-                      >
-                        <ArrowUpRight className="h-4 w-4" />
-                      </span>
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+                    <MoveUpRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              </Button>
+            </div>
+
+            <div className="relative min-h-[330px] overflow-hidden rounded-lg shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
+              <Image
+                src="/home/QC_Assist_Screen_Grafik.webp"
+                alt="QC Assist screen showing AI-assisted packaging quality review"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
-        </FullBleedLines>
+        </div>
       </div>
-    );
-  };
+    </section>
+  );
+};
 
-  export default Why;
+export default Why;
