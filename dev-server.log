@@ -1,5 +1,26 @@
 
 > 5flow@0.1.0 dev
-> next dev --turbopack --port 3000
+> next dev --turbopack
 
-[?25h
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.109:3000
+
+ ✓ Starting...
+Creating turbopack project { dir: 'D:\\5 flow\\5flow-main 5-3-26 live changes', testMode: true }
+ ✓ Ready in 1753ms
+ ○ Compiling / ...
+ ✓ Compiled / in 4.2s
+ GET / 200 in 5363ms
+ GET / 200 in 411ms
+ ○ Compiling /ai-solutions ...
+ ✓ Compiled /ai-solutions in 679ms
+ GET /ai-solutions 200 in 1635ms
+ ✓ Compiled in 631ms
+ ✓ Compiled /ai-solutions in 109ms
+ GET /ai-solutions 200 in 653ms
+ ✓ Compiled in 605ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.5s
+ GET / 500 in 2710ms
+ GET / 200 in 755ms

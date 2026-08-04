@@ -76,18 +76,21 @@ const How = (_props: HowProps) => {
               </div>
 
               <p className="text-primary mt-10 text-[22px] leading-7 font-bold tracking-normal">{lead}</p>
-              <p className="font-body mt-5 max-w-[255px] text-base leading-tight font-normal tracking-tight text-[#030712cc] sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal [&_strong]:font-bold">
-                {body}
-              </p>
 
-              <Link href={link} className="mt-auto self-end">
-                <Button
-                  className="bg-primary hover:ring-primary/50 hover:ring-offset-background size-12 origin-center cursor-pointer rounded-none px-2 py-1 transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6"
-                  aria-label={`Learn more about ${title}`}
-                >
-                  <ArrowUpRight className="size-6" />
-                </Button>
-              </Link>
+              <div className="mt-auto flex items-end justify-between gap-4 pt-4">
+                <p className="font-body max-w-[255px] text-base leading-tight font-normal tracking-tight text-[#030712cc] sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal [&_strong]:font-bold">
+                  {body}
+                </p>
+
+                <Link href={link} className="shrink-0">
+                  <Button
+                    className="bg-primary hover:ring-primary/50 hover:ring-offset-background size-12 origin-center cursor-pointer rounded-none px-2 py-1 transition-all duration-300 ease-[var(--easing-smooth)] hover:translate-x-[1px] hover:scale-[0.92] hover:ring-4 hover:ring-offset-2 active:scale-[0.9] active:ring-6"
+                    aria-label={`Learn more about ${title}`}
+                  >
+                    <ArrowUpRight className="size-6" />
+                  </Button>
+                </Link>
+              </div>
             </article>
           ))}
         </div>

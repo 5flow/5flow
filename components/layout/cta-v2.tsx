@@ -31,8 +31,8 @@ const linkGroups = [
       { href: '/solutions/automated-artwork', label: 'Automated Artwork' },
       { href: '/solutions/integration', label: 'Integration' },
       { href: '/solutions/data-analysis', label: 'Data Analysis' },
-      { href: '/solutions/consulting', label: 'Consulting' },
       { href: '/ai-solutions', label: 'AI Solutions' },
+      { href: '/solutions/consulting', label: 'Consulting' },
     ],
   },
   {

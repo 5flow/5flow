@@ -40,7 +40,6 @@ const visitUsLinks = [
 ];
 
 const infosLinks = [
-  { href: '/ai-solutions', label: 'AI Solutions' },
   { href: '/terms', label: 'Terms of Service' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/cookies', label: 'Cookie Policy' },

@@ -18,11 +18,15 @@ type ResourceCard = {
   icon?: 'play';
 };
 
+const podcastYoutubeVideoId = '1dUPMP1-VzE';
+const getYoutubeThumbnail = (videoId: string) => `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+const getPodcastImage = (videoId: string, localImage?: string) => localImage || getYoutubeThumbnail(videoId);
+
 const staticCards: ResourceCard[] = [
   {
     title: 'Rebuilding packaging workflows with AI',
     desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
-    image: '/home/podcast_thumb_youtube.webp',
+    image: getPodcastImage(podcastYoutubeVideoId, '/home/podcast_tumb.webp'),
     link: '/resources/podcast/episode-1',
     buttonLabel: 'Watch now',
     icon: 'play',
@@ -134,14 +138,14 @@ function ResourceButton({ href, label, icon }: { href: string; label: string; ic
 
 function Card({ item }: { item: ResourceCard }) {
   return (
-    <article className="bg-background flex h-full min-h-[360px] flex-col overflow-hidden rounded-lg shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
-      <div className="relative h-[150px] w-full overflow-hidden bg-[#eef1fb]">
+    <article className="bg-background flex h-full min-h-[380px] flex-col overflow-hidden rounded-lg shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
+      <div className="relative aspect-video w-full overflow-hidden bg-[#eef1fb]">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover"
-          style={{ objectPosition: item.imageFocus || 'center' }}
+          className="object-cover object-top"
+          style={{ objectPosition: item.imageFocus || 'top center' }}
         />
       </div>
 

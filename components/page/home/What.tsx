@@ -47,8 +47,18 @@ const What = (_props: WhatProps) => {
       <FullBleedLines>
         <div className="w-full">
           <div>
-            <h2 className="font-heading max-w-[1180px] text-[34px] leading-[64px] font-bold tracking-normal sm:text-5xl md:text-[64px]">
-              More products. More regulations.<br /> More stakeholders.
+            <h2 className="font-heading max-w-[1180px] text-[34px] leading-[1.08] font-bold tracking-normal sm:text-5xl sm:leading-[64px] md:text-[64px]">
+              <span className="sm:hidden">
+                More products.
+                <br />
+                More regulations.
+                <br />
+                More stakeholders.
+              </span>
+              <span className="hidden sm:inline">
+                More products. More regulations.
+                <br /> More stakeholders.
+              </span>
             </h2>
             <p className="text-primary mt-3 text-2xl leading-tight font-semibold tracking-normal sm:text-[30px]">
               Same deadline.
@@ -70,7 +80,7 @@ const What = (_props: WhatProps) => {
                     <Icon className="text-primary mt-0.5 h-8 w-8 shrink-0" strokeWidth={1.8} />
                     <h3 className="text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">{title}</h3>
                   </div>
-                  <p className="mt-10 max-w-[315px] text-base leading-[1.35] font-semibold tracking-normal text-[#303030]">
+                  <p className="mt-10 max-w-[315px] text-base leading-[1.6] font-semibold tracking-normal text-[#303030]">
                     {desc}
                   </p>
                 </article>

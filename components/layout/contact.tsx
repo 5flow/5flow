@@ -54,7 +54,7 @@ export function Contact({
             <LeadForm
               className="z-20 w-full items-start justify-center md:w-[64%]"
               buttonHeightClassName="h-12"
-              fieldClassName="min-h-14 text-lg"
+              fieldClassName="min-h-14 text-base md:text-lg"
               fieldsClassName="w-full max-w-[700px] gap-4"
               progressClassName="w-full max-w-[700px]"
               footerClassName="w-full max-w-[700px]"

@@ -46,7 +46,7 @@ const Why = (_props: WhyProps) => {
                 size="lg"
                 className="group/cta-hero active:ring-primary/50 active:ring-offset-background mt-8 inline-flex origin-left items-center justify-start gap-3 self-start rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-px active:scale-[0.99] active:ring-2 active:ring-offset-2"
               >
-                <Link href="/contact" aria-label="Learn more about QC Assist">
+                <Link href="/ai-solutions" aria-label="Learn more about QC Assist">
                   <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-7 sm:h-10 sm:px-6">
                     Learn more
                   </span>
@@ -60,13 +60,13 @@ const Why = (_props: WhyProps) => {
               </Button>
             </div>
 
-            <div className="relative min-h-[330px] overflow-hidden rounded-lg shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
+            <div className="relative aspect-[1030/718] w-full overflow-hidden rounded-lg bg-white shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
               <Image
                 src="/home/QC_Assist_Screen_Grafik.webp"
                 alt="QC Assist screen showing AI-assisted packaging quality review"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
           </div>

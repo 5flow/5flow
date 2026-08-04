@@ -80,6 +80,7 @@ const NAV_ITEMS: NavItem[] = [
         { href: '/solutions/automated-artwork', label: 'AUTOMATED ARTWORK' },
         { href: '/solutions/integration', label: 'INTEGRATION' },
         { href: '/solutions/data-analysis', label: 'DATA ANALYSIS' },
+        { href: '/ai-solutions', label: 'AI SOLUTIONS' },
         { href: '/solutions/consulting', label: 'CONSULTING' },
       ],
       offsetClass: 'ml-76',
@@ -87,7 +88,6 @@ const NAV_ITEMS: NavItem[] = [
       columns: 1,
     },
   },
-  { type: 'link', href: '/ai-solutions', label: 'AI SOLUTIONS', keyId: 'ai-solutions' },
   {
     type: 'dropdown',
     href: '/applications/role/brand-manager',

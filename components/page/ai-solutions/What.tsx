@@ -58,13 +58,17 @@ export default function What() {
           {catchCards.map(({ title, desc, icon: Icon }) => (
             <article
               key={title}
-              className="bg-background relative min-h-[190px] rounded-lg p-6 text-left shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"
+              className="bg-background min-h-[196px] rounded-lg p-6 text-left shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"
             >
-              <h3 className="font-heading max-w-[340px] text-[30px] leading-tight font-bold tracking-normal text-[#262626]">
-                {title}
-              </h3>
-              <Icon className="text-primary absolute top-6 right-6 h-10 w-10" strokeWidth={1.7} />
-              <p className="mt-8 max-w-[440px] text-base leading-6 tracking-normal text-[#303030]">{desc}</p>
+              <div className="flex items-start justify-between gap-5">
+                <h3 className="font-heading min-w-0 text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">
+                  {title}
+                </h3>
+                <Icon className="text-primary mt-0.5 h-8 w-8 shrink-0" strokeWidth={1.8} />
+              </div>
+              <p className="mt-10 max-w-[440px] text-base leading-[1.6] font-semibold tracking-normal text-[#303030]">
+                {desc}
+              </p>
             </article>
           ))}
         </FullBleedLines>

@@ -65,16 +65,29 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </FullBleedLines>
         </div>
         <FullBleedLines>
-          <div className="font-body text-foreground max-w-full text-sm leading-[150%] font-normal tracking-tight sm:max-w-2xl sm:text-base md:max-w-3xl md:text-[20px] md:leading-7 md:tracking-normal md:text-[#030712cc] [&_em]:font-normal [&_strong]:font-normal">
+          <div className="font-body text-foreground max-w-full text-sm leading-[150%] font-normal tracking-tight sm:max-w-2xl sm:text-base md:max-w-3xl md:text-[20px] md:leading-8 md:tracking-normal md:text-[#030712cc] [&_em]:font-normal [&_strong]:font-normal">
             {bodyHtml ? (
               <HtmlContent html={bodyHtml} />
             ) : (
               <>
-                <b>AI-powered software</b>, expert consulting and tailored solutions to
-                <br />
-                help you <b>simplify approvals, reduce risk and get products to</b>
-                <br />
-                <b>market faster.</b>
+                <span className="sm:hidden">
+                  <b>AI-powered software</b>, expert 
+                  <br />
+                  consulting and tailored solutions 
+                  <br />
+                  to help you <b>simplify approvals,</b>
+                  <br />
+                  <b>reduce risk and get products to</b>
+                  <br />
+                  <b>market faster.</b>
+                </span>
+                <span className="hidden sm:inline">
+                  <b>AI-powered software</b>, expert consulting and tailored solutions to
+                  <br />
+                  help you <b>simplify approvals, reduce risk and get products to</b>
+                  <br />
+                  <b>market faster.</b>
+                </span>
               </>
             )}
           </div>
