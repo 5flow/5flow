@@ -91,11 +91,6 @@ function parseImageFocusConfig(value?: string): { imageFocus?: string; desktopIm
   };
 }
 
-function isFeaturedCaseStudy(value?: WpCaseStudyPost['acf']) {
-  const raw = value?.is_featured_case_study;
-  return raw === true || raw === 1 || raw === '1' || raw === 'true';
-}
-
 async function getCaseStudyCategoryId(): Promise<number | null> {
   try {
     const categories = (await wpFetch(
@@ -153,13 +148,7 @@ export async function getCmsCaseStudyCards(): Promise<CaseStudyCardItem[]> {
 
     if (posts.length === 0) return [];
 
-    const featuredPostIndex = posts.findIndex(post => isFeaturedCaseStudy(post.acf));
-    const orderedPosts =
-      featuredPostIndex === -1
-        ? posts
-        : [posts[featuredPostIndex], ...posts.filter((_, index) => index !== featuredPostIndex)];
-
-    return orderedPosts.map(mapCaseStudy);
+    return posts.map(mapCaseStudy);
   } catch (error) {
     console.error('Error fetching CMS case studies:', error);
     return [];
