@@ -145,7 +145,7 @@ function Card({ item }: { item: ResourceCard }) {
           alt={item.title}
           fill
           className="object-cover object-top"
-          style={{ objectPosition: item.imageFocus || 'top center' }}
+          style={{ objectPosition: 'center top' }}
         />
       </div>
 
