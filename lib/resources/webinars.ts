@@ -3,6 +3,7 @@ import { getCmsWebinarCards } from '@/lib/cms/webinar';
 export type WebinarCardItem = {
   title: string;
   desc: string;
+  date?: string;
   image: string;
   link: string;
   buttonLabel?: string;

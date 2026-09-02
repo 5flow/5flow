@@ -113,6 +113,7 @@ function mapCaseStudy(post: WpCaseStudyPost): CaseStudyCardItem {
   return {
     title,
     desc,
+    date: post.date,
     image,
     imageFocus,
     link: `/resources/case-studies/${post.slug}`,

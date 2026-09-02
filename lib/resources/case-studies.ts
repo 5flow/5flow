@@ -3,6 +3,7 @@ import { getAllCmsCaseStudySlugs, getCmsCaseStudyBySlug, getCmsCaseStudyCards } 
 export type CaseStudyCardItem = {
   title: string;
   desc: string;
+  date?: string;
   image: string;
   imageFocus?: string;
   link: string;

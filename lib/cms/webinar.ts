@@ -12,6 +12,7 @@ type AcfLinkField = string | { url?: string; title?: string; target?: string } |
 type WpWebinarPost = {
   id: number;
   slug: string;
+  date: string;
   title: { rendered: string };
   excerpt?: { rendered: string; raw?: string };
   acf?: {
@@ -105,6 +106,7 @@ function mapWebinar(post: WpWebinarPost): WebinarCardItem {
   return {
     title,
     desc,
+    date: post.date,
     image,
     link,
     buttonLabel: post.acf?.button_label || 'Watch now',

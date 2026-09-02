@@ -26,6 +26,7 @@ const staticCards: ResourceCard[] = [
   {
     title: 'Rebuilding packaging workflows with AI',
     desc: 'Designed to Win: AI and the Future of Packaging with Sriram Upadhyayula.',
+    date: '2026-07-13',
     image: getPodcastImage(podcastYoutubeVideoId, '/home/podcast_tumb.webp'),
     link: '/resources/podcast/episode-1',
     buttonLabel: 'Watch now',
@@ -34,6 +35,7 @@ const staticCards: ResourceCard[] = [
   {
     title: 'Driving 50% capacity growth in artwork operations with WAVE',
     desc: 'Managing high-volume packaging artwork across multiple brands and SKUs.',
+    date: '2026-07-24',
     image: '/resources/how-we-saved.png',
     link: '/resources/case-studies',
     buttonLabel: 'Read case study',
@@ -41,6 +43,7 @@ const staticCards: ResourceCard[] = [
   {
     title: 'Packaging regulations do not have to slow your team down',
     desc: 'Discover practical ways to keep packaging reviews moving with more control.',
+    date: '2026-04-20',
     image: '/resources/Webinar_Cover-1-Secure_Food.png',
     link: '/resources/webinars',
     buttonLabel: 'Watch now',
@@ -72,6 +75,7 @@ async function getWordPressCards(): Promise<ResourceCard[]> {
         ? {
             title: caseStudies[0].title,
             desc: caseStudies[0].desc,
+            date: caseStudies[0].date,
             image: caseStudies[0].image,
             imageFocus: caseStudies[0].imageFocus,
             link: caseStudies[0].link,
@@ -82,6 +86,7 @@ async function getWordPressCards(): Promise<ResourceCard[]> {
         ? {
             title: webinars[0].title,
             desc: webinars[0].desc,
+            date: webinars[0].date,
             image: webinars[0].image,
             link: webinars[0].link,
             buttonLabel: webinars[0].buttonLabel || 'Watch now',
@@ -111,7 +116,8 @@ function formatDate(date?: string): string | undefined {
   if (!date) return undefined;
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return date;
-  return parsed.toISOString().slice(0, 10);
+  const [year, month, day] = parsed.toISOString().slice(0, 10).split('-');
+  return `${day}-${month}-${year}`;
 }
 
 function ResourceButton({ href, label, icon }: { href: string; label: string; icon?: 'play' }) {
