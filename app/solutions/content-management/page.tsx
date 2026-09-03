@@ -115,11 +115,11 @@ const whyData = [
   },
 ];
 
-export default async function ContentManagement() {
+export async function ContentManagementPage({ cmsSlug = 'content-management' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('content-management');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -191,6 +191,10 @@ export default async function ContentManagement() {
       </div>
     </div>
   );
+}
+
+export default async function ContentManagement() {
+  return <ContentManagementPage />;
 }
 
 

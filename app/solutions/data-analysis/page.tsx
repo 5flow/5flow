@@ -114,11 +114,11 @@ const whyData = [
   },
 ];
 
-export default async function DataAnalysis() {
+export async function DataAnalysisPage({ cmsSlug = 'data-analysis' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('data-analysis');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -190,6 +190,10 @@ export default async function DataAnalysis() {
       </div>
     </div>
   );
+}
+
+export default async function DataAnalysis() {
+  return <DataAnalysisPage />;
 }
 
 

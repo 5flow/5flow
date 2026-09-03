@@ -112,11 +112,11 @@ const whyData = [
   },
 ];
 
-export default async function Integration() {
+export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('integration');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -188,6 +188,10 @@ export default async function Integration() {
       </div>
     </div>
   );
+}
+
+export default async function Integration() {
+  return <IntegrationPage />;
 }
 
 

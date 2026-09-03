@@ -149,11 +149,11 @@ const benefitItems = [
   },
 ];
 
-export default async function Retail() {
+export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('retail');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -223,6 +223,10 @@ export default async function Retail() {
       </div>
     </div>
   );
+}
+
+export default async function Retail() {
+  return <RetailPage />;
 }
 
 

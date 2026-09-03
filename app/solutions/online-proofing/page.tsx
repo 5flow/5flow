@@ -113,11 +113,11 @@ const whyData = [
   },
 ];
 
-export default async function OnlineProofing() {
+export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('online-proofing');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -189,6 +189,10 @@ export default async function OnlineProofing() {
       </div>
     </div>
   );
+}
+
+export default async function OnlineProofing() {
+  return <OnlineProofingPage />;
 }
 
 

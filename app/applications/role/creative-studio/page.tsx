@@ -157,11 +157,11 @@ const workflowFallback = {
   ],
 };
 
-export default async function CreativeStudio() {
+export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('creative-studio');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -224,5 +224,9 @@ export default async function CreativeStudio() {
       </div>
     </div>
   );
+}
+
+export default async function CreativeStudio() {
+  return <CreativeStudioPage />;
 }
 

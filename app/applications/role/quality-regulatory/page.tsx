@@ -161,11 +161,11 @@ const workflowFallback = {
   ],
 };
 
-export default async function QualityRegulatory() {
+export async function QualityRegulatoryPage({ cmsSlug = 'quality-regulatory' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('quality-regulatory');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -232,6 +232,10 @@ export default async function QualityRegulatory() {
       </div>
     </div>
   );
+}
+
+export default async function QualityRegulatory() {
+  return <QualityRegulatoryPage />;
 }
 
 

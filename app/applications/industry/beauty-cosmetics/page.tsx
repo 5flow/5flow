@@ -158,11 +158,11 @@ const benefitItems = [
   },
 ];
 
-export default async function BeautyCosmetics() {
+export async function BeautyCosmeticsPage({ cmsSlug = 'beauty-cosmetics' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('beauty-cosmetics');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -234,6 +234,10 @@ export default async function BeautyCosmetics() {
       </div>
     </div>
   );
+}
+
+export default async function BeautyCosmetics() {
+  return <BeautyCosmeticsPage />;
 }
 
 

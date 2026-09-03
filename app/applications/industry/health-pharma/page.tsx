@@ -158,11 +158,11 @@ const benefitItems = [
   },
 ];
 
-export default async function HealthPharma() {
+export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('health-pharma');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -231,6 +231,10 @@ export default async function HealthPharma() {
       </div>
     </div>
   );
+}
+
+export default async function HealthPharma() {
+  return <HealthPharmaPage />;
 }
 
 

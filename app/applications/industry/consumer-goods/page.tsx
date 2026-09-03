@@ -159,11 +159,11 @@ const benefitItems = [
   },
 ];
 
-export default async function ConsumerGoods() {
+export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('consumer-goods');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -232,6 +232,10 @@ export default async function ConsumerGoods() {
       </div>
     </div>
   );
+}
+
+export default async function ConsumerGoods() {
+  return <ConsumerGoodsPage />;
 }
 
 

@@ -161,11 +161,11 @@ const workflowFallback = {
   ],
 };
 
-export default async function ProcurementSourcing() {
+export async function ProcurementSourcingPage({ cmsSlug = 'procurement-sourcing' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('procurement-sourcing');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -232,6 +232,10 @@ export default async function ProcurementSourcing() {
       </div>
     </div>
   );
+}
+
+export default async function ProcurementSourcing() {
+  return <ProcurementSourcingPage />;
 }
 
 

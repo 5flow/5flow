@@ -112,11 +112,11 @@ const whyData = [
   },
 ];
 
-export default async function AssetLibrary() {
+export async function AssetLibraryPage({ cmsSlug = 'asset-library' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('asset-library');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -188,6 +188,10 @@ export default async function AssetLibrary() {
       </div>
     </div>
   );
+}
+
+export default async function AssetLibrary() {
+  return <AssetLibraryPage />;
 }
 
 

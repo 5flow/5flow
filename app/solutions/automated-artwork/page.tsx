@@ -113,11 +113,11 @@ const whyData = [
   },
 ];
 
-export default async function AutomatedArtwork() {
+export async function AutomatedArtworkPage({ cmsSlug = 'automated-artwork' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('automated-artwork');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -189,6 +189,10 @@ export default async function AutomatedArtwork() {
       </div>
     </div>
   );
+}
+
+export default async function AutomatedArtwork() {
+  return <AutomatedArtworkPage />;
 }
 
 

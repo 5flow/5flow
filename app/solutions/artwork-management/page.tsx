@@ -111,11 +111,11 @@ const whyData = [
   },
 ];
 
-export default async function ArtworkManagement() {
+export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getSolution>> | null;
   if (features.enabled) {
     try {
-      cms = await getSolution('artwork-management');
+      cms = await getSolution(cmsSlug);
     } catch {}
   }
 
@@ -187,6 +187,10 @@ export default async function ArtworkManagement() {
       </div>
     </div>
   );
+}
+
+export default async function ArtworkManagement() {
+  return <ArtworkManagementPage />;
 }
 
 

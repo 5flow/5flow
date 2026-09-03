@@ -159,11 +159,11 @@ const benefitItems = [
   },
 ];
 
-export default async function FoodBeverages() {
+export async function FoodBeveragesPage({ cmsSlug = 'food-beverages' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('food-beverages');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -232,6 +232,10 @@ export default async function FoodBeverages() {
       </div>
     </div>
   );
+}
+
+export default async function FoodBeverages() {
+  return <FoodBeveragesPage />;
 }
 
 

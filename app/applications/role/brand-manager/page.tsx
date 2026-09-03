@@ -158,11 +158,11 @@ const workflowFallback = {
   ],
 };
 
-export default async function BrandManager() {
+export async function BrandManagerPage({ cmsSlug = 'brand-manager' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getApplication>> | null;
   if (features.enabled) {
     try {
-      cms = await getApplication('brand-manager');
+      cms = await getApplication(cmsSlug);
     } catch {}
   }
 
@@ -227,6 +227,10 @@ export default async function BrandManager() {
       </div>
     </div>
   );
+}
+
+export default async function BrandManager() {
+  return <BrandManagerPage />;
 }
 
 
