@@ -6,6 +6,7 @@ import InlineHighlight from '@/components/core/inline-highlight';
 import { getCmsBlogs } from '@/lib/cms/blog';
 import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
 import { getCmsWebinarCards } from '@/lib/cms/webinar';
+import { getCmsPodcastCards } from '@/lib/cms/podcast';
 
 type ResourceCard = {
   title: string;
@@ -63,14 +64,25 @@ async function getWordPressCards(): Promise<ResourceCard[]> {
   if (!process.env.WP_BASE_URL) return staticCards;
 
   try {
-    const [caseStudies, webinars, blogs] = await Promise.all([
+    const [podcasts, caseStudies, webinars, blogs] = await Promise.all([
+      getCmsPodcastCards(),
       getCmsCaseStudyCards(),
       getCmsWebinarCards(),
       getCmsBlogs(),
     ]);
 
     const cards: ResourceCard[] = [
-      staticCards[0],
+      podcasts[0]
+        ? {
+            title: podcasts[0].title,
+            desc: podcasts[0].desc,
+            date: podcasts[0].date,
+            image: podcasts[0].image,
+            link: podcasts[0].link,
+            buttonLabel: 'Watch now',
+            icon: 'play',
+          }
+        : staticCards[0],
       caseStudies[0]
         ? {
             title: caseStudies[0].title,
@@ -156,7 +168,9 @@ function Card({ item }: { item: ResourceCard }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        {item.date ? <p className="text-muted-foreground text-xs leading-5 tracking-normal">{formatDate(item.date)}</p> : null}
+        {item.date ? (
+          <p className="text-muted-foreground text-xs leading-5 tracking-normal">{formatDate(item.date)}</p>
+        ) : null}
         <h3 className="font-heading mt-2 text-xl leading-[1.12] font-bold tracking-normal text-[#111827]">
           {item.title}
         </h3>
@@ -172,18 +186,36 @@ function Card({ item }: { item: ResourceCard }) {
   );
 }
 
-export default async function New() {
+type NewProps = {
+  title?: string;
+  description?: string;
+};
+
+function renderTitle(title: string) {
+  const highlight = "What's new";
+  if (!title.toLowerCase().startsWith(highlight.toLowerCase())) return title;
+  return (
+    <>
+      <InlineHighlight>{title.slice(0, highlight.length)}</InlineHighlight>
+      {title.slice(highlight.length)}
+    </>
+  );
+}
+
+export default async function New({
+  title = "What's new at 5Flow",
+  description = "From AI-powered product updates to expert perspectives on packaging operations and compliance, stay connected to what's shaping the future of packaging.",
+}: NewProps) {
   const cards = await getWordPressCards();
 
   return (
     <section className="text-foreground w-full px-2 py-12 md:py-20">
       <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
         <h2 className="font-heading text-[44px] leading-[1.05] font-bold tracking-normal md:text-[64px]">
-          <InlineHighlight>What&apos;s new</InlineHighlight> at 5Flow
+          {renderTitle(title)}
         </h2>
         <p className="mt-7 max-w-4xl text-xl leading-7 font-semibold tracking-normal text-[#303030] md:text-[24px] md:leading-9">
-          From AI-powered product updates to expert perspectives on packaging operations and compliance, stay connected
-          to what&apos;s shaping the future of packaging.
+          {description}
         </p>
       </div>
 

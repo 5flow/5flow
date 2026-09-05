@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { ArrowUpRight, Cloud, MessageSquare, Puzzle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import HtmlContent from '@/components/core/html-content';
 
-type HowItem = { title: string; desc: string; link?: string; iconKey?: string };
+type HowItem = { title: string; lead?: string; desc: string; link?: string; iconKey?: string };
 type HowProps = { title?: string; subtitle?: string; desc?: string; items?: HowItem[] };
 
 const cards = [
@@ -41,8 +42,25 @@ const cards = [
   },
 ];
 
-const How = (_props: HowProps) => {
-  void _props;
+const iconMap = { cloud: Cloud, puzzle: Puzzle, 'message-square': MessageSquare };
+
+const How = ({
+  title = 'Sound familiar?',
+  subtitle = "That's exactly why 5Flow exists.",
+  desc = 'One partner. Three ways to simplify packaging operations.',
+  items,
+}: HowProps) => {
+  const displayCards = cards.map((fallback, index) => {
+    const item = items?.[index];
+    return {
+      title: item?.title || fallback.title,
+      lead: item?.lead || fallback.lead,
+      bodyHtml: item?.desc,
+      body: fallback.body,
+      link: item?.link || fallback.link,
+      icon: item?.iconKey ? iconMap[item.iconKey as keyof typeof iconMap] || fallback.icon : fallback.icon,
+    };
+  });
 
   return (
     <section className="text-foreground w-full px-2 py-14 md:py-18">
@@ -50,22 +68,20 @@ const How = (_props: HowProps) => {
         <div className="grid items-start gap-8 md:grid-cols-[1.35fr_1fr] md:gap-16">
           <div>
             <h2 className="font-heading text-[40px] leading-[1.08] font-bold tracking-normal sm:text-5xl md:text-[56px]">
-              Sound familiar?
+              {title}
             </h2>
             <p className="text-primary mt-3 text-[30px] leading-[1.12] font-normal tracking-normal sm:text-[38px] md:text-[42px]">
-              That&apos;s exactly why 5Flow exists.
+              {subtitle}
             </p>
           </div>
 
           <p className="font-heading max-w-[560px] text-2xl leading-[1.2] font-bold tracking-normal md:pt-9 md:text-[30px]">
-            One partner. Three ways to
-            <br />
-            simplify packaging operations.
+            {desc}
           </p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-2">
-          {cards.map(({ title, lead, body, link, icon: Icon }) => (
+          {displayCards.map(({ title, lead, body, bodyHtml, link, icon: Icon }) => (
             <article
               key={title}
               className="bg-background flex min-h-[232px] flex-col rounded-lg p-6 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"
@@ -78,9 +94,9 @@ const How = (_props: HowProps) => {
               <p className="text-primary mt-10 text-[22px] leading-7 font-bold tracking-normal">{lead}</p>
 
               <div className="mt-auto flex items-end justify-between gap-4 pt-4">
-                <p className="font-body max-w-[255px] text-base leading-tight font-normal tracking-tight text-[#030712cc] sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal [&_strong]:font-bold">
-                  {body}
-                </p>
+                <div className="font-body max-w-[255px] text-base leading-tight font-normal tracking-tight text-[#030712cc] sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal [&_strong]:font-bold">
+                  {bodyHtml ? <HtmlContent html={bodyHtml} /> : body}
+                </div>
 
                 <Link href={link} className="shrink-0">
                   <Button

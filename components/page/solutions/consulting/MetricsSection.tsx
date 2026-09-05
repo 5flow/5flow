@@ -33,6 +33,8 @@ type MetricsSectionProps = {
   trustHighlight?: string;
   trustSubtitle?: string;
   trustStats?: StatItem[];
+  ctaText?: string;
+  ctaUrl?: string;
 };
 
 function renderHighlightedTitle(title: string, highlight: string) {
@@ -57,6 +59,8 @@ export default function MetricsSection({
   trustHighlight = 'Trusted',
   trustSubtitle = 'Helping organizations simplify complexity and transform how marketing operations work.',
   trustStats: trustStatsProp,
+  ctaText,
+  ctaUrl,
 }: MetricsSectionProps) {
   const displayImpactStats = impactStatsProp?.length ? impactStatsProp : impactStats;
   const displayTrustStats = trustStatsProp?.length ? trustStatsProp : trustStats;
@@ -71,9 +75,7 @@ export default function MetricsSection({
                 <h2 className="font-heading text-4xl leading-none font-bold tracking-tighter md:text-[64px] md:leading-[64px]">
                   {renderHighlightedTitle(impactTitle, impactHighlight)}
                 </h2>
-                <p className="mt-3 text-base leading-snug tracking-tight md:text-lg">
-                  {impactSubtitle}
-                </p>
+                <p className="mt-3 text-base leading-snug tracking-tight md:text-lg">{impactSubtitle}</p>
               </div>
               <ArrowDown className="text-accent1 h-16 w-16 md:h-28 md:w-28" strokeWidth={1.6} />
             </div>
@@ -93,7 +95,7 @@ export default function MetricsSection({
             </div>
 
             <div className="mt-8">
-              <ConsultingButton />
+              <ConsultingButton href={ctaUrl} label={ctaText} />
             </div>
           </div>
 
@@ -104,9 +106,7 @@ export default function MetricsSection({
               </span>
               <span className="block xl:whitespace-nowrap">{trustTitleLine2}</span>
             </h2>
-            <p className="mt-6 text-center text-base leading-snug tracking-tight md:text-lg">
-              {trustSubtitle}
-            </p>
+            <p className="mt-6 text-center text-base leading-snug tracking-tight md:text-lg">{trustSubtitle}</p>
 
             <div className="mt-8 grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3">
               {displayTrustStats.map(stat => (

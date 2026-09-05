@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import * as LucideIcons from 'lucide-react';
-import { features } from '@/lib/features';
 import { getConsulting } from '@/lib/cms/consulting';
 import { Contact } from '@/components/layout';
 import InlineHighlight from '@/components/core/inline-highlight';
@@ -40,11 +39,9 @@ function withResolvedIcons<T extends { iconKey?: string; assetSrc?: string }>(it
 
 export default async function Consulting() {
   let cms = null as Awaited<ReturnType<typeof getConsulting>> | null;
-  if (features.enabled) {
-    try {
-      cms = await getConsulting('consulting');
-    } catch {}
-  }
+  try {
+    cms = await getConsulting('consulting');
+  } catch {}
 
   const contact = cms?.contact || {};
 

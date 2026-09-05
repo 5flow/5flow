@@ -1,5 +1,9 @@
 import { CircleAlert, CircleDollarSign, Eye, Layers } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import HtmlContent from '@/components/core/html-content';
+
+type WhyItem = { title?: string; bodyHtml?: string; iconKey?: string };
+type WhyProps = { title?: string; bodyHtml?: string; items?: WhyItem[] };
 
 const cards = [
   {
@@ -24,22 +28,36 @@ const cards = [
   },
 ];
 
-export default function Why() {
+const iconMap = { layers: Layers, eye: Eye, 'circle-alert': CircleAlert, 'circle-dollar-sign': CircleDollarSign };
+
+export default function Why({ title = 'Why issues get caught too late.', bodyHtml, items }: WhyProps) {
+  const displayCards = cards.map((fallback, index) => {
+    const item = items?.[index];
+    return {
+      title: item?.title || fallback.title,
+      desc: item?.bodyHtml || fallback.desc,
+      icon: item?.iconKey ? iconMap[item.iconKey as keyof typeof iconMap] || fallback.icon : fallback.icon,
+    };
+  });
   return (
     <section className="flex w-full flex-col gap-8 px-4 sm:px-6 md:px-0">
       <FullBleedLines>
-        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
-          Why issues get caught too late.
-        </h2>
-        <p className="mt-6 max-w-4xl text-xl leading-7 tracking-normal text-[#262626]">
-          Artwork reviews are often complex, time-consuming and highly dependent on individual reviewers. When teams are
-          under pressure, small issues can easily slip through leading to rework, delays and unnecessary compliance
-          risks.
-        </p>
+        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">{title}</h2>
+        <div className="mt-6 max-w-4xl text-xl leading-7 tracking-normal text-[#262626]">
+          {bodyHtml ? (
+            <HtmlContent html={bodyHtml} />
+          ) : (
+            <>
+              Artwork reviews are often complex, time-consuming and highly dependent on individual reviewers. When teams
+              are under pressure, small issues can easily slip through leading to rework, delays and unnecessary
+              compliance risks.
+            </>
+          )}
+        </div>
       </FullBleedLines>
 
       <FullBleedLines className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {cards.map(({ title, desc, icon: Icon }) => (
+        {displayCards.map(({ title, desc, icon: Icon }) => (
           <article
             key={title}
             className="bg-background flex min-h-[210px] flex-col rounded-lg p-6 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"

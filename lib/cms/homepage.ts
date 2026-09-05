@@ -14,6 +14,8 @@ export interface HomepageItemRaw {
   buttonLink?: string;
   button_url?: string;
   buttonUrl?: string;
+  button_text?: string;
+  buttonText?: string;
   image_url?: string;
   imageUrl?: string;
 }
@@ -28,6 +30,11 @@ export interface HomepageData {
   };
   what?: {
     title?: string;
+    subtitle?: string;
+    description?: string;
+    imageUrl?: string;
+    ctaTitle?: string;
+    ctaText?: string;
     items: HomepageItemRaw[];
   };
   how?: {
@@ -42,8 +49,14 @@ export interface HomepageData {
   };
   why?: {
     title?: string;
+    highlight?: string;
     bodyHtml?: string;
+    imageUrl?: string;
     items: HomepageItemRaw[];
+  };
+  news?: {
+    title?: string;
+    description?: string;
   };
 }
 
@@ -73,6 +86,13 @@ export function inferAltTextFromUrl(url: string): string | undefined {
     .trim();
 }
 
+function resolveImageUrl(value: unknown): string | undefined {
+  if (typeof value === 'string') return value.trim() || undefined;
+  if (!value || typeof value !== 'object') return undefined;
+  const image = value as Record<string, unknown>;
+  return typeof image.url === 'string' && image.url.trim() ? image.url : undefined;
+}
+
 export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
   const raw = await wpFetch(`/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}`);
   if (!Array.isArray(raw) || raw.length === 0) return null;
@@ -97,6 +117,11 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     hero: hero,
     what: {
       title: meta.what_title || acf.what_title,
+      subtitle: meta.what_subtitle || acf.what_subtitle,
+      description: meta.what_description || acf.what_description,
+      imageUrl: resolveImageUrl(meta.what_image || acf.what_image),
+      ctaTitle: meta.what_cta_title || acf.what_cta_title,
+      ctaText: meta.what_cta_text || acf.what_cta_text,
       items: whatItems,
     },
     how: {
@@ -122,8 +147,14 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     },
     why: {
       title: meta.why_title || acf.why_title,
+      highlight: meta.why_highlight || acf.why_highlight,
       bodyHtml: meta.why_body_html || meta.why_bodyhtml || acf.why_body_html || acf.why_bodyhtml,
+      imageUrl: resolveImageUrl(meta.why_image || acf.why_image),
       items: whyItems,
+    },
+    news: {
+      title: meta.new_title || acf.new_title,
+      description: meta.new_description || acf.new_description,
     },
   };
 }

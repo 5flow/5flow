@@ -30,7 +30,7 @@ type WpCategory = {
 
 type AcfImageField = string | { url?: string; sizes?: Record<string, string> } | undefined;
 
-const EXCLUDED_BLOG_CATEGORY_SLUGS = ['case-studies', 'downloads', 'download', 'webinars', 'webinar'];
+const EXCLUDED_BLOG_CATEGORY_SLUGS = ['case-studies', 'downloads', 'download', 'webinars', 'webinar', 'podcast'];
 
 function formatDate(dateString: string): string {
   try {
