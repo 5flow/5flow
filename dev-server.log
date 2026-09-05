@@ -14,3 +14,11 @@ Creating turbopack project { dir: 'D:\\5 flow\\5flow-main 5-3-26 live changes', 
  GET /resources/podcast/episode-1 200 in 15468ms
  GET /resources/podcast/episode-1 200 in 448ms
  GET /resources/podcast/episode-1 200 in 472ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1553ms
+ GET / 200 in 2689ms
+ GET / 200 in 464ms
+ ✓ Compiled in 231ms
+ ✓ Compiled / in 44ms
+ GET / 200 in 1144ms
+[?25h

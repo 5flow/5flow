@@ -42,6 +42,18 @@ function renderHeroTitle(title?: string) {
   });
 }
 
+function formatHeroBodyHtml(bodyHtml: string) {
+  if (/<br\s*\/?>/i.test(bodyHtml)) return bodyHtml;
+
+  return bodyHtml
+    .replace(
+      ', expert consulting and tailored solutions to help you ',
+      ', expert<br class="sm:hidden" /> consulting and tailored solutions<br class="sm:hidden" /> to<br class="hidden sm:block" /> help you '
+    )
+    .replace('simplify approvals, reduce risk', 'simplify approvals,<br class="sm:hidden" /> reduce risk')
+    .replace('products to market faster.', 'products to<br /> market faster.');
+}
+
 const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
   return (
     <div className="relative flex min-h-dvh flex-col justify-center">
@@ -65,15 +77,15 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
           </FullBleedLines>
         </div>
         <FullBleedLines>
-          <div className="font-body text-foreground max-w-full text-sm leading-[150%] font-normal tracking-tight sm:max-w-2xl sm:text-base md:max-w-3xl md:text-[20px] md:leading-8 md:tracking-normal md:text-[#030712cc] [&_em]:font-normal [&_strong]:font-normal">
+          <div className="font-body text-foreground max-w-full text-sm leading-[150%] font-normal tracking-tight sm:max-w-2xl sm:text-base md:max-w-3xl md:text-[20px] md:leading-8 md:tracking-normal md:text-[#030712cc] [&_em]:font-normal [&_strong]:font-bold">
             {bodyHtml ? (
-              <HtmlContent html={bodyHtml} />
+              <HtmlContent html={formatHeroBodyHtml(bodyHtml)} />
             ) : (
               <>
                 <span className="sm:hidden">
-                  <b>AI-powered software</b>, expert 
+                  <b>AI-powered software</b>, expert
                   <br />
-                  consulting and tailored solutions 
+                  consulting and tailored solutions
                   <br />
                   to help you <b>simplify approvals,</b>
                   <br />

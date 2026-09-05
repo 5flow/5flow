@@ -157,7 +157,7 @@ const parserOptions: HTMLReactParserOptions = {
         );
       }
       case 'br':
-        return <br {...rest} />;
+        return <br className={rawClassName} {...rest} />;
       default:
         return undefined;
     }
