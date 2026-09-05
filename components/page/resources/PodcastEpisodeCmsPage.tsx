@@ -46,6 +46,22 @@ const bodyParserOptions: HTMLReactParserOptions = {
   },
 };
 
+function renderPodcastBody(content: string) {
+  if (!content) return null;
+  try {
+    return parse(content, bodyParserOptions);
+  } catch {
+    return (
+      <p>
+        {content
+          .replace(/<[^>]*>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()}
+      </p>
+    );
+  }
+}
+
 function SpotifyButton({ href }: { href: string }) {
   if (!href) return null;
   return (
@@ -123,7 +139,7 @@ export default function PodcastEpisodeCmsPage({ episode }: { episode: PodcastEpi
                 </ul>
               </section>
             ) : null}
-            <div className="mt-14">{parse(episode.content, bodyParserOptions)}</div>
+            <div className="mt-14">{renderPodcastBody(episode.content)}</div>
           </article>
         </main>
 

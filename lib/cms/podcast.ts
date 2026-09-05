@@ -76,8 +76,9 @@ function stripHtml(value: string): string {
   );
 }
 
-function parseStringArray(value?: string): string[] {
-  if (!value) return [];
+function parseStringArray(value?: unknown): string[] {
+  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === 'string');
+  if (typeof value !== 'string' || !value) return [];
   try {
     const parsed = JSON.parse(value);
     return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === 'string') : [];
@@ -108,7 +109,7 @@ export function getYoutubeVideoId(value?: string): string | undefined {
 }
 
 function mapPodcastEpisode(post: WpPodcastPost): PodcastEpisode {
-  const acf = post.acf || {};
+  const acf = post.acf && !Array.isArray(post.acf) ? post.acf : {};
   const youtubeVideoId = getYoutubeVideoId(acf.youtube_url);
 
   return {
@@ -169,11 +170,15 @@ export async function getCmsPodcastCards(): Promise<PodcastCardItem[]> {
 
 export async function getCmsPodcastEpisodeBySlug(slug: string): Promise<PodcastEpisode | null> {
   try {
-    const categoryId = await getPodcastCategoryId();
-    if (!categoryId) return null;
     const posts = (await wpFetch(`/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed`)) as WpPodcastPost[];
-    const post = posts.find(item => item.categories?.includes(categoryId));
-    return post ? mapPodcastEpisode(post) : null;
+    const post = posts[0];
+    if (!post) return null;
+
+    // Category validation must not make a published episode unavailable when
+    // WordPress temporarily fails to serve the categories endpoint.
+    const categoryId = await getPodcastCategoryId();
+    if (categoryId && !post.categories?.includes(categoryId)) return null;
+    return mapPodcastEpisode(post);
   } catch {
     return null;
   }

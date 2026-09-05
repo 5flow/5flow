@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EpisodeOnePage from '@/components/page/resources/EpisodeOnePage';
 import PodcastEpisodeCmsPage from '@/components/page/resources/PodcastEpisodeCmsPage';
-import { getAllCmsPodcastSlugs, getCmsPodcastEpisodeBySlug } from '@/lib/cms/podcast';
+import { getCmsPodcastEpisodeBySlug } from '@/lib/cms/podcast';
 
 type PodcastEpisodeRouteProps = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: PodcastEpisodeRouteProps): Promise<Metadata> {
   const { slug } = await params;
@@ -33,9 +35,4 @@ export default async function PodcastEpisodeRoute({ params }: PodcastEpisodeRout
   if (episode) return <PodcastEpisodeCmsPage episode={episode} />;
   if (slug === 'episode-1') return <EpisodeOnePage />;
   notFound();
-}
-
-export async function generateStaticParams() {
-  const slugs = await getAllCmsPodcastSlugs();
-  return slugs.map(slug => ({ slug }));
 }
