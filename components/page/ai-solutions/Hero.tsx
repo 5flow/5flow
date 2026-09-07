@@ -3,6 +3,7 @@ import { MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import HtmlContent from '@/components/core/html-content';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type HeroProps = {
   title?: string;
@@ -19,24 +20,19 @@ export default function Hero({
   ctaText = 'Book a Demo',
   ctaUrl = '/contact',
 }: HeroProps) {
-  const subtitleLines = subtitle.split(/<br\s*\/?>/i);
   return (
     <section className="relative mt-32 flex w-full flex-col gap-14 px-4 sm:px-6 md:px-0">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-start">
         <FullBleedLines>
           <h2 className="font-heading max-w-xl text-[44px] leading-[1.12] font-bold tracking-normal md:text-[56px]">
-            {title}
+            <InlineCmsText value={title} />
           </h2>
         </FullBleedLines>
 
         <FullBleedLines>
           <div className="flex max-w-xl flex-col items-start">
             <p className="font-heading text-primary text-[34px] leading-[1.15] tracking-normal md:text-[42px]">
-              {subtitleLines.map((line, index) => (
-                <span className="block" key={`${line}-${index}`}>
-                  {line}
-                </span>
-              ))}
+              <InlineCmsText value={subtitle} />
             </p>
             <div className="mt-4 text-xl leading-7 tracking-normal text-[#262626]">
               {bodyHtml ? (

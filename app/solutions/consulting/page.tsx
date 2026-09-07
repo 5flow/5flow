@@ -3,6 +3,7 @@ import * as LucideIcons from 'lucide-react';
 import { getConsulting } from '@/lib/cms/consulting';
 import { Contact } from '@/components/layout';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 import Hero from '@/components/page/solutions/consulting/Hero';
 import StrategySection from '@/components/page/solutions/consulting/StrategySection';
 import PainPoints from '@/components/page/solutions/consulting/PainPoints';
@@ -63,13 +64,19 @@ export default async function Consulting() {
               headingClassName="md:text-right"
               heading={
                 <>
-                  <span className="block">{contact.line1 || 'Tell us a bit about'}</span>
                   <span className="block">
-                    {contact.line2Prefix || 'your'}{' '}
-                    <InlineHighlight>{contact.highlight || 'challenges,'}</InlineHighlight>{' '}
-                    {contact.line2Suffix || "we'll"}
+                    <InlineCmsText value={contact.line1 || 'Tell us a bit about'} />
                   </span>
-                  <span className="block">{contact.line3 || 'follow up with next steps.'}</span>
+                  <span className="block">
+                    <InlineCmsText value={contact.line2Prefix || 'your'} />{' '}
+                    <InlineHighlight>
+                      <InlineCmsText value={contact.highlight || 'challenges,'} />
+                    </InlineHighlight>{' '}
+                    <InlineCmsText value={contact.line2Suffix || "we'll"} />
+                  </span>
+                  <span className="block">
+                    <InlineCmsText value={contact.line3 || 'follow up with next steps.'} />
+                  </span>
                 </>
               }
             />

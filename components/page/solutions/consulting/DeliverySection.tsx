@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Boxes, HandHeart, ShieldCheck, Zap } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const services = [
   {
@@ -52,26 +53,18 @@ type DeliverySectionProps = {
 };
 
 function renderHighlightedTitle(title: string, highlights: string[]) {
-  if (!highlights.length) return title;
-  let parts: React.ReactNode[] = [title];
-  highlights.forEach(highlight => {
-    const nextParts: React.ReactNode[] = [];
-    parts.forEach(part => {
-      if (typeof part !== 'string' || !part.includes(highlight)) {
-        nextParts.push(part);
-        return;
-      }
-      const split = part.split(highlight);
-      split.forEach((text, index) => {
-        nextParts.push(text);
-        if (index < split.length - 1) {
-          nextParts.push(<InlineHighlight key={`${highlight}-${index}`}>{highlight}</InlineHighlight>);
-        }
-      });
-    });
-    parts = nextParts;
-  });
-  return parts;
+  const activeHighlights = highlights.filter(Boolean).sort((a, b) => b.length - a.length);
+  if (!activeHighlights.length) return <InlineCmsText value={title} />;
+  const escaped = activeHighlights.map(highlight => highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return title
+    .split(new RegExp(`(${escaped.join('|')})`, 'g'))
+    .map((part, index) =>
+      activeHighlights.includes(part) ? (
+        <InlineHighlight key={`${part}-${index}`}>{part}</InlineHighlight>
+      ) : (
+        <InlineCmsText key={`${part}-${index}`} value={part} />
+      )
+    );
 }
 
 export default function DeliverySection({
@@ -91,7 +84,7 @@ export default function DeliverySection({
           {renderHighlightedTitle(title, highlights)}
         </h2>
         <p className="mt-4 text-base leading-snug tracking-tight md:text-lg">
-          {subtitle}
+          <InlineCmsText value={subtitle} />
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -102,7 +95,7 @@ export default function DeliverySection({
             >
               <div className="flex items-start justify-between gap-6">
                 <h3 className="font-heading max-w-72 text-xl leading-none font-bold tracking-tight md:text-3xl">
-                  {title}
+                  <InlineCmsText value={title} />
                 </h3>
                 {assetSrc ? (
                   <Image src={assetSrc} alt="" width={72} height={72} className="h-10 w-10 shrink-0 md:h-14 md:w-14" />
@@ -110,7 +103,9 @@ export default function DeliverySection({
                   Icon && <Icon className="text-primary h-10 w-10 shrink-0 md:h-14 md:w-14" strokeWidth={1.8} />
                 )}
               </div>
-              <p className="mt-8 max-w-80 text-base leading-tight tracking-tight md:mt-0 md:text-2xl">{text}</p>
+              <p className="mt-8 max-w-80 text-base leading-tight tracking-tight md:mt-0 md:text-2xl">
+                <InlineCmsText value={text} />
+              </p>
             </article>
           ))}
         </div>

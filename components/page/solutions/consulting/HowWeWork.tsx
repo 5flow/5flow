@@ -3,6 +3,7 @@ import { UsersRound, Zap } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import ConsultingButton from './ConsultingButton';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const principles = [
   {
@@ -41,13 +42,13 @@ type HowWeWorkProps = {
 };
 
 function renderHighlightedTitle(title: string, highlight: string) {
-  if (!highlight || !title.includes(highlight)) return title;
+  if (!highlight || !title.includes(highlight)) return <InlineCmsText value={title} />;
   const [before, ...rest] = title.split(highlight);
   return (
     <>
-      {before}
+      <InlineCmsText value={before} />
       <InlineHighlight>{highlight}</InlineHighlight>
-      {rest.join(highlight)}
+      <InlineCmsText value={rest.join(highlight)} />
     </>
   );
 }
@@ -62,14 +63,13 @@ export default function HowWeWork({
   ctaUrl,
   items,
 }: HowWeWorkProps) {
-  const displayParagraphs =
-    paragraphs?.length
-      ? paragraphs
-      : [
-          'From strategy through to execution, we help organizations turn transformation plans into practical, everyday ways of working.',
-          'Operating model expertise meets hands-on delivery and the global strength of the Propelis network, helping teams move from planning and alignment to real adoption, measurable progress, and ways of working that actually stick.',
-          "Because real transformation doesn't stop at strategy. It works in practice.",
-        ];
+  const displayParagraphs = paragraphs?.length
+    ? paragraphs
+    : [
+        'From strategy through to execution, we help organizations turn transformation plans into practical, everyday ways of working.',
+        'Operating model expertise meets hands-on delivery and the global strength of the Propelis network, helping teams move from planning and alignment to real adoption, measurable progress, and ways of working that actually stick.',
+        "Because real transformation doesn't stop at strategy. It works in practice.",
+      ];
   const displayItems = items?.length ? items : principles;
 
   return (
@@ -83,11 +83,13 @@ export default function HowWeWork({
               {renderHighlightedTitle(title, highlight)}
             </h2>
             <p className="mt-6 text-lg leading-tight font-bold tracking-tight md:mt-8 md:text-2xl">
-              {subtitle}
+              <InlineCmsText value={subtitle} />
             </p>
             <div className="mt-5 flex flex-col gap-4 text-base leading-snug tracking-tight md:text-lg">
               {displayParagraphs.map(paragraph => (
-                <p key={paragraph}>{paragraph}</p>
+                <p key={paragraph}>
+                  <InlineCmsText value={paragraph} />
+                </p>
               ))}
             </div>
             <div className="mt-8">
@@ -109,9 +111,11 @@ export default function HowWeWork({
                   )}
                 </div>
                 <h3 className="font-heading self-center text-xl leading-none font-bold tracking-tight md:text-2xl">
-                  {title}
+                  <InlineCmsText value={title} />
                 </h3>
-                <p className="self-start text-base leading-tight tracking-tight md:text-lg">{text}</p>
+                <p className="self-start text-base leading-tight tracking-tight md:text-lg">
+                  <InlineCmsText value={text} />
+                </p>
               </article>
             ))}
           </div>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, CalendarClock, Layers2, CircleAlert, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type WhatItem = {
   title: string;
@@ -75,7 +76,7 @@ const What = ({
               {titleLines.length > 1 ? (
                 titleLines.map((line, index) => (
                   <span className="block" key={`${line}-${index}`}>
-                    {line}
+                    <InlineCmsText value={line} />
                   </span>
                 ))
               ) : title === 'More products. More regulations. More stakeholders.' ? (
@@ -93,14 +94,14 @@ const What = ({
                   </span>
                 </>
               ) : (
-                title
+                <InlineCmsText value={title} />
               )}
             </h2>
             <p className="text-primary mt-3 text-2xl leading-tight font-semibold tracking-normal sm:text-[30px]">
-              {subtitle}
+              <InlineCmsText value={subtitle} />
             </p>
             <p className="mt-3 max-w-[690px] text-sm leading-5 font-semibold tracking-normal text-[#262626] sm:text-base sm:leading-6">
-              {description}
+              <InlineCmsText value={description} />
             </p>
           </div>
 
@@ -113,10 +114,12 @@ const What = ({
                 >
                   <div className="flex items-start gap-5">
                     <Icon className="text-primary mt-0.5 h-8 w-8 shrink-0" strokeWidth={1.8} />
-                    <h3 className="text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">{title}</h3>
+                    <h3 className="text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">
+                      <InlineCmsText value={title} />
+                    </h3>
                   </div>
                   <p className="mt-10 max-w-[315px] text-base leading-[1.6] font-semibold tracking-normal text-[#303030]">
-                    {desc}
+                    <InlineCmsText value={desc} />
                   </p>
                 </article>
               ))}
@@ -135,7 +138,7 @@ const What = ({
 
               <div className="flex min-h-[196px] flex-col rounded-lg bg-[#2530b8] p-6 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
                 <p className="max-w-[300px] text-[30px] leading-[1.08] font-bold tracking-normal text-[#24d54a]">
-                  {ctaTitle}
+                  <InlineCmsText value={ctaTitle} />
                 </p>
                 <Button
                   asChild
@@ -143,7 +146,7 @@ const What = ({
                 >
                   <Link href="/contact" aria-label="Book a demo">
                     <span className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 inline-flex h-9 items-center px-4 text-base transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:px-3">
-                      {ctaText}
+                      <InlineCmsText value={ctaText} />
                     </span>
                     <span
                       className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 ml-0 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:ml-2"

@@ -1,6 +1,7 @@
 import { BadgeCheck, CircleAlert, Languages, ScanBarcode } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type WhatItem = { title?: string; bodyHtml?: string; iconKey?: string };
 type WhatProps = {
@@ -61,13 +62,13 @@ const iconMap = {
 };
 
 function renderHighlightedTitle(title: string, highlight: string) {
-  if (!highlight || !title.includes(highlight)) return title;
+  if (!highlight || !title.includes(highlight)) return <InlineCmsText value={title} />;
   const [before, ...after] = title.split(highlight);
   return (
     <>
-      {before}
+      <InlineCmsText value={before} />
       <InlineHighlight>{highlight}</InlineHighlight>
-      {after.join(highlight)}
+      <InlineCmsText value={after.join(highlight)} />
     </>
   );
 }
@@ -108,12 +109,12 @@ export default function What({
             >
               <div className="flex items-start justify-between gap-5">
                 <h3 className="font-heading min-w-0 text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">
-                  {title}
+                  <InlineCmsText value={title} />
                 </h3>
                 <Icon className="text-primary mt-0.5 h-8 w-8 shrink-0" strokeWidth={1.8} />
               </div>
               <p className="mt-10 max-w-[440px] text-base leading-[1.6] font-semibold tracking-normal text-[#303030]">
-                {desc}
+                <InlineCmsText value={desc} />
               </p>
             </article>
           ))}
@@ -123,7 +124,7 @@ export default function What({
       <div>
         <FullBleedLines>
           <h2 className="font-heading text-center text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
-            {changesTitle}
+            <InlineCmsText value={changesTitle} />
           </h2>
         </FullBleedLines>
 
@@ -131,10 +132,10 @@ export default function What({
           {displayChangeCards.map(item => (
             <article key={item.title} className="bg-primary flex min-h-[250px] flex-col rounded-lg p-7 text-left">
               <h3 className="text-success min-h-[112px] max-w-[220px] text-[30px] leading-[1.15] font-bold tracking-normal">
-                {item.title}
+                <InlineCmsText value={item.title} />
               </h3>
               <p className="text-primary-foreground max-w-[230px] text-base leading-5 font-bold tracking-normal">
-                {item.desc}
+                <InlineCmsText value={item.desc} />
               </p>
             </article>
           ))}

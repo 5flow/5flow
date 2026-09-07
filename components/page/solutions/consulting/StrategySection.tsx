@@ -1,6 +1,7 @@
 import { ArrowDownLeft } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const tiles = [
   'Optimize how work gets done',
@@ -28,7 +29,9 @@ export default function StrategySection({
 }: StrategyProps) {
   const displayTiles = items?.length ? items.map(item => item.title || item.text || '') : tiles;
   const titleBeforeHighlight = titleLine1.includes(highlight) ? titleLine1.split(highlight)[0] : '';
-  const titleAfterHighlight = titleLine1.includes(highlight) ? titleLine1.split(highlight).slice(1).join(highlight) : titleLine1;
+  const titleAfterHighlight = titleLine1.includes(highlight)
+    ? titleLine1.split(highlight).slice(1).join(highlight)
+    : titleLine1;
 
   return (
     <section className="px-4 sm:px-6 md:px-0">
@@ -37,20 +40,22 @@ export default function StrategySection({
           <span className="block">
             {highlight && titleLine1.includes(highlight) ? (
               <>
-                {titleBeforeHighlight}
+                <InlineCmsText value={titleBeforeHighlight} />
                 <InlineHighlight>{highlight}</InlineHighlight>
-                <span>{titleAfterHighlight}</span>
+                <InlineCmsText value={titleAfterHighlight} />
               </>
             ) : (
-              titleLine1
+              <InlineCmsText value={titleLine1} />
             )}
           </span>
-          <span className="block">{titleLine2}</span>
+          <span className="block">
+            <InlineCmsText value={titleLine2} />
+          </span>
         </h2>
         <p className="mt-4 max-w-3xl text-base leading-snug tracking-tight md:text-lg">
-          {descriptionLine1}
+          <InlineCmsText value={descriptionLine1} />
           <br className="hidden md:block" />
-          {descriptionLine2}
+          <InlineCmsText value={descriptionLine2} />
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-5">
@@ -58,13 +63,15 @@ export default function StrategySection({
             <article
               key={tile}
               className={`flex min-h-40 flex-col justify-end p-5 md:min-h-80 md:p-6 ${
-                index === tiles.length - 1 ? 'bg-[#32D430]/50 text-success-foreground' : 'bg-[#D1DAFD]'
+                index === tiles.length - 1 ? 'text-success-foreground bg-[#32D430]/50' : 'bg-[#D1DAFD]'
               }`}
             >
               {index === tiles.length - 1 && (
                 <ArrowDownLeft className="mb-auto h-14 w-14 md:h-20 md:w-20" strokeWidth={1.8} />
               )}
-              <h3 className="max-w-72 text-xl leading-none font-bold tracking-tight md:text-3xl">{tile}</h3>
+              <h3 className="max-w-72 text-xl leading-none font-bold tracking-tight md:text-3xl">
+                <InlineCmsText value={tile} />
+              </h3>
             </article>
           ))}
         </div>

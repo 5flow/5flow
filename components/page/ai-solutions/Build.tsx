@@ -4,6 +4,7 @@ import { Check, MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import HtmlContent from '@/components/core/html-content';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type BuildItem = { title?: string; bodyHtml?: string };
 type BuildProps = {
@@ -47,8 +48,12 @@ export default function Build({
   return (
     <section className="flex w-full flex-col items-center gap-10 px-4 text-center sm:px-6 md:px-0">
       <FullBleedLines>
-        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">{title}</h2>
-        <p className="text-primary mt-6 text-[34px] leading-tight tracking-normal md:text-[44px]">{subtitle}</p>
+        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+          <InlineCmsText value={title} />
+        </h2>
+        <p className="text-primary mt-6 text-[34px] leading-tight tracking-normal md:text-[44px]">
+          <InlineCmsText value={subtitle} />
+        </p>
         <div className="mx-auto mt-6 max-w-4xl text-base leading-6 tracking-normal text-[#262626] md:text-xl md:leading-7">
           {bodyHtml ? (
             <HtmlContent html={bodyHtml} />
@@ -77,8 +82,12 @@ export default function Build({
             <div key={item.title} className="flex gap-5">
               <Check className="text-success mt-1 h-9 w-9 shrink-0" strokeWidth={2.2} />
               <div>
-                <h3 className="text-primary text-2xl leading-tight font-bold tracking-normal">{item.title}</h3>
-                <p className="mt-1 text-xl leading-7 tracking-normal text-[#262626]">{item.desc}</p>
+                <h3 className="text-primary text-2xl leading-tight font-bold tracking-normal">
+                  <InlineCmsText value={item.title} />
+                </h3>
+                <p className="mt-1 text-xl leading-7 tracking-normal text-[#262626]">
+                  <InlineCmsText value={item.desc} />
+                </p>
               </div>
             </div>
           ))}

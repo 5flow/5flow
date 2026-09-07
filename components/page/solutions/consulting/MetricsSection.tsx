@@ -2,6 +2,7 @@ import { ArrowDown } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import ConsultingButton from './ConsultingButton';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const impactStats: StatItem[] = [
   { value: '70%', label: 'Faster speed to market' },
@@ -38,13 +39,13 @@ type MetricsSectionProps = {
 };
 
 function renderHighlightedTitle(title: string, highlight: string) {
-  if (!highlight || !title.includes(highlight)) return title;
+  if (!highlight || !title.includes(highlight)) return <InlineCmsText value={title} />;
   const [before, ...rest] = title.split(highlight);
   return (
     <>
-      {before}
+      <InlineCmsText value={before} />
       <InlineHighlight>{highlight}</InlineHighlight>
-      {rest.join(highlight)}
+      <InlineCmsText value={rest.join(highlight)} />
     </>
   );
 }
@@ -75,7 +76,9 @@ export default function MetricsSection({
                 <h2 className="font-heading text-4xl leading-none font-bold tracking-tighter md:text-[64px] md:leading-[64px]">
                   {renderHighlightedTitle(impactTitle, impactHighlight)}
                 </h2>
-                <p className="mt-3 text-base leading-snug tracking-tight md:text-lg">{impactSubtitle}</p>
+                <p className="mt-3 text-base leading-snug tracking-tight md:text-lg">
+                  <InlineCmsText value={impactSubtitle} />
+                </p>
               </div>
               <ArrowDown className="text-accent1 h-16 w-16 md:h-28 md:w-28" strokeWidth={1.6} />
             </div>
@@ -88,7 +91,7 @@ export default function MetricsSection({
                 >
                   <b className="font-body text-primary text-4xl sm:text-6xl">{stat.value}</b>
                   <p className="max-w-56 text-lg leading-tight font-bold tracking-tight sm:text-2xl sm:leading-none">
-                    {stat.label || stat.text}
+                    <InlineCmsText value={stat.label || stat.text} />
                   </p>
                 </article>
               ))}
@@ -104,9 +107,13 @@ export default function MetricsSection({
               <span className="block xl:whitespace-nowrap">
                 {renderHighlightedTitle(trustTitleLine1, trustHighlight)}
               </span>
-              <span className="block xl:whitespace-nowrap">{trustTitleLine2}</span>
+              <span className="block xl:whitespace-nowrap">
+                <InlineCmsText value={trustTitleLine2} />
+              </span>
             </h2>
-            <p className="mt-6 text-center text-base leading-snug tracking-tight md:text-lg">{trustSubtitle}</p>
+            <p className="mt-6 text-center text-base leading-snug tracking-tight md:text-lg">
+              <InlineCmsText value={trustSubtitle} />
+            </p>
 
             <div className="mt-8 grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3">
               {displayTrustStats.map(stat => (
@@ -114,10 +121,14 @@ export default function MetricsSection({
                   key={stat.label || stat.text || stat.value}
                   className="bg-background flex h-40 flex-col items-center justify-center gap-2 rounded-2xl p-5 text-center shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:h-56"
                 >
-                  {stat.prefix && <p className="text-xl tracking-tight sm:text-2xl">{stat.prefix}</p>}
+                  {stat.prefix && (
+                    <p className="text-xl tracking-tight sm:text-2xl">
+                      <InlineCmsText value={stat.prefix} />
+                    </p>
+                  )}
                   <b className="font-body text-primary text-4xl sm:text-6xl">{stat.value}</b>
                   <p className="text-lg leading-tight font-bold tracking-tight sm:text-2xl sm:leading-none">
-                    {stat.label || stat.text}
+                    <InlineCmsText value={stat.label || stat.text} />
                   </p>
                 </article>
               ))}

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Cloud, MessageSquare, Puzzle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import HtmlContent from '@/components/core/html-content';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type HowItem = { title: string; lead?: string; desc: string; link?: string; iconKey?: string };
 type HowProps = { title?: string; subtitle?: string; desc?: string; items?: HowItem[] };
@@ -68,15 +69,15 @@ const How = ({
         <div className="grid items-start gap-8 md:grid-cols-[1.35fr_1fr] md:gap-16">
           <div>
             <h2 className="font-heading text-[40px] leading-[1.08] font-bold tracking-normal sm:text-5xl md:text-[56px]">
-              {title}
+              <InlineCmsText value={title} />
             </h2>
             <p className="text-primary mt-3 text-[30px] leading-[1.12] font-normal tracking-normal sm:text-[38px] md:text-[42px]">
-              {subtitle}
+              <InlineCmsText value={subtitle} />
             </p>
           </div>
 
           <p className="font-heading max-w-[560px] text-2xl leading-[1.2] font-bold tracking-normal md:pt-9 md:text-[30px]">
-            {desc}
+            <InlineCmsText value={desc} />
           </p>
         </div>
 
@@ -88,10 +89,14 @@ const How = ({
             >
               <div className="flex items-center gap-5">
                 <Icon className="text-primary h-11 w-11 shrink-0" strokeWidth={1.8} />
-                <h3 className="text-[25px] leading-[1.08] font-bold tracking-normal text-[#111827]">{title}</h3>
+                <h3 className="text-[25px] leading-[1.08] font-bold tracking-normal text-[#111827]">
+                  <InlineCmsText value={title} />
+                </h3>
               </div>
 
-              <p className="text-primary mt-10 text-[22px] leading-7 font-bold tracking-normal">{lead}</p>
+              <p className="text-primary mt-10 text-[22px] leading-7 font-bold tracking-normal">
+                <InlineCmsText value={lead} />
+              </p>
 
               <div className="mt-auto flex items-end justify-between gap-4 pt-4">
                 <div className="font-body max-w-[255px] text-base leading-tight font-normal tracking-tight text-[#030712cc] sm:text-xl sm:leading-none md:text-[20px] md:leading-7 md:tracking-normal [&_strong]:font-bold">

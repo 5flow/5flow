@@ -169,7 +169,10 @@ function normalizeInput(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) return '';
   const asJson = extractHtmlFromJson(trimmed);
-  return (asJson || trimmed).replace(/\r\n/g, '\n');
+  return (asJson || trimmed)
+    .replace(/\\(<\/?(?:br|strong|b|em|i)\b[^>]*>)/gi, '$1')
+    .replace(/&lt;(\/?(?:br|strong|b|em|i)\b[^&]*)&gt;/gi, '<$1>')
+    .replace(/\r\n/g, '\n');
 }
 
 function extractHtmlFromJson(candidate: string): string | null {

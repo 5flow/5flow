@@ -4,6 +4,7 @@ import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Button } from '@/components/ui/button';
 import HtmlContent from '@/components/core/html-content';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 import HeroLottieBg from './HeroLottieBg';
 
 type Props = {
@@ -16,6 +17,10 @@ type Props = {
 
 function renderHeroTitle(title?: string) {
   const displayTitle = title ?? 'Bring packaging to market.';
+
+  if (/<br\s*\/?>|&lt;br|\\<br/i.test(displayTitle)) {
+    return <InlineCmsText value={displayTitle} />;
+  }
 
   if (displayTitle === 'Bring packaging to market.') {
     return (
@@ -72,7 +77,7 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
 
           <FullBleedLines>
             <h1 className="font-heading text-primary text-2xl leading-tight tracking-tighter sm:text-5xl sm:leading-none md:text-[48px]">
-              {subTitle ?? 'Without the chaos.'}
+              <InlineCmsText value={subTitle ?? 'Without the chaos.'} />
             </h1>
           </FullBleedLines>
         </div>
@@ -111,7 +116,7 @@ const Hero = ({ title, subTitle, bodyHtml, buttonText, buttonUrl }: Props) => {
               className="group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-3 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-px active:scale-[0.99] active:ring-2 active:ring-offset-2"
             >
               <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-7 sm:h-10 sm:px-6">
-                {buttonText ?? 'Book a demo'}
+                <InlineCmsText value={buttonText ?? 'Book a demo'} />
               </span>
               <span
                 className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] sm:h-10 sm:w-10"

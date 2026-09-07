@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { MoveUpRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 import { getCmsBlogs } from '@/lib/cms/blog';
 import { getCmsCaseStudyCards } from '@/lib/cms/case-study';
 import { getCmsWebinarCards } from '@/lib/cms/webinar';
@@ -193,11 +194,11 @@ type NewProps = {
 
 function renderTitle(title: string) {
   const highlight = "What's new";
-  if (!title.toLowerCase().startsWith(highlight.toLowerCase())) return title;
+  if (!title.toLowerCase().startsWith(highlight.toLowerCase())) return <InlineCmsText value={title} />;
   return (
     <>
       <InlineHighlight>{title.slice(0, highlight.length)}</InlineHighlight>
-      {title.slice(highlight.length)}
+      <InlineCmsText value={title.slice(highlight.length)} />
     </>
   );
 }
@@ -215,7 +216,7 @@ export default async function New({
           {renderTitle(title)}
         </h2>
         <p className="mt-7 max-w-4xl text-xl leading-7 font-semibold tracking-normal text-[#303030] md:text-[24px] md:leading-9">
-          {description}
+          <InlineCmsText value={description} />
         </p>
       </div>
 

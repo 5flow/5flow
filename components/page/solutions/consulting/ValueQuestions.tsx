@@ -1,5 +1,6 @@
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const questions = [
   'Where is value being lost, or left untapped?',
@@ -18,13 +19,13 @@ type ValueQuestionsProps = {
 };
 
 function renderHighlightedTitle(title: string, highlight: string) {
-  if (!highlight || !title.includes(highlight)) return title;
+  if (!highlight || !title.includes(highlight)) return <InlineCmsText value={title} />;
   const [before, ...rest] = title.split(highlight);
   return (
     <>
-      {before}
+      <InlineCmsText value={before} />
       <InlineHighlight>{highlight}</InlineHighlight>
-      {rest.join(highlight)}
+      <InlineCmsText value={rest.join(highlight)} />
     </>
   );
 }
@@ -46,15 +47,21 @@ export default function ValueQuestions({
           {renderHighlightedTitle(title, highlight)}
         </h2>
         <div className="mt-8 max-w-5xl text-base leading-relaxed tracking-tight md:mt-10 md:text-lg">
-          <p>{body}</p>
-          <p className="mt-6 text-xl font-bold">{introTitle}</p>
-          <p className="mt-5">{introText}</p>
+          <p>
+            <InlineCmsText value={body} />
+          </p>
+          <p className="mt-6 text-xl font-bold">
+            <InlineCmsText value={introTitle} />
+          </p>
+          <p className="mt-5">
+            <InlineCmsText value={introText} />
+          </p>
         </div>
 
         <ul className="mt-8 flex list-disc flex-col gap-4 pl-6 text-base font-bold tracking-tight md:text-xl">
           {displayQuestions.map(question => (
             <li key={question} className="pl-2">
-              {question}
+              <InlineCmsText value={question} />
             </li>
           ))}
         </ul>

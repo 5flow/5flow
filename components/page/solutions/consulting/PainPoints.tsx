@@ -1,5 +1,6 @@
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 const painPoints = [
   'Content complexity scaling faster than governance',
@@ -35,26 +36,26 @@ export default function PainPoints({
       <FullBleedLines className="font-heading py-12 md:py-16 lg:py-20">
         <div className="max-w-5xl">
           <h2 className="font-heading text-4xl leading-[0.95] font-bold tracking-tighter md:text-[64px] md:leading-[64px]">
-            {titleLine1}
+            <InlineCmsText value={titleLine1} />
             <br />
-            {titleLine2Prefix} <InlineHighlight>{highlight}</InlineHighlight>
+            <InlineCmsText value={titleLine2Prefix} /> <InlineHighlight>{highlight}</InlineHighlight>
           </h2>
           <p className="mt-6 max-w-4xl text-base leading-relaxed tracking-tight md:mt-8 md:text-lg">
-            {descriptionLine1}
+            <InlineCmsText value={descriptionLine1} />
             <br className="hidden sm:block" />
-            {descriptionLine2}
+            <InlineCmsText value={descriptionLine2} />
           </p>
           <ul className="mt-6 flex flex-col gap-3 pl-6 text-base leading-snug font-bold tracking-tight md:gap-4 md:text-xl">
             {displayItems.map(point => (
               <li key={point} className="list-disc">
-                {point}
+                <InlineCmsText value={point} />
               </li>
             ))}
           </ul>
         </div>
         <p className="font-heading mt-8 w-full text-[20px] leading-[28px] font-bold tracking-tight md:mt-10 md:text-[30px] md:leading-[33px]">
           <span className="block">
-            {summaryLine1}
+            <InlineCmsText value={summaryLine1} />
           </span>
         </p>
       </FullBleedLines>

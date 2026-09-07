@@ -1,6 +1,7 @@
 import { CircleAlert, CircleDollarSign, Eye, Layers } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import HtmlContent from '@/components/core/html-content';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type WhyItem = { title?: string; bodyHtml?: string; iconKey?: string };
 type WhyProps = { title?: string; bodyHtml?: string; items?: WhyItem[] };
@@ -42,7 +43,9 @@ export default function Why({ title = 'Why issues get caught too late.', bodyHtm
   return (
     <section className="flex w-full flex-col gap-8 px-4 sm:px-6 md:px-0">
       <FullBleedLines>
-        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">{title}</h2>
+        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+          <InlineCmsText value={title} />
+        </h2>
         <div className="mt-6 max-w-4xl text-xl leading-7 tracking-normal text-[#262626]">
           {bodyHtml ? (
             <HtmlContent html={bodyHtml} />
@@ -64,9 +67,13 @@ export default function Why({ title = 'Why issues get caught too late.', bodyHtm
           >
             <div className="flex items-start gap-4">
               <Icon className="text-primary h-8 w-8 shrink-0" strokeWidth={1.7} />
-              <h3 className="text-[28px] leading-[1.12] font-bold tracking-normal text-[#262626]">{title}</h3>
+              <h3 className="text-[28px] leading-[1.12] font-bold tracking-normal text-[#262626]">
+                <InlineCmsText value={title} />
+              </h3>
             </div>
-            <p className="mt-auto max-w-[220px] pt-8 text-base leading-6 tracking-normal text-[#303030]">{desc}</p>
+            <p className="mt-auto max-w-[220px] pt-8 text-base leading-6 tracking-normal text-[#303030]">
+              <InlineCmsText value={desc} />
+            </p>
           </article>
         ))}
       </FullBleedLines>

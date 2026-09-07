@@ -4,6 +4,7 @@ import { ArrowDownLeft, MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import InlineHighlight from '@/components/core/inline-highlight';
 import HtmlContent from '@/components/core/html-content';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type WhyCard = {
   title: string;
@@ -30,9 +31,11 @@ const Why = ({
         <div>
           <div className="flex items-start justify-between gap-6">
             <h2 className="font-heading text-[42px] leading-[1.05] font-bold tracking-normal sm:text-5xl md:text-[64px]">
-              {title}
+              <InlineCmsText value={title} />
               <br />
-              <InlineHighlight>{highlight}</InlineHighlight>
+              <InlineHighlight>
+                <InlineCmsText value={highlight} />
+              </InlineHighlight>
             </h2>
             <ArrowDownLeft className="text-accent1 mt-4 hidden h-24 w-24 shrink-0 lg:block" strokeWidth={1.6} />
           </div>
@@ -51,10 +54,10 @@ const Why = ({
           <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1fr] lg:items-stretch">
             <div className="bg-background flex min-h-[330px] flex-col rounded-lg p-8 shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]">
               <h3 className="font-heading text-[42px] leading-[1.05] font-bold tracking-normal text-[#262626]">
-                {card?.title || 'QC Assist'}
+                <InlineCmsText value={card?.title || 'QC Assist'} />
               </h3>
               <p className="text-primary mt-8 max-w-[520px] text-[30px] leading-[1.16] font-bold tracking-normal">
-                {card?.subtitle || 'Catch issues before they become approval delays.'}
+                <InlineCmsText value={card?.subtitle || 'Catch issues before they become approval delays.'} />
               </p>
               <div className="mt-6 max-w-[540px] text-xl leading-7 font-semibold tracking-normal text-[#303030]">
                 {card?.bodyHtml ? (
@@ -74,7 +77,7 @@ const Why = ({
               >
                 <Link href={card?.link || '/ai-solutions'} aria-label="Learn more about QC Assist">
                   <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-7 sm:h-10 sm:px-6">
-                    {card?.buttonText || 'Learn more'}
+                    <InlineCmsText value={card?.buttonText || 'Learn more'} />
                   </span>
                   <span
                     className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] sm:h-10 sm:w-10"
