@@ -10,7 +10,7 @@ type ResultsProps = {
 
 const Results = ({ title, description }: ResultsProps) => {
   return (
-    <div className="isolate relative z-50 w-full translate-y-0 pt-1 md:translate-y-32">
+    <div className="relative isolate z-50 w-full translate-y-0 pt-1 md:translate-y-32">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 md:items-end md:gap-8 md:px-6 lg:gap-10">
         <h2 className="font-heading text-foreground text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
           {title || (

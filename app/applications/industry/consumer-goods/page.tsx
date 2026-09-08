@@ -20,10 +20,10 @@ import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
 
-
 export const metadata: Metadata = {
   title: 'Packaging Artwork Workflow for CPG Brands | 5Flow',
-  description: 'Manage consumer goods packaging workflows, approvals and compliance with automated artwork collaboration tools.',
+  description:
+    'Manage consumer goods packaging workflows, approvals and compliance with automated artwork collaboration tools.',
 };
 
 // Utility
@@ -186,7 +186,9 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
       ? cms.how.items.map((it, idx) => ({
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
-          iconName: toPascalCase(((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
+          ),
           imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/5-${idx + 1}.svg`,
           buttonText: 'Learn More',
           buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
@@ -237,5 +239,3 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
 export default async function ConsumerGoods() {
   return <ConsumerGoodsPage />;
 }
-
-

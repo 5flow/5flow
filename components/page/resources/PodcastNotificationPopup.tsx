@@ -82,7 +82,7 @@ export default function PodcastNotificationPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-foreground/45 px-4 backdrop-blur-sm"
+      className="bg-foreground/45 fixed inset-0 z-[1000] flex items-center justify-center px-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="podcast-notification-title"
@@ -121,7 +121,7 @@ export default function PodcastNotificationPopup() {
             value={email}
             onChange={e => setEmail(e.target.value)}
             aria-invalid={feedback?.type === 'error'}
-            className="font-body border-foreground/20 min-h-11 rounded-none bg-background"
+            className="font-body border-foreground/20 bg-background min-h-11 rounded-none"
           />
 
           {feedback ? (

@@ -13,7 +13,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Artwork Collaboration & Online Proofing Tool | 5Flow',
-  description: 'Review and approve packaging artwork faster with 5Flow online proofing tools designed for collaborative artwork review and compliance.',
+  description:
+    'Review and approve packaging artwork faster with 5Flow online proofing tools designed for collaborative artwork review and compliance.',
 };
 // Utility
 function toPascalCase(input: string) {
@@ -127,6 +128,7 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
     buttonText: cms?.hero?.ctaText,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -137,10 +139,12 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
           title: item.title || '',
           subtitle: item.subtitle || '',
           description: item.bodyHtml || (item as any).body_html || (item as any).description || '',
-          buttonText: 'Book A Demo',
+          buttonText: item.buttonText || item.button_text || 'Book A Demo',
           buttonLink: (item as any).linkUrl || (item as any).link_url || undefined,
           imageSrc: (item as any).imageUrl || (item as any).image_url || `/solutions/2-${idx + 1}.svg`,
-          iconName: toPascalCase(((item as any).iconName || (item as any).iconKey || (item as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((item as any).iconName || (item as any).iconKey || (item as any).icon_key || 'BadgeCheck') as string
+          ),
         }))
       : howData
   ) as typeof howData;
@@ -173,8 +177,8 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />
-          <How howData={howDataFinal as any} />
-          <Why whyData={whyDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
+          <Why sectionTitle={cms?.why?.title} whyData={whyDataFinal as any} />
           <Workflow
             title={
               <>
@@ -184,7 +188,14 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />
-          <Contact leadingText="Ready to " highlightedText="error-proof" trailingText=" your launches?" />
+          <Contact
+            leadingText="Ready to "
+            highlightedText="error-proof"
+            trailingText=" your launches?"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -194,5 +205,3 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
 export default async function OnlineProofing() {
   return <OnlineProofingPage />;
 }
-
-

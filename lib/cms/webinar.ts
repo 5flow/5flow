@@ -53,7 +53,10 @@ function decodeHtmlEntities(text: string) {
 }
 
 function stripHtml(text: string) {
-  return text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return text
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function resolveAcfImage(imageField: AcfImageField): string | undefined {
@@ -92,8 +95,11 @@ async function getWebinarCategoryId(): Promise<number | null> {
 
 function mapWebinar(post: WpWebinarPost): WebinarCardItem {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
-  const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.acf?.card_description || post.excerpt?.rendered || ''));
-  const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/resources/Webinar_Cover-1-Secure_Food.png';
+  const desc = decodeHtmlEntities(
+    stripHtml(post.acf?.card_desc || post.acf?.card_description || post.excerpt?.rendered || '')
+  );
+  const featuredImage =
+    post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/resources/Webinar_Cover-1-Secure_Food.png';
   const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
   const link =
     resolveAcfLink(post.acf?.webinar_url) ||
@@ -119,7 +125,7 @@ export async function getCmsWebinarCards(): Promise<WebinarCardItem[]> {
     if (!categoryId) return [];
 
     const posts = (await wpFetch(
-      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100&orderby=date&order=desc`,
+      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100&orderby=date&order=desc`
     )) as WpWebinarPost[];
 
     return posts.map(mapWebinar);

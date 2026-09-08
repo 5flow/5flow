@@ -58,6 +58,12 @@ export interface HomepageData {
     title?: string;
     description?: string;
   };
+  contact?: {
+    heading?: string;
+    highlight?: string;
+    subtitle?: string;
+    formTitle?: string;
+  };
 }
 
 function parseJsonArray<T = HomepageItemRaw>(value: unknown): T[] {
@@ -155,6 +161,12 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     news: {
       title: meta.new_title || acf.new_title,
       description: meta.new_description || acf.new_description,
+    },
+    contact: {
+      heading: meta.contact_heading || meta.contact_title || acf.contact_heading,
+      highlight: meta.contact_heading_highlight || meta.contact_highlight || acf.contact_heading_highlight,
+      subtitle: meta.contact_subtitel || meta.contact_subtitle || acf.contact_subtitel || acf.contact_subtitle,
+      formTitle: meta.contact_form_heading || meta.contact_form_title || acf.contact_form_heading,
     },
   };
 }

@@ -20,10 +20,10 @@ import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 
-
 export const metadata: Metadata = {
   title: 'Packaging Workflow Management Platform | 5Flow',
-  description: 'Improve supplier collaboration and artwork approvals with packaging workflow management tools built for procurement teams.',
+  description:
+    'Improve supplier collaboration and artwork approvals with packaging workflow management tools built for procurement teams.',
 };
 
 // Utility
@@ -237,5 +237,3 @@ export async function ProcurementSourcingPage({ cmsSlug = 'procurement-sourcing'
 export default async function ProcurementSourcing() {
   return <ProcurementSourcingPage />;
 }
-
-

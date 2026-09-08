@@ -23,7 +23,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       ) : null}
 
       <div className="container mx-auto mb-32">
-        <div className="mx-auto max-w-3xl py-10 px-5 md:px-0">
+        <div className="mx-auto max-w-3xl px-5 py-10 md:px-0">
           <h1 className="font-heading mb-6 text-3xl leading-tight tracking-tight sm:text-4xl">{post.title}</h1>
           <div className="text-foreground/60 mb-8 text-sm">{new Date(post.date).toLocaleDateString()}</div>
           <HtmlContent html={post.content} />
@@ -37,5 +37,3 @@ export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
   return slugs.map(slug => ({ slug }));
 }
-
-

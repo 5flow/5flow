@@ -13,6 +13,7 @@ import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
 import How from '@/components/page/product/How';
@@ -26,7 +27,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Artwork Approval Software & Collaboration | 5Flow',
-  description: 'Speed up packaging and creative approvals with Dragonfly artwork approval software. Collaborate in real time and track revisions easily.',
+  description:
+    'Speed up packaging and creative approvals with Dragonfly artwork approval software. Collaborate in real time and track revisions easily.',
 };
 // Fallback data in case CMS is unavailable
 const heroData = {
@@ -226,7 +228,8 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
     title: cms?.hero?.title || heroData.title,
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
-    ctaText: cms?.hero?.ctaText || '/contact',
+    buttonText: cms?.hero?.ctaText || undefined,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -239,6 +242,7 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? MessageSquareWarning : RailSymbol),
         })),
         mappedWhat.slice(2, 4).map((item, idx) => ({
@@ -246,6 +250,7 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? UserPen : LineSquiggle),
         })),
       ]
@@ -313,6 +318,7 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
     subtitle: cms?.need?.subtitle ?? needData.subtitle,
     description: cms?.need?.bodyHtml ?? needData.description,
     buttonText: cms?.need?.buttonText ?? needData.buttonText,
+    buttonUrl: cms?.need?.buttonUrl ?? '/contact',
   };
 
   return (
@@ -322,9 +328,10 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <What whatData={whatDataFinal as any} />
-          <How howData={howDataFinal as any} />
+          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
+            sectionTitleText={cms?.why?.title}
             sectionTitle={
               <>
                 <span className="text-foreground">Why You Need</span>
@@ -340,6 +347,7 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
             subtitle={needFinal.subtitle}
             description={needFinal.description}
             buttonText={needFinal.buttonText}
+            buttonUrl={needFinal.buttonUrl}
           />
           {(() => {
             const cmsClients = (cms?.who?.clients || []).filter(c => c.imageUrl);
@@ -356,7 +364,17 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
             highlightedWord="soft"
             videoUrl="https://cms.5flowtech.com/wp-content/uploads/2025/12/Dragonfly-Animation.mp4"
           />
-          <Contact leadingText="Ready to make your projects " highlightedText="fly" trailingText="?" />
+          <Contact
+            leadingText="Ready to make your projects "
+            highlightedText="fly"
+            trailingText="?"
+            heading={
+              cms?.contact?.heading ? (
+                <HighlightedCmsText text={cms.contact.heading} highlightedText={cms.contact.highlight} />
+              ) : undefined
+            }
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -366,5 +384,3 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
 export default async function Dragonfly() {
   return <DragonflyPage />;
 }
-
-

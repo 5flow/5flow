@@ -48,15 +48,7 @@ const VideoShowcase = ({ title, subtitle, highlightedWord, videoUrl }: VideoShow
       {/* Video */}
       <FullBleedLines className="mt-8 sm:mt-16">
         <div className="relative w-full overflow-hidden rounded-[10px] sm:rounded-[20px]">
-          <video
-            className="h-auto w-full"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            controls
-          >
+          <video className="h-auto w-full" autoPlay loop muted playsInline preload="metadata" controls>
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

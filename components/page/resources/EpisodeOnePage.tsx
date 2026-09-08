@@ -85,7 +85,7 @@ export default function EpisodeOnePage() {
 
               <div className="flex flex-col items-start gap-3 p-5 md:p-6">
                 <div>
-                  <p className="text-lg tracking-tight font-bold">Episode 01</p>
+                  <p className="text-lg font-bold tracking-tight">Episode 01</p>
                   <h1 className="mt-1 text-3xl leading-[0.96] font-bold tracking-tight md:text-4xl">
                     Rebuilding packaging workflows with AI
                   </h1>
@@ -100,10 +100,10 @@ export default function EpisodeOnePage() {
                 <p className="font-body text-sm leading-relaxed tracking-tight md:text-base">
                   In the first episode of Under Review, Sriram Upadhyayula, CTO of Propelis and president of 5FLOW,
                   argues that AI has already changed the packaging and branding industry, and that the gap between
-                  leaders and laggards is widening by the day. His core point is that the value of AI doesn&apos;t
-                  come from adopting tools, but from rebuilding workflows around them. For packaging, brand, and
-                  artwork teams, that means AI taking over the repetitive, “dirty work” (structuring messy briefs,
-                  cleaning files, manual QC) so people can focus on strategic work instead.
+                  leaders and laggards is widening by the day. His core point is that the value of AI doesn&apos;t come
+                  from adopting tools, but from rebuilding workflows around them. For packaging, brand, and artwork
+                  teams, that means AI taking over the repetitive, “dirty work” (structuring messy briefs, cleaning
+                  files, manual QC) so people can focus on strategic work instead.
                 </p>
 
                 <SpotifyButton />
@@ -124,7 +124,9 @@ export default function EpisodeOnePage() {
             </section>
 
             <section>
-              <h2 className="font-heading text-xl font-bold md:text-2xl">Why is this AI shift different from past technology cycles?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">
+                Why is this AI shift different from past technology cycles?
+              </h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Sriram has spent 25 years leading digital transformation, data, and AI projects for Fortune 500
@@ -136,10 +138,9 @@ export default function EpisodeOnePage() {
                   distance between the companies acting on it and the ones waiting is expanding daily.
                 </p>
                 <p>
-                  His advice to teams sitting on the fence is blunt: don&apos;t wait for the perfect moment or
-                  perfect clarity because starting, in packaging specifically, even small improvements across the
-                  lifecycle compound into a large impact at scale, which is why the cost of waiting is higher than it
-                  looks.
+                  His advice to teams sitting on the fence is blunt: don&apos;t wait for the perfect moment or perfect
+                  clarity because starting, in packaging specifically, even small improvements across the lifecycle
+                  compound into a large impact at scale, which is why the cost of waiting is higher than it looks.
                 </p>
               </div>
             </section>
@@ -151,27 +152,33 @@ export default function EpisodeOnePage() {
             </QuoteCallout>
 
             <section>
-              <h2 className="font-heading text-xl font-bold md:text-2xl">What does AI actually change for packaging and brand teams?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">
+                What does AI actually change for packaging and brand teams?
+              </h2>
               <div className="mt-5 space-y-4">
                 <p>
-                  The biggest near-term shift, according to Sriram, is the removal of friction that artwork
-                  operators, project managers, compliance managers, and QC analysts deal with every day. A large
-                  share of their time goes to work they shouldn&apos;t have to do, such as reorganizing briefs that
-                  arrive in inconsistent formats, hunting for and cleaning files, or bridging systems that were
-                  never built to talk to each other.
+                  The biggest near-term shift, according to Sriram, is the removal of friction that artwork operators,
+                  project managers, compliance managers, and QC analysts deal with every day. A large share of their
+                  time goes to work they shouldn&apos;t have to do, such as reorganizing briefs that arrive in
+                  inconsistent formats, hunting for and cleaning files, or bridging systems that were never built to
+                  talk to each other.
                 </p>
                 <p>
-                  His framing is that AI is an opportunity rather than a threat: it strips out that grunt work and
-                  gives people their time back for strategic thinking. He returns to a line he likes as the clearest
-                  way to settle the fear about job loss.
+                  His framing is that AI is an opportunity rather than a threat: it strips out that grunt work and gives
+                  people their time back for strategic thinking. He returns to a line he likes as the clearest way to
+                  settle the fear about job loss.
                 </p>
               </div>
             </section>
 
-            <QuoteCallout>“AI will not replace people. People who use AI will replace people who don&apos;t use AI.”</QuoteCallout>
+            <QuoteCallout>
+              “AI will not replace people. People who use AI will replace people who don&apos;t use AI.”
+            </QuoteCallout>
 
             <section>
-              <h2 className="font-heading text-xl font-bold md:text-2xl">Which workflow problems is 5FLOW solving with AI first?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">
+                Which workflow problems is 5FLOW solving with AI first?
+              </h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Sriram points to two concrete bottlenecks. The first is briefing: client briefs arrive as Word
@@ -180,50 +187,52 @@ export default function EpisodeOnePage() {
                   instructions downstream so everyone is working from the same understanding.
                 </p>
                 <p>
-                  The second is quality control. When a regulation changes, hundreds of SKUs may need updating, and
-                  each one has to be checked. Today, that is done largely by hand. That manual QC is the biggest
-                  bottleneck in moving a brand from idea to shelf, which is why 5FLOW is building AI-assisted QC to
-                  speed it up.
+                  The second is quality control. When a regulation changes, hundreds of SKUs may need updating, and each
+                  one has to be checked. Today, that is done largely by hand. That manual QC is the biggest bottleneck
+                  in moving a brand from idea to shelf, which is why 5FLOW is building AI-assisted QC to speed it up.
                 </p>
                 <p>
-                  He&apos;s also clear that point fixes aren&apos;t enough. If one team adopts AI and produces
-                  content five times faster while the next team still reviews everything manually, the end-to-end
-                  process hasn&apos;t improved: the bottleneck has simply moved from step one to step two. The real
-                  gain comes from reimagining the workflow as AI-native, end to end.
+                  He&apos;s also clear that point fixes aren&apos;t enough. If one team adopts AI and produces content
+                  five times faster while the next team still reviews everything manually, the end-to-end process
+                  hasn&apos;t improved: the bottleneck has simply moved from step one to step two. The real gain comes
+                  from reimagining the workflow as AI-native, end to end.
                 </p>
               </div>
             </section>
 
             <section>
-              <h2 className="font-heading text-xl font-bold md:text-2xl">What does AI adoption actually look like in practice?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">
+                What does AI adoption actually look like in practice?
+              </h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Adoption starts slow, Sriram says, but it follows a hockey-stick curve once AI is embedded in the
-                  workflow and people see bottlenecks disappear. He lays out a four-step path: first, give people AI
-                  as a standalone tool to get comfortable and remove the fear; second, integrate AI into the workflow
-                  so it&apos;s seamless rather than optional; third, move to AI-led but human-governed operations,
-                  where the real value at scale appears; and fourth, do it faster still, freeing people almost
-                  entirely for strategic work. Most organizations, he estimates, are somewhere between steps one and
-                  two.
+                  workflow and people see bottlenecks disappear. He lays out a four-step path: first, give people AI as
+                  a standalone tool to get comfortable and remove the fear; second, integrate AI into the workflow so
+                  it&apos;s seamless rather than optional; third, move to AI-led but human-governed operations, where
+                  the real value at scale appears; and fourth, do it faster still, freeing people almost entirely for
+                  strategic work. Most organizations, he estimates, are somewhere between steps one and two.
                 </p>
                 <p>
                   He grounds this in a recent example from Propelis. After rolling out Copilot with 1,000 enterprise
-                  licenses to employees worldwide, teams built 100 agents within four weeks, saving close to 6,000
-                  hours and delivering an estimated half a million dollars in impact, all before any formal
-                  methodology was in place. In his view, adoption itself isn&apos;t the obstacle: the only real
-                  barrier is the initial inertia of trying something new.
+                  licenses to employees worldwide, teams built 100 agents within four weeks, saving close to 6,000 hours
+                  and delivering an estimated half a million dollars in impact, all before any formal methodology was in
+                  place. In his view, adoption itself isn&apos;t the obstacle: the only real barrier is the initial
+                  inertia of trying something new.
                 </p>
               </div>
             </section>
 
             <section>
-              <h2 className="font-heading text-xl font-bold md:text-2xl">How mature is the packaging industry on AI right now?</h2>
+              <h2 className="font-heading text-xl font-bold md:text-2xl">
+                How mature is the packaging industry on AI right now?
+              </h2>
               <div className="mt-5 space-y-4">
                 <p>
                   Most companies are still early, Sriram says. He describes a landscape of ad hoc AI usage, missing
-                  governance, no shared workflow, and fragmented adoption, with many employees deploying tools on
-                  their own while their organizations lack a mandate, security oversight, or any way to measure
-                  impact. That governance gap is the piece most often missing.
+                  governance, no shared workflow, and fragmented adoption, with many employees deploying tools on their
+                  own while their organizations lack a mandate, security oversight, or any way to measure impact. That
+                  governance gap is the piece most often missing.
                 </p>
                 <p>
                   His message to anyone still unsure how seriously to take this is that the question has already been
@@ -243,16 +252,16 @@ export default function EpisodeOnePage() {
               <div className="mt-5 space-y-4">
                 <p>
                   5FLOW&apos;s product thinking runs on four principles, which Sriram sums up as augment, automate,
-                  accelerate, and differentiate: Are we augmenting people with new capabilities? Automating a
-                  repetitive process? Accelerating execution? Or differentiating with proprietary solutions in the
-                  market? The team applies that lens to every bottleneck across the packaging workflow lifecycle.
+                  accelerate, and differentiate: Are we augmenting people with new capabilities? Automating a repetitive
+                  process? Accelerating execution? Or differentiating with proprietary solutions in the market? The team
+                  applies that lens to every bottleneck across the packaging workflow lifecycle.
                 </p>
                 <p>
-                  He also makes the case for agentic AI as the unlock for scale. Where individual AI tools used to
-                  each do a single job in isolation, agentic development connects multiple tools and systems into one
+                  He also makes the case for agentic AI as the unlock for scale. Where individual AI tools used to each
+                  do a single job in isolation, agentic development connects multiple tools and systems into one
                   ecosystem, letting companies leapfrog and set up for scale. Pilots alone, he argues, don&apos;t
-                  deliver value; the value shows up when you scale. His closing view is that the future belongs not
-                  to the companies experimenting, but to the ones that figure it out and scale.
+                  deliver value; the value shows up when you scale. His closing view is that the future belongs not to
+                  the companies experimenting, but to the ones that figure it out and scale.
                 </p>
               </div>
             </section>

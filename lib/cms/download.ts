@@ -50,7 +50,10 @@ function decodeHtmlEntities(text: string) {
 }
 
 function stripHtml(text: string) {
-  return text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return text
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function resolveAcfImage(imageField: AcfImageField): string | undefined {
@@ -89,7 +92,9 @@ async function getDownloadsCategoryId(): Promise<number | null> {
 
 function mapDownload(post: WpDownloadPost): DownloadCardItem {
   const title = decodeHtmlEntities(post.acf?.card_title || post.title.rendered || '');
-  const desc = decodeHtmlEntities(stripHtml(post.acf?.card_desc || post.acf?.card_description || post.excerpt?.rendered || ''));
+  const desc = decodeHtmlEntities(
+    stripHtml(post.acf?.card_desc || post.acf?.card_description || post.excerpt?.rendered || '')
+  );
   const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/product/rectangle.webp';
   const image = resolveAcfImage(post.acf?.card_image) || featuredImage;
   const href = resolveAcfFile(post.acf?.download_file) || post.acf?.download_url || '#';
@@ -110,7 +115,7 @@ export async function getCmsDownloadCards(): Promise<DownloadCardItem[]> {
     if (!categoryId) return [];
 
     const posts = (await wpFetch(
-      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100&orderby=date&order=desc`,
+      `/wp-json/wp/v2/posts?categories=${categoryId}&_embed&per_page=100&orderby=date&order=desc`
     )) as WpDownloadPost[];
 
     return posts.map(mapDownload);

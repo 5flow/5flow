@@ -5,10 +5,10 @@ import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
 import FilterSection from '@/components/page/resources/FilterSection';
 
-
 export const metadata: Metadata = {
   title: 'Artwork Workflow & Packaging Insights Blog | 5Flow',
-  description: 'Explore insights on artwork automation, packaging compliance, digital asset management and workflow optimization.',
+  description:
+    'Explore insights on artwork automation, packaging compliance, digital asset management and workflow optimization.',
 };
 
 export default async function Blogs() {
@@ -33,4 +33,3 @@ export default async function Blogs() {
     </div>
   );
 }
-

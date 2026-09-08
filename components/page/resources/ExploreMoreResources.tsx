@@ -27,7 +27,7 @@ const resourceLinks = [
     label: 'Webinars',
     description: 'Sessions and practical discussions',
   },
-    {
+  {
     href: '/resources/podcast',
     label: 'Podcast',
     description: 'Real conversations with the people',

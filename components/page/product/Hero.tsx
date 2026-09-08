@@ -4,6 +4,7 @@ import { MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 export interface HeroProps {
   logoSrc: string;
@@ -14,6 +15,7 @@ export interface HeroProps {
   imageSrc: string;
   mobileImageSrc?: string;
   buttonText?: string;
+  buttonUrl?: string;
   imageWidth: number;
   imageAlt?: string;
 }
@@ -27,6 +29,7 @@ const Hero = ({
   imageSrc,
   mobileImageSrc,
   buttonText,
+  buttonUrl = '/contact',
   imageWidth,
   imageAlt = '',
 }: HeroProps) => {
@@ -41,21 +44,27 @@ const Hero = ({
       <div className="font-heading mt-8 flex flex-col gap-4 text-center sm:text-left md:mt-14">
         <FullBleedLines>
           <div className="max-w-full sm:max-w-5xl">
-            <b className="text-4xl leading-tight tracking-tighter sm:text-8xl sm:leading-none">{title}</b>
+            <b className="text-4xl leading-tight tracking-tighter sm:text-8xl sm:leading-none">
+              <InlineCmsText value={title} />
+            </b>
           </div>
         </FullBleedLines>
         <div className="text-primary text-2xl leading-tight tracking-tighter sm:text-5xl sm:leading-none">
-          <FullBleedLines>{subtitle}</FullBleedLines>
+          <FullBleedLines>
+            <InlineCmsText value={subtitle} />
+          </FullBleedLines>
         </div>
       </div>
 
       {/* Product details */}
       <div className="relative mt-8 w-full text-center text-sm leading-[150%] tracking-tight sm:mt-14 sm:w-[642px] sm:text-left sm:text-base">
-        <FullBleedLines>{description}</FullBleedLines>
+        <FullBleedLines>
+          <InlineCmsText value={description} />
+        </FullBleedLines>
       </div>
 
       <FullBleedLines className="mt-8 flex justify-center sm:mt-14 sm:justify-start">
-        <Link href="/contact">
+        <Link href={buttonUrl}>
           <Button
             size="lg"
             className="group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-3 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-[1px] active:scale-[0.99] active:ring-2 active:ring-offset-2"

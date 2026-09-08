@@ -12,11 +12,13 @@ import What from '@/components/page/product/What';
 import Why from '@/components/page/product/Why';
 import Workflow from '@/components/page/product/Workflow';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Creative Asset Management Software Tool | 5Flow',
-  description: 'Manage creative production efficiently with WaveStudio. A creative asset management software for collaboration, approvals and content workflows.',
+  description:
+    'Manage creative production efficiently with WaveStudio. A creative asset management software for collaboration, approvals and content workflows.',
 };
 // Fallback data in case CMS is unavailable
 const heroData = {
@@ -203,7 +205,8 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
     title: cms?.hero?.title || heroData.title,
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
-    ctaText: cms?.hero?.ctaText || '/contact',
+    buttonText: cms?.hero?.ctaText || undefined,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -216,6 +219,7 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? History : FileXIcon),
         })),
         mappedWhat.slice(2, 4).map((item, idx) => ({
@@ -223,6 +227,7 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? CalendarClock : CalendarX2),
         })),
       ]
@@ -290,6 +295,7 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
     subtitle: cms?.need?.subtitle ?? needData.subtitle,
     description: cms?.need?.bodyHtml ?? needData.description,
     buttonText: cms?.need?.buttonText ?? needData.buttonText,
+    buttonUrl: cms?.need?.buttonUrl ?? '/contact',
   };
 
   return (
@@ -299,9 +305,10 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <What whatData={whatDataFinal as any} />
-          <How howData={howDataFinal as any} />
+          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
+            sectionTitleText={cms?.why?.title}
             sectionTitle={
               <>
                 <span className="text-foreground">Why You Need</span>
@@ -317,13 +324,24 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
             subtitle={needFinal.subtitle}
             description={needFinal.description}
             buttonText={needFinal.buttonText}
+            buttonUrl={needFinal.buttonUrl}
           />
           {(() => {
             const cmsClients = (cms?.who?.clients || []).filter(c => c.imageUrl);
             return cmsClients.length ? <Who title={cms?.who?.title} clients={cmsClients} /> : null;
           })()}
           <Workflow title={workflowTitleFinal} subtitle={workflowSubtitleFinal} statsData={workflowStatsFinal} />
-          <Contact leadingText="Ready to make " highlightedText="more" trailingText=" with less?" />
+          <Contact
+            leadingText="Ready to make "
+            highlightedText="more"
+            trailingText=" with less?"
+            heading={
+              cms?.contact?.heading ? (
+                <HighlightedCmsText text={cms.contact.heading} highlightedText={cms.contact.highlight} />
+              ) : undefined
+            }
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -333,5 +351,3 @@ export async function WavestudioPage({ cmsSlug = 'wavestudio' }: { cmsSlug?: str
 export default async function Wavestudio() {
   return <WavestudioPage />;
 }
-
-

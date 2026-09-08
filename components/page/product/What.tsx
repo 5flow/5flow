@@ -3,6 +3,7 @@ import { ArrowDownLeft, MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 
 interface Problem {
   title: string;
@@ -15,18 +16,25 @@ interface Problem {
 
 interface WhatProps {
   whatData: Problem[][];
+  sectionTitle?: string;
 }
 
-const What = ({ whatData }: WhatProps) => {
+const What = ({ whatData, sectionTitle }: WhatProps) => {
   return (
     <div className="relative flex w-full flex-col gap-12 px-4 sm:gap-14 sm:px-6 md:px-0">
       <FullBleedLines className="flex w-full items-center justify-between sm:flex-row">
         <div className="relative h-auto w-full max-w-full text-left sm:h-32 sm:max-w-sm">
           <b className="font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none">
-            <InlineHighlight className="text-background">What</InlineHighlight>
-            <span className="text-foreground"> Do</span>
-            <br className="sm:hidden" />
-            <span className="text-foreground"> We Solve?</span>
+            {sectionTitle ? (
+              <HighlightedCmsText text={sectionTitle} highlightFirstWord highlightClassName="text-background" />
+            ) : (
+              <>
+                <InlineHighlight className="text-background">What</InlineHighlight>
+                <span className="text-foreground"> Do</span>
+                <br className="sm:hidden" />
+                <span className="text-foreground"> We Solve?</span>
+              </>
+            )}
           </b>
         </div>
         <ArrowDownLeft className="text-accent1 size-24 sm:size-32" strokeWidth={1.5} />
@@ -41,7 +49,8 @@ const What = ({ whatData }: WhatProps) => {
                 <b className="text-2xl leading-tight tracking-tight sm:text-4xl sm:leading-none">{problem.title}</b>
                 <div className="flex flex-col justify-between gap-4 text-base sm:flex-row sm:gap-0 sm:text-xl">
                   <p className="max-w-full leading-tight tracking-tight sm:max-w-md sm:leading-none">
-                    {problem.subtitle}{"."}
+                    {problem.subtitle}
+                    {'.'}
                     {problem.description}
                   </p>
                 </div>

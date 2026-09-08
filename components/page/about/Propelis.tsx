@@ -10,11 +10,11 @@ const Propelis = ({ propelisDescription }: PropelisProps) => {
     <FullBleedLines>
       <div className="flex w-full flex-col">
         {/* Title Row */}
-        <div className="px-6 pb-6 pt-10 sm:px-0 sm:pb-4 sm:pt-12">
+        <div className="px-6 pt-10 pb-6 sm:px-0 sm:pt-12 sm:pb-4">
           <h2 className="font-heading w-full max-w-full text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
             <InlineHighlight>Powering</InlineHighlight>
             <br />
-                the propelis group
+            the propelis group
           </h2>
         </div>
 

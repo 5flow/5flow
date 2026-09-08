@@ -11,10 +11,10 @@ import How from '@/components/page/product/How';
 import Why from '@/components/page/solutions/Why';
 import Workflow from '@/components/page/product/Workflow';
 
-
 export const metadata: Metadata = {
   title: 'Advanced Workflow Integration Platform | 5Flow',
-  description: 'Connect packaging workflows, asset systems and approval tools seamlessly using 5Flow workflow integration solutions.',
+  description:
+    'Connect packaging workflows, asset systems and approval tools seamlessly using 5Flow workflow integration solutions.',
 };
 
 // Utility
@@ -126,6 +126,7 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
     buttonText: cms?.hero?.ctaText,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -136,10 +137,12 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
           title: item.title || '',
           subtitle: item.subtitle || '',
           description: item.bodyHtml || (item as any).body_html || (item as any).description || '',
-          buttonText: 'Book A Demo',
+          buttonText: item.buttonText || item.button_text || 'Book A Demo',
           buttonLink: (item as any).linkUrl || (item as any).link_url || undefined,
           imageSrc: (item as any).imageUrl || (item as any).image_url || `/solutions/6-${idx + 1}.svg`,
-          iconName: toPascalCase(((item as any).iconName || (item as any).iconKey || (item as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((item as any).iconName || (item as any).iconKey || (item as any).icon_key || 'BadgeCheck') as string
+          ),
         }))
       : howData
   ) as typeof howData;
@@ -172,8 +175,8 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />
-          <How howData={howDataFinal as any} />
-          <Why whyData={whyDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
+          <Why sectionTitle={cms?.why?.title} whyData={whyDataFinal as any} />
           <Workflow
             title={
               <>
@@ -183,7 +186,13 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />
-          <Contact leadingText="Ready to connect your " highlightedText="artwork systems?" />
+          <Contact
+            leadingText="Ready to connect your "
+            highlightedText="artwork systems?"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -193,5 +202,3 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
 export default async function Integration() {
   return <IntegrationPage />;
 }
-
-

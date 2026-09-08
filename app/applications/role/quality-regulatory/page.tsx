@@ -20,10 +20,10 @@ import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 
-
 export const metadata: Metadata = {
   title: 'Packaging Compliance Management Software | 5Flow',
-  description: 'Ensure packaging compliance and regulatory approval workflows with advanced artwork compliance tracking tools.',
+  description:
+    'Ensure packaging compliance and regulatory approval workflows with advanced artwork compliance tracking tools.',
 };
 
 // Utility
@@ -237,5 +237,3 @@ export async function QualityRegulatoryPage({ cmsSlug = 'quality-regulatory' }: 
 export default async function QualityRegulatory() {
   return <QualityRegulatoryPage />;
 }
-
-

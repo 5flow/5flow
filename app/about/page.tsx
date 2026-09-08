@@ -11,7 +11,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Artwork Collaboration Platform for Brands | 5Flow',
-  description: 'Learn how 5Flow helps brands streamline artwork collaboration, automate workflows, maintain compliance and centralize creative assets across teams.',
+  description:
+    'Learn how 5Flow helps brands streamline artwork collaboration, automate workflows, maintain compliance and centralize creative assets across teams.',
 };
 export default function About() {
   return (
@@ -32,7 +33,7 @@ export default function About() {
       {/* Full-width sections outside container */}
       <div className="mt-16 flex flex-col gap-16 md:mt-32 md:gap-32">
         <Workflow />
-        <div className="container relative mx-auto">
+        <div className="relative container mx-auto">
           <Performance />
           <Results />
         </div>
@@ -40,5 +41,3 @@ export default function About() {
     </div>
   );
 }
-
-

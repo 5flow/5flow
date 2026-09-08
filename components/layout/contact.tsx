@@ -4,12 +4,15 @@ import Image from 'next/image';
 import InlineHighlight from '@/components/core/inline-highlight';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import LeadForm from '@/components/page/contact/LeadForm';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 
 type ContactProps = {
   leadingText?: string;
   highlightedText?: string;
   trailingText?: string;
   heading?: React.ReactNode;
+  cmsHeading?: string;
+  cmsHeadingHighlight?: string;
   subheading?: React.ReactNode;
   subheadingClassName?: string;
   formTitle?: React.ReactNode;
@@ -23,6 +26,8 @@ export function Contact({
   highlightedText = 'work today.',
   trailingText = '',
   heading,
+  cmsHeading,
+  cmsHeadingHighlight,
   subheading,
   subheadingClassName = '',
   formTitle,
@@ -34,15 +39,20 @@ export function Contact({
     <div className={`flex flex-col gap-4 md:gap-8 ${className}`}>
       <FullBleedLines className={`font-heading mx-auto w-full max-w-3xl gap-16 px-2 py-8 ${headingWrapperClassName}`}>
         <p className={`text-center text-4xl leading-none font-bold tracking-tight md:text-[64px] ${headingClassName}`}>
-          {heading || (
-            <>
-              {leadingText} <InlineHighlight>{highlightedText}</InlineHighlight>
-              {trailingText && <> {trailingText}</>}
-            </>
-          )}
+          {heading ||
+            (cmsHeading ? (
+              <HighlightedCmsText text={cmsHeading} highlightedText={cmsHeadingHighlight} />
+            ) : (
+              <>
+                {leadingText} <InlineHighlight>{highlightedText}</InlineHighlight>
+                {trailingText && <> {trailingText}</>}
+              </>
+            ))}
         </p>
         {subheading ? (
-          <p className={`text-primary mt-6 text-center text-2xl leading-tight tracking-normal md:text-[48px] ${subheadingClassName}`}>
+          <p
+            className={`text-primary mt-6 text-center text-2xl leading-tight tracking-normal md:text-[48px] ${subheadingClassName}`}
+          >
             {subheading}
           </p>
         ) : null}

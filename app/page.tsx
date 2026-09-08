@@ -6,6 +6,7 @@ import Why from '@/components/page/home/Why';
 import Who from '@/components/page/home/Who';
 import New from '@/components/page/home/New';
 import InlineHighlight from '@/components/core/inline-highlight';
+import InlineCmsText from '@/components/core/inline-cms-text';
 import type { Metadata } from 'next';
 import { getHomepage } from '@/lib/cms/homepage';
 
@@ -82,12 +83,23 @@ export default async function Home() {
           />
           <New title={cms?.news?.title} description={cms?.news?.description} />
           <Contact
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
             heading={
-              <>
-                Ready for <InlineHighlight>better flow?</InlineHighlight>
-              </>
+              cms?.contact?.heading ? undefined : (
+                <>
+                  Ready for <InlineHighlight>better flow?</InlineHighlight>
+                </>
+              )
             }
-            subheading="Bring packaging to market. Without the chaos."
+            subheading={
+              cms?.contact?.subtitle ? (
+                <InlineCmsText value={cms.contact.subtitle} />
+              ) : (
+                'Bring packaging to market. Without the chaos.'
+              )
+            }
+            formTitle={cms?.contact?.formTitle}
           />
         </div>
       </div>

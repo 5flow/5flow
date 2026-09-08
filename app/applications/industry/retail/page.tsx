@@ -10,10 +10,10 @@ import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
 
-
 export const metadata: Metadata = {
   title: 'Retail Labeling Compliance Software Platform | 5Flow',
-  description: 'Manage retail packaging artwork and ensure labeling compliance using collaborative artwork tools built for retailers.',
+  description:
+    'Manage retail packaging artwork and ensure labeling compliance using collaborative artwork tools built for retailers.',
 };
 
 // Utility
@@ -189,7 +189,9 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
           imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/${idx + 1}.svg`,
-          iconName: toPascalCase(((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
+          ),
           buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
           buttonText: 'Learn More',
         }))
@@ -228,5 +230,3 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
 export default async function Retail() {
   return <RetailPage />;
 }
-
-

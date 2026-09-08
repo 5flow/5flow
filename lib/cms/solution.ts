@@ -46,6 +46,11 @@ export interface SolutionData {
     subtitle?: string;
     stats: { value: string; label: string }[];
   } | null;
+  contact?: {
+    heading?: string;
+    highlight?: string;
+    formTitle?: string;
+  } | null;
 }
 
 function parseJsonArray(value: unknown): SolutionItemRaw[] {
@@ -84,11 +89,11 @@ export async function getSolution(slug: string): Promise<SolutionData | null> {
   const meta: Record<string, any> = page.meta || page.acf || {};
 
   const hero = {
-    title: page.acf?.hero_title,
+    title: meta.hero_title || page.acf?.hero_title,
     subtitle: meta.hero_subtitle || page.acf?.hero_subtitle,
     bodyHtml: meta.hero_body_html || meta.hero_bodyhtml || page.acf?.hero_body_html,
     ctaText: meta.hero_cta_text || page.acf?.hero_cta_text,
-    ctaUrl: meta.hero_cta_url || page.acf?.hero_cta_urls,
+    ctaUrl: meta.hero_cta_url || page.acf?.hero_cta_url || page.acf?.hero_cta_urls,
     imageUrl: meta.hero_image_url || page.acf?.hero_image_url,
     mobileImageUrl: meta.hero_mobile_image_url || meta.hero_image_mobile_url || page.acf?.hero_mobile_image_url,
   };
@@ -106,8 +111,13 @@ export async function getSolution(slug: string): Promise<SolutionData | null> {
 
   return {
     hero,
-    how: { items: howItems },
-    why: { items: whyItems },
+    how: { title: meta.how_title || page.acf?.how_title, items: howItems },
+    why: { title: meta.why_title || page.acf?.why_title, items: whyItems },
     workflow,
+    contact: {
+      heading: meta.contact_heading || meta.contact_title || page.acf?.contact_heading,
+      highlight: meta.contact_heading_highlight || meta.contact_highlight || page.acf?.contact_heading_highlight,
+      formTitle: meta.contact_form_heading || meta.contact_form_title || page.acf?.contact_form_heading,
+    },
   };
 }

@@ -51,6 +51,7 @@ export interface ProductData {
     subtitle?: string;
     bodyHtml?: string;
     buttonText?: string;
+    buttonUrl?: string;
   } | null;
   workflow?: {
     title?: string;
@@ -61,6 +62,11 @@ export interface ProductData {
   who?: {
     title?: string;
     clients: { imageUrl: string; altText: string }[];
+  } | null;
+  contact?: {
+    heading?: string;
+    highlight?: string;
+    formTitle?: string;
   } | null;
 }
 
@@ -99,13 +105,17 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
   const meta: Record<string, any> = page.meta || page.acf || {};
 
   const hero = {
-    title: page.acf?.hero_title,
+    title: meta.hero_title || page.acf?.hero_title,
     subtitle: meta.hero_subtitle || page.acf?.hero_subtitle,
     bodyHtml: meta.hero_body_html || meta.hero_bodyhtml || page.acf?.hero_body_html,
     ctaText: meta.hero_cta_text || page.acf?.hero_cta_text,
     ctaUrl: meta.hero_cta_url || page.acf?.hero_cta_url,
-    imageUrl: meta.hero_image_url || page.acf?.hero_image_url,
-    mobileImageUrl: meta.hero_mobile_image_url || meta.hero_image_mobile_url || page.acf?.hero_mobile_image_url,
+    imageUrl: meta.hero_image_url || meta.imagesrc || page.acf?.hero_image_url,
+    mobileImageUrl:
+      meta.hero_mobile_image_url ||
+      meta.hero_image_mobile_url ||
+      meta.mobileimagesrc ||
+      page.acf?.hero_mobile_image_url,
   };
 
   const whatItems = parseJsonArray(meta.what_items_json || page.acf?.what_items_json);
@@ -120,6 +130,7 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
     subtitle: meta.need_subtitle || page.acf?.need_subtitle,
     bodyHtml: meta.need_body_html || meta.need_bodyhtml || page.acf?.need_body_html,
     buttonText: meta.need_button_text || page.acf?.need_button_text,
+    buttonUrl: meta.need_button_url || page.acf?.need_button_url,
   };
 
   const workflow = {
@@ -149,19 +160,24 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
   return {
     hero,
     what: {
-      title: page.acf?.what_title,
+      title: meta.what_title || page.acf?.what_title,
       items: whatItems,
     },
     how: {
-      title: page.acf?.how_title,
+      title: meta.how_title || page.acf?.how_title,
       items: howItems,
     },
     why: {
-      title: page.acf?.why_title,
+      title: meta.why_title || page.acf?.why_title,
       items: whyItems,
     },
     need,
     workflow,
     who,
+    contact: {
+      heading: meta.contact_heading || meta.contact_title || page.acf?.contact_heading,
+      highlight: meta.contact_heading_highlight || meta.contact_highlight || page.acf?.contact_heading_highlight,
+      formTitle: meta.contact_form_heading || meta.contact_form_title || page.acf?.contact_form_heading,
+    },
   };
 }

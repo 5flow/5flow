@@ -4,6 +4,7 @@ import { features } from '@/lib/features';
 import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/product/Hero';
 import How from '@/components/page/product/How';
@@ -16,7 +17,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Digital Asset Management Software Platform | 5Flow',
-  description: 'Store, organize and manage creative assets using 5Flow Mediabox digital asset management software for teams and growing businesses.',
+  description:
+    'Store, organize and manage creative assets using 5Flow Mediabox digital asset management software for teams and growing businesses.',
 };
 // Fallback data in case CMS is unavailable
 const heroData = {
@@ -218,7 +220,8 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
     title: cms?.hero?.title || heroData.title,
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
-    ctaText: cms?.hero?.ctaText || '/contact',
+    buttonText: cms?.hero?.ctaText || undefined,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -231,6 +234,7 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? Unplug : CalendarClock),
         })),
         mappedWhat.slice(2, 4).map((item, idx) => ({
@@ -238,6 +242,7 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? CircleDollarSign : EyeOff),
         })),
       ]
@@ -305,9 +310,8 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
     subtitle: cms?.need?.subtitle ?? needData.subtitle,
     description: cms?.need?.bodyHtml ?? needData.description,
     buttonText: cms?.need?.buttonText ?? needData.buttonText,
+    buttonUrl: cms?.need?.buttonUrl ?? '/contact',
   };
-
-  console.log(cms?.why);
 
   return (
     <div className="relative">
@@ -316,9 +320,10 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <What whatData={whatDataFinal as any} />
-          <How howData={howDataFinal as any} />
+          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
+            sectionTitleText={cms?.why?.title}
             sectionTitle={
               <>
                 <span className="text-foreground">Why You Need</span>
@@ -334,6 +339,7 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
             subtitle={needFinal.subtitle}
             description={needFinal.description}
             buttonText={needFinal.buttonText}
+            buttonUrl={needFinal.buttonUrl}
           />
           {(() => {
             const cmsClients = (cms?.who?.clients || []).filter(c => c.imageUrl);
@@ -344,7 +350,17 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
             );
           })()}
           <Workflow title={workflowTitleFinal} subtitle={workflowSubtitleFinal} statsData={workflowStatsFinal} />
-          <Contact leadingText="Ready for " highlightedText="flexible" trailingText=" creative workflows?" />
+          <Contact
+            leadingText="Ready for "
+            highlightedText="flexible"
+            trailingText=" creative workflows?"
+            heading={
+              cms?.contact?.heading ? (
+                <HighlightedCmsText text={cms.contact.heading} highlightedText={cms.contact.highlight} />
+              ) : undefined
+            }
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -354,5 +370,3 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
 export default async function Mediabox() {
   return <MediaboxPage />;
 }
-
-

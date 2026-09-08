@@ -26,4 +26,3 @@ export function HubSpotPageTracker() {
 
   return null;
 }
-

@@ -21,10 +21,10 @@ import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 
-
 export const metadata: Metadata = {
   title: 'Brand Asset Management Software for Teams | 5Flow',
-  description: 'Maintain brand consistency across packaging and marketing assets with collaborative artwork tools built for brand managers.',
+  description:
+    'Maintain brand consistency across packaging and marketing assets with collaborative artwork tools built for brand managers.',
 };
 
 // Utility
@@ -232,5 +232,3 @@ export async function BrandManagerPage({ cmsSlug = 'brand-manager' }: { cmsSlug?
 export default async function BrandManager() {
   return <BrandManagerPage />;
 }
-
-

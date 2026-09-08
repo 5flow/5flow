@@ -21,10 +21,10 @@ import Workflow from '@/components/page/applications/Workflow';
 import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 
-
 export const metadata: Metadata = {
   title: 'Creative Collaboration Workflow Software | 5Flow',
-  description: 'Simplify creative production with collaborative content management tools for studios handling packaging and brand assets.',
+  description:
+    'Simplify creative production with collaborative content management tools for studios handling packaging and brand assets.',
 };
 
 // Utility
@@ -229,4 +229,3 @@ export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsS
 export default async function CreativeStudio() {
   return <CreativeStudioPage />;
 }
-

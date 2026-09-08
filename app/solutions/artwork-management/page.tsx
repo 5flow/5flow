@@ -13,7 +13,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Artwork Management & Compliance Software | 5Flow',
-  description: 'Centralize artwork workflows and ensure packaging compliance using 5Flow artwork management software designed for regulated industries.',
+  description:
+    'Centralize artwork workflows and ensure packaging compliance using 5Flow artwork management software designed for regulated industries.',
 };
 // Utility
 function toPascalCase(input: string) {
@@ -125,6 +126,7 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
     buttonText: cms?.hero?.ctaText,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -135,7 +137,7 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
           title: item.title || '',
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
-          buttonText: 'Book A Demo',
+          buttonText: item.buttonText || item.button_text || 'Book A Demo',
           buttonLink: item.linkUrl || item.link_url || undefined,
           imageSrc: item.imageUrl || item.image_url || `/solutions/${idx + 1}.svg`,
           iconName: toPascalCase((item.iconName || item.iconKey || item.icon_key || 'BadgeCheck') as string),
@@ -171,8 +173,8 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />
-          <How howData={howDataFinal as any} />
-          <Why whyData={whyDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
+          <Why sectionTitle={cms?.why?.title} whyData={whyDataFinal as any} />
           <Workflow
             title={
               <>
@@ -182,7 +184,14 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />
-          <Contact leadingText="Ready to " highlightedText="simplify" trailingText=" artwork management?" />
+          <Contact
+            leadingText="Ready to "
+            highlightedText="simplify"
+            trailingText=" artwork management?"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -192,5 +201,3 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
 export default async function ArtworkManagement() {
   return <ArtworkManagementPage />;
 }
-
-

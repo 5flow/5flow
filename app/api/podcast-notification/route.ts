@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  createOrUpdateHubSpotPodcastNotificationLead,
-  PodcastNotificationPayload,
-} from '@/lib/hubspot';
+import { createOrUpdateHubSpotPodcastNotificationLead, PodcastNotificationPayload } from '@/lib/hubspot';
 
 function badRequest(message: string) {
   return NextResponse.json({ error: message }, { status: 400 });

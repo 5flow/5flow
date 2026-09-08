@@ -68,7 +68,9 @@ const Apart = ({ features }: ApartProps) => {
                   <Icon className="text-primary h-12 w-12 shrink-0 sm:h-14 sm:w-14" strokeWidth={1.5} />
                 </div>
                 <div className="flex w-full flex-col gap-4">
-                  <p className="text-lg font-bold leading-tight tracking-tight sm:text-xl lg:text-2xl">{feature.title}</p>
+                  <p className="text-lg leading-tight font-bold tracking-tight sm:text-xl lg:text-2xl">
+                    {feature.title}
+                  </p>
                   <p className="text-sm leading-relaxed tracking-tight sm:text-base">{feature.description}</p>
                 </div>
               </div>

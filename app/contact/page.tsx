@@ -110,4 +110,3 @@ function extractHeroHeadline(html: string): string | null {
   const normalized = decodeEntities(text).replace(/\s+/g, ' ').trim();
   return normalized || null;
 }
-

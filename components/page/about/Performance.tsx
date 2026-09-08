@@ -39,15 +39,15 @@ const Performance = ({ title, description, stats }: PerformanceProps) => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 gap-4 p-2 sm:grid-cols-2 sm:gap-2 md:grid-cols-3 lg:grid-cols-5">
-            {displayStats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-background flex h-48 flex-1 flex-col items-center justify-center gap-2 rounded-2xl shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:h-56"
-              >
-                <b className="font-body text-primary text-4xl sm:text-6xl">{stat.value}</b>
-                <b className="relative text-center text-lg leading-tight sm:text-2xl sm:leading-none">{stat.label}</b>
-              </div>
-            ))}
+          {displayStats.map((stat, index) => (
+            <div
+              key={index}
+              className="bg-background flex h-48 flex-1 flex-col items-center justify-center gap-2 rounded-2xl shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)] sm:h-56"
+            >
+              <b className="font-body text-primary text-4xl sm:text-6xl">{stat.value}</b>
+              <b className="relative text-center text-lg leading-tight sm:text-2xl sm:leading-none">{stat.label}</b>
+            </div>
+          ))}
         </div>
       </div>
     </div>

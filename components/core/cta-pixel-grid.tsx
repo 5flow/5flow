@@ -26,7 +26,7 @@ const CtaPixelGrid = ({ pattern, pixelSize = '7.5rem', icon, className }: PixelG
   if (!pattern.length) return null;
 
   // Find the maximum column count across all rows
-  const maxColumnCount = Math.max(...pattern.map((row) => row.length));
+  const maxColumnCount = Math.max(...pattern.map(row => row.length));
   const style: (CSSProperties & { ['--pixel-size']?: string }) | undefined = maxColumnCount
     ? {
         '--pixel-size': pixelSize,

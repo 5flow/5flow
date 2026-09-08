@@ -1,5 +1,6 @@
 import { ArrowDownLeft } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 
 interface WhyFeature {
   title: string;
@@ -11,9 +12,10 @@ interface WhyFeature {
 
 interface WhyProps {
   whyData: WhyFeature[];
+  sectionTitle?: string;
 }
 
-const Why = ({ whyData }: WhyProps) => {
+const Why = ({ whyData, sectionTitle }: WhyProps) => {
   const headingTopic = whyData?.[0]?.heading ?? 'Artwork Management';
 
   return (
@@ -21,7 +23,7 @@ const Why = ({ whyData }: WhyProps) => {
       <FullBleedLines className="flex flex-1 items-center justify-between sm:flex-row sm:items-start">
         <div className="relative h-auto w-full max-w-full text-left sm:h-32 sm:max-w-lg">
           <b className="font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none">
-            {headingTopic}
+            {sectionTitle ? <HighlightedCmsText text={sectionTitle} highlightFirstWord /> : headingTopic}
             <br className="sm:hidden" />
           </b>
         </div>

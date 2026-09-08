@@ -20,10 +20,10 @@ import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
 
-
 export const metadata: Metadata = {
   title: 'Pharma Artwork & Label Approval Software | 5Flow',
-  description: 'Streamline pharma packaging artwork reviews and approvals using validation-friendly pharma packaging workflow tools.',
+  description:
+    'Streamline pharma packaging artwork reviews and approvals using validation-friendly pharma packaging workflow tools.',
 };
 
 // Utility
@@ -185,7 +185,9 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
       ? cms.how.items.map((it, idx) => ({
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
-          iconName: toPascalCase(((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
+          ),
           imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/2-${idx + 1}.svg`,
           buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
           buttonText: 'Learn More',
@@ -236,5 +238,3 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
 export default async function HealthPharma() {
   return <HealthPharmaPage />;
 }
-
-

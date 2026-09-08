@@ -14,6 +14,7 @@ import { getProduct } from '@/lib/cms/product';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import Hero from '@/components/page/product/Hero';
 import Need from '@/components/page/product/Need';
 import What from '@/components/page/product/What';
@@ -25,7 +26,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Advanced Workflow Management Software | 5Flow',
-  description: 'Optimize packaging workflows with 5Flow Wave. Automate approvals, streamline artwork collaboration and manage complex creative processes efficiently.',
+  description:
+    'Optimize packaging workflows with 5Flow Wave. Automate approvals, streamline artwork collaboration and manage complex creative processes efficiently.',
 };
 // Fallback data in case CMS is unavailable
 const heroData = {
@@ -224,7 +226,8 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
     title: cms?.hero?.title || heroData.title,
     subtitle: cms?.hero?.subtitle || heroData.subtitle,
     description: cms?.hero?.bodyHtml || heroData.description,
-    ctaText: cms?.hero?.ctaText || '',
+    buttonText: cms?.hero?.ctaText || undefined,
+    buttonUrl: cms?.hero?.ctaUrl || '/contact',
     imageSrc: cms?.hero?.imageUrl || heroData.imageSrc,
     mobileImageSrc: cms?.hero?.mobileImageUrl || heroData.mobileImageSrc,
   };
@@ -237,6 +240,7 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? CalendarSync : FileStack),
         })),
         mappedWhat.slice(2, 4).map((item, idx) => ({
@@ -244,6 +248,7 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
           subtitle: item.subtitle || '',
           description: item.bodyHtml || item.body_html || item.description || '',
           buttonLink: item.linkUrl || item.link_url || undefined,
+          buttonText: item.buttonText || item.button_text || undefined,
           icon: resolveIconComponent(item.iconKey || item.icon_key) || (idx === 0 ? ShieldAlert : EyeOff),
         })),
       ]
@@ -314,9 +319,8 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
     subtitle: cms?.need?.subtitle ?? needData.subtitle,
     description: cms?.need?.bodyHtml ?? needData.description,
     buttonText: cms?.need?.buttonText ?? needData.buttonText,
+    buttonUrl: cms?.need?.buttonUrl ?? '/contact',
   };
-
-  console.log(cms?.who?.clients);
 
   return (
     <div className="relative">
@@ -325,9 +329,10 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
 
         <div className="mt-12 flex flex-col gap-16 md:gap-32">
           <Hero {...heroProps} />
-          <What whatData={whatDataFinal as any} />
-          <How howData={howDataFinal as any} />
+          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
+            sectionTitleText={cms?.why?.title}
             sectionTitle={
               <>
                 <span className="text-foreground">Why You Need</span>
@@ -343,6 +348,7 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
             subtitle={needFinal.subtitle}
             description={needFinal.description}
             buttonText={needFinal.buttonText}
+            buttonUrl={needFinal.buttonUrl}
           />
           {(() => {
             return cms?.who?.clients.length ? (
@@ -352,7 +358,17 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
             );
           })()}
           <Workflow title={workflowTitleFinal} subtitle={workflowSubtitleFinal} statsData={workflowStatsFinal} />
-          <Contact leadingText="Ready to " highlightedText="simplify" trailingText=" artwork management?" />
+          <Contact
+            leadingText="Ready to "
+            highlightedText="simplify"
+            trailingText=" artwork management?"
+            heading={
+              cms?.contact?.heading ? (
+                <HighlightedCmsText text={cms.contact.heading} highlightedText={cms.contact.highlight} />
+              ) : undefined
+            }
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>
@@ -362,5 +378,3 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
 export default async function Wave() {
   return <WavePage />;
 }
-
-

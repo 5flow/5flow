@@ -20,10 +20,10 @@ import Challenges from '@/components/page/applications/Challenges';
 import Benefits from '@/components/page/applications/Benefits';
 import How from '@/components/page/applications/How';
 
-
 export const metadata: Metadata = {
   title: 'Food Packaging Artwork Workflow Software | 5Flow',
-  description: 'Ensure food labeling compliance and packaging accuracy with automated artwork workflow software built for F&B brands.',
+  description:
+    'Ensure food labeling compliance and packaging accuracy with automated artwork workflow software built for F&B brands.',
 };
 
 // Utility
@@ -186,7 +186,9 @@ export async function FoodBeveragesPage({ cmsSlug = 'food-beverages' }: { cmsSlu
       ? cms.how.items.map((it, idx) => ({
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
-          iconName: toPascalCase(((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string),
+          iconName: toPascalCase(
+            ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
+          ),
           imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/3-${idx + 1}.svg`,
           buttonText: 'Learn More',
           buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
@@ -237,5 +239,3 @@ export async function FoodBeveragesPage({ cmsSlug = 'food-beverages' }: { cmsSlu
 export default async function FoodBeverages() {
   return <FoodBeveragesPage />;
 }
-
-

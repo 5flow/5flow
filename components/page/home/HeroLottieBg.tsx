@@ -197,8 +197,26 @@ const HeroLottieBg = () => {
           defaultColor="#ffffff"
           tileColors={[
             [undefined, undefined, undefined, '#D1DAFD', 'var(--accent1)', 'var(--success)', 'var(--primary)'],
-            [undefined, undefined, undefined, undefined, '#D1DAFD', 'var(--accent2)', 'var(--success)', 'var(--primary)'],
-            [undefined, undefined, undefined, undefined, '#D1DAFD', 'var(--accent1)', 'var(--accent2)', 'var(--primary)'],
+            [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              '#D1DAFD',
+              'var(--accent2)',
+              'var(--success)',
+              'var(--primary)',
+            ],
+            [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              '#D1DAFD',
+              'var(--accent1)',
+              'var(--accent2)',
+              'var(--primary)',
+            ],
             [undefined, undefined, undefined, '#D1DAFD', '#D1DAFD', '#D1DAFD', 'var(--accent1)', 'var(--primary)'],
           ]}
         />

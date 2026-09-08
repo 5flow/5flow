@@ -8,6 +8,7 @@ import { ArrowDownLeft, ArrowUpRight, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 
 interface HowFeature {
   title: string;
@@ -21,9 +22,10 @@ interface HowFeature {
 
 interface HowProps {
   howData: HowFeature[];
+  sectionTitle?: string;
 }
 
-const How = ({ howData }: HowProps) => {
+const How = ({ howData, sectionTitle }: HowProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLarge, setIsLarge] = useState(false);
   const sectionRefs = useRef<Array<HTMLElement | null>>([]);
@@ -138,8 +140,14 @@ const How = ({ howData }: HowProps) => {
         <FullBleedLines className="flex w-full items-center justify-between p-4">
           <div className="relative flex h-32 w-full max-w-sm items-center pr-4 md:pr-0">
             <b className="font-heading text-4xl leading-none tracking-tighter lg:text-6xl">
-              <InlineHighlight className="text-background">How</InlineHighlight>
-              <span className="text-foreground"> Does it Work?</span>
+              {sectionTitle ? (
+                <HighlightedCmsText text={sectionTitle} highlightFirstWord highlightClassName="text-background" />
+              ) : (
+                <>
+                  <InlineHighlight className="text-background">How</InlineHighlight>
+                  <span className="text-foreground"> Does it Work?</span>
+                </>
+              )}
             </b>
           </div>
           <ArrowDownLeft className="text-accent1 size-24 sm:size-32" strokeWidth={1.5} />
