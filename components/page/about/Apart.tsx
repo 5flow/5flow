@@ -1,9 +1,11 @@
 import { ShieldCheck, TrendingUp, Users, UserStar, Layers } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type ApartFeature = { title: string; description: string; iconKey?: string };
-type ApartProps = { features?: ApartFeature[]; titleOverride?: string };
+type ApartProps = { features?: ApartFeature[]; titleOverride?: string; highlight?: string };
 
 const iconMap: Record<string, any> = {
   customer: UserStar,
@@ -41,7 +43,7 @@ const fallbackFeatures: ApartFeature[] = [
   },
 ];
 
-const Apart = ({ features }: ApartProps) => {
+const Apart = ({ features, titleOverride, highlight }: ApartProps) => {
   const data = features && features.length > 0 ? features : fallbackFeatures;
 
   return (
@@ -49,8 +51,14 @@ const Apart = ({ features }: ApartProps) => {
       <div className="px-2 py-8">
         <FullBleedLines className="flex w-full items-center justify-center">
           <p className="font-heading text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
-            <span>What sets us </span>
-            <InlineHighlight>apart?</InlineHighlight>
+            {titleOverride ? (
+              <HighlightedCmsText text={titleOverride} highlightedText={highlight} />
+            ) : (
+              <>
+                <span>What sets us </span>
+                <InlineHighlight>apart?</InlineHighlight>
+              </>
+            )}
           </p>
         </FullBleedLines>
       </div>
@@ -69,9 +77,11 @@ const Apart = ({ features }: ApartProps) => {
                 </div>
                 <div className="flex w-full flex-col gap-4">
                   <p className="text-lg leading-tight font-bold tracking-tight sm:text-xl lg:text-2xl">
-                    {feature.title}
+                    <InlineCmsText value={feature.title} />
                   </p>
-                  <p className="text-sm leading-relaxed tracking-tight sm:text-base">{feature.description}</p>
+                  <p className="text-sm leading-relaxed tracking-tight sm:text-base">
+                    <InlineCmsText value={feature.description} />
+                  </p>
                 </div>
               </div>
             );

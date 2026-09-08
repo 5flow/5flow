@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type VisionProps = {
   visionTitle?: string;
@@ -10,7 +11,6 @@ const Vision = ({ visionTitle, visionText }: VisionProps) => {
   return (
     <FullBleedLines>
       <div className="flex w-full flex-col gap-0 sm:flex-row">
-        {/* Left Box - Vision Title */}
         <div
           className="flex flex-col items-start justify-end p-10 sm:h-[460px] sm:w-[420px] sm:px-12"
           style={{ backgroundColor: '#d1dafd' }}
@@ -28,14 +28,17 @@ const Vision = ({ visionTitle, visionText }: VisionProps) => {
           </div>
         </div>
 
-        {/* Right Box - Content */}
         <div className="flex flex-col justify-center gap-4 px-6 py-10 sm:w-[60%] sm:pr-0 sm:pl-16 md:gap-5 md:py-20">
           <h3 className="font-heading text-foreground ml-auto max-w-[300px] text-right text-xl leading-tight font-bold tracking-tight md:text-2xl">
-            {visionTitle || 'Cloud-smart solutions built for faster brand execution'}
+            <InlineCmsText value={visionTitle || 'Cloud-smart solutions built for faster brand execution'} />
           </h3>
           <p className="text-foreground ml-auto max-w-[560px] text-right text-sm leading-relaxed md:text-base lg:text-lg">
-            {visionText ||
-              'To develop innovative cloud-smart solutions for brand owners supercharged by data, tech, and AI in order to streamline and accelerate the GTM process from ideation to implementation so brand owners can adapt to changes faster.'}
+            <InlineCmsText
+              value={
+                visionText ||
+                'To develop innovative cloud-smart solutions for brand owners supercharged by data, tech, and AI in order to streamline and accelerate the GTM process from ideation to implementation so brand owners can adapt to changes faster.'
+              }
+            />
           </p>
         </div>
       </div>

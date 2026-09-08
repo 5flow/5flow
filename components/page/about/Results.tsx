@@ -2,18 +2,31 @@ import Link from 'next/link';
 import { MoveUpRight } from 'lucide-react';
 import InlineHighlight from '@/components/core/inline-highlight';
 import { Button } from '@/components/ui/button';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
+import InlineCmsText from '@/components/core/inline-cms-text';
 
 type ResultsProps = {
   title?: string;
+  highlight?: string;
   description?: string;
+  ctaText?: string;
+  ctaUrl?: string;
 };
 
-const Results = ({ title, description }: ResultsProps) => {
+const Results = ({
+  title,
+  highlight,
+  description,
+  ctaText = 'Read case studies',
+  ctaUrl = '/resources/case-studies',
+}: ResultsProps) => {
   return (
     <div className="relative isolate z-50 w-full translate-y-0 pt-1 md:translate-y-32">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 md:items-end md:gap-8 md:px-6 lg:gap-10">
         <h2 className="font-heading text-foreground text-center text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
-          {title || (
+          {title ? (
+            <HighlightedCmsText text={title} highlightedText={highlight} highlightClassName="text-background" />
+          ) : (
             <>
               Real <InlineHighlight className="text-background">results</InlineHighlight>
               <br />
@@ -23,23 +36,22 @@ const Results = ({ title, description }: ResultsProps) => {
         </h2>
 
         <p className="text-foreground max-w-3xl text-center text-base leading-relaxed md:text-right md:text-lg lg:text-xl">
-          {description || (
-            <>
-              Discover how enterprise teams reduce launch time,
-              <br />
-              improve compliance, and scale operations with 5Flow.
-            </>
-          )}
+          <InlineCmsText
+            value={
+              description ||
+              'Discover how enterprise teams reduce launch time,<br />improve compliance, and scale operations with 5Flow.'
+            }
+          />
         </p>
 
         <div className="flex items-center gap-4">
-          <Link href="/resources/case-studies" className="flex">
+          <Link href={ctaUrl} className="flex">
             <Button
               size="lg"
               className="group/cta-hero active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-3 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-300 ease-[var(--easing-smooth)] hover:gap-0 active:translate-x-px active:scale-[0.99] active:ring-2 active:ring-offset-2"
             >
               <span className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta-hero:px-7 sm:h-10 sm:px-6">
-                Read case studies
+                <InlineCmsText value={ctaText} />
               </span>
               <span
                 className="bg-primary text-primary-foreground group-hover/cta-hero:bg-primary/90 group-active/cta-hero:bg-primary/80 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] sm:h-10 sm:w-10"
