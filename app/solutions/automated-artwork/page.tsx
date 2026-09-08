@@ -184,6 +184,8 @@ export async function AutomatedArtworkPage({ cmsSlug = 'automated-artwork' }: { 
                 Trusted by <InlineHighlight>global leaders</InlineHighlight>
               </>
             }
+            titleText={cms?.workflow?.title}
+            highlightText={cms?.workflow?.highlight}
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />

@@ -1,5 +1,6 @@
 import { ArrowDown } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 
 interface WorkflowStat {
   value: string;
@@ -8,17 +9,19 @@ interface WorkflowStat {
 
 interface WorkflowProps {
   title: React.ReactNode;
+  titleText?: string;
+  highlightText?: string;
   subtitle: string;
   statsData: WorkflowStat[];
 }
 
-const Workflow = ({ title, subtitle, statsData }: WorkflowProps) => {
+const Workflow = ({ title, titleText, highlightText, subtitle, statsData }: WorkflowProps) => {
   return (
     <div className="font-heading relative flex w-full flex-col gap-6 px-4 sm:gap-8 sm:px-6 md:px-0">
       <FullBleedLines className="flex flex-1 flex-col items-center justify-between gap-2 sm:flex-row sm:items-start sm:gap-0">
         <div className="flex flex-1 flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-8 sm:text-left">
           <b className="max-w-full text-4xl leading-tight tracking-tight sm:max-w-lg sm:text-6xl sm:leading-none">
-            {title}
+            {titleText ? <HighlightedCmsText text={titleText} highlightedText={highlightText} /> : title}
           </b>
           <ArrowDown className="text-accent1 h-16 w-16 sm:h-32 sm:w-32" strokeWidth={1.5} />
         </div>

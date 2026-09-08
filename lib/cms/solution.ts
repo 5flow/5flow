@@ -104,7 +104,11 @@ export async function getSolution(slug: string): Promise<SolutionData | null> {
 
   const workflow = {
     title: meta.workflow_title || page.acf?.workflow_title,
-    highlight: meta.workflow_title_highlight || page.acf?.workflow_title_highlight,
+    highlight:
+      meta.workflow_title_highlight ||
+      meta.workflow_highlight ||
+      page.acf?.workflow_title_highlight ||
+      page.acf?.workflow_highlight,
     subtitle: meta.workflow_subtitle || page.acf?.workflow_subtitle,
     stats: workflowStats,
   };

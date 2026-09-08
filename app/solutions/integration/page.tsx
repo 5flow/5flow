@@ -183,6 +183,8 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
                 Trusted by <InlineHighlight>global leaders</InlineHighlight>
               </>
             }
+            titleText={cms?.workflow?.title}
+            highlightText={cms?.workflow?.highlight}
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />

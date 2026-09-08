@@ -183,6 +183,8 @@ export async function AssetLibraryPage({ cmsSlug = 'asset-library' }: { cmsSlug?
                 Trusted by <InlineHighlight>global leaders</InlineHighlight>
               </>
             }
+            titleText={cms?.workflow?.title}
+            highlightText={cms?.workflow?.highlight}
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />

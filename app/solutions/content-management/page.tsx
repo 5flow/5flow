@@ -186,6 +186,8 @@ export async function ContentManagementPage({ cmsSlug = 'content-management' }: 
                 Trusted by <InlineHighlight>global leaders</InlineHighlight>
               </>
             }
+            titleText={cms?.workflow?.title}
+            highlightText={cms?.workflow?.highlight}
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />

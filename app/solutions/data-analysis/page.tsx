@@ -185,6 +185,8 @@ export async function DataAnalysisPage({ cmsSlug = 'data-analysis' }: { cmsSlug?
                 Trusted by <InlineHighlight>global leaders</InlineHighlight>
               </>
             }
+            titleText={cms?.workflow?.title}
+            highlightText={cms?.workflow?.highlight}
             subtitle={workflowSubtitleFinal}
             statsData={workflowStatsFinal}
           />
