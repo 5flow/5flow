@@ -1,4 +1,5 @@
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import InlineHighlight from '@/components/core/inline-highlight';
 import type { ComponentType, SVGProps } from 'react';
 
@@ -15,15 +16,23 @@ type BenefitsProps = {
   options?: {
     buttonText?: string;
   };
+  heading?: string;
+  headingHighlight?: string;
   highlightedText?: string;
 };
 
-const Benefits = ({ items = [], highlightedText }: BenefitsProps) => {
+const Benefits = ({ items = [], heading, headingHighlight, highlightedText }: BenefitsProps) => {
   return (
     <div className="flex w-full flex-col items-start gap-16 px-4 text-center sm:px-0">
       <FullBleedLines className="font-heading mx-auto w-full max-w-xl sm:max-w-2xl">
         <b className="text-4xl leading-none tracking-tighter sm:text-6xl">
-          <span>{`Benefits for `}</span> <InlineHighlight>{highlightedText}</InlineHighlight>
+          {heading ? (
+            <HighlightedCmsText text={heading} highlightedText={headingHighlight || highlightedText} />
+          ) : (
+            <>
+              <span>{`Benefits for `}</span> <InlineHighlight>{highlightedText}</InlineHighlight>
+            </>
+          )}
         </b>
       </FullBleedLines>
 

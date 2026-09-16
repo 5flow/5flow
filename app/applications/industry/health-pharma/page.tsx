@@ -174,8 +174,15 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
           desc: it.subtitle || '',
           sub: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
           icon: resolveIconComponent((it as any).iconKey || (it as any).icon_key) || Languages,
-          buttonText: 'Learn More',
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
         }))
       : challengeItems
   ) as typeof challengeItems;
@@ -188,9 +195,16 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
-          imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/2-${idx + 1}.svg`,
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
-          buttonText: 'Learn More',
+          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/2-${idx + 1}.svg`,
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
         }))
       : howData
   ) as typeof howData;
@@ -225,10 +239,26 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
             };
             return <Hero {...heroProps} />;
           })()}
-          <Challenges items={challengeItemsFinal} />
+          <Challenges
+            items={challengeItemsFinal}
+            heading={cms?.challenges?.heading}
+            headingHighlight={cms?.challenges?.headingHighlight}
+          />
           <How howData={howDataFinal} />
-          <Benefits items={benefitItemsFinal} highlightedText={cms?.benefits?.highlightedText || 'Health & Pharma'} />
-          <Contact leadingText="The " highlightedText="Best Software" trailingText=" For Healthcare & Pharma" />
+          <Benefits
+            items={benefitItemsFinal}
+            heading={cms?.benefits?.heading}
+            headingHighlight={cms?.benefits?.headingHighlight}
+            highlightedText={cms?.benefits?.highlightedText || 'Health & Pharma'}
+          />
+          <Contact
+            leadingText="The "
+            highlightedText="Best Software"
+            trailingText=" For Healthcare & Pharma"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>

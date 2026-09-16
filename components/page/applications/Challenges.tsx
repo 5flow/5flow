@@ -1,6 +1,7 @@
 import type { ComponentType, SVGProps } from 'react';
 import Link from 'next/link';
 import FullBleedLines from '@/components/core/full-bleed-lines';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import InlineHighlight from '@/components/core/inline-highlight';
 import { Button } from '@/components/ui/button';
 import { MoveUpRight } from 'lucide-react';
@@ -17,15 +18,23 @@ interface Item {
 
 interface ChallengesProps {
   items: Item[];
+  heading?: string;
+  headingHighlight?: string;
 }
 
-const Challenges = ({ items = [] }: ChallengesProps) => {
+const Challenges = ({ items = [], heading, headingHighlight }: ChallengesProps) => {
   return (
     <div className="flex w-full flex-col gap-16 px-4 text-center sm:px-0">
       <FullBleedLines className="font-heading mx-auto w-full max-w-md sm:max-w-lg">
         <b className="text-4xl leading-none tracking-tighter sm:text-6xl">
-          <span>{`Your `}</span> <InlineHighlight>Challenges,</InlineHighlight>
-          Our <InlineHighlight>Solutions</InlineHighlight>
+          {heading ? (
+            <HighlightedCmsText text={heading} highlightedText={headingHighlight} />
+          ) : (
+            <>
+              <span>{`Your `}</span> <InlineHighlight>Challenges,</InlineHighlight>
+              Our <InlineHighlight>Solutions</InlineHighlight>
+            </>
+          )}
         </b>
       </FullBleedLines>
 

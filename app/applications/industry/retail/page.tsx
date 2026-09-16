@@ -177,8 +177,15 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
           icon:
             resolveIconComponent((it as any).iconKey || (it as any).icon_key) ||
             [Files, FileStack, LaptopMinimalCheck, EyeOff, History][i % 5],
-          buttonText: 'Learn More',
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
         }))
       : challengeItems
   ) as typeof challengeItems;
@@ -188,12 +195,19 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
       ? cms.how.items.map((it, idx) => ({
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
-          imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/${idx + 1}.svg`,
+          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/${idx + 1}.svg`,
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
-          buttonText: 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
         }))
       : howData
   ) as typeof howData;
@@ -217,10 +231,26 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
 
         <div className="flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <Challenges items={challengeItemsFinal} />
+          <Challenges
+            items={challengeItemsFinal}
+            heading={cms?.challenges?.heading}
+            headingHighlight={cms?.challenges?.headingHighlight}
+          />
           <How howData={howDataFinal} />
-          <Benefits items={benefitItemsFinal} highlightedText={cms?.benefits?.highlightedText || 'Retail'} />
-          <Contact leadingText="The " highlightedText="Leading Workflow Platform" trailingText=" For Retailers" />
+          <Benefits
+            items={benefitItemsFinal}
+            heading={cms?.benefits?.heading}
+            headingHighlight={cms?.benefits?.headingHighlight}
+            highlightedText={cms?.benefits?.highlightedText || 'Retail'}
+          />
+          <Contact
+            leadingText="The "
+            highlightedText="Leading Workflow Platform"
+            trailingText=" For Retailers"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>

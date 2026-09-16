@@ -175,8 +175,15 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
           desc: it.subtitle || '',
           sub: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
           icon: resolveIconComponent((it as any).iconKey || (it as any).icon_key) || History,
-          buttonText: 'Learn More',
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
         }))
       : challengeItems
   ) as typeof challengeItems;
@@ -189,9 +196,16 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
-          imageSrc: (it as any).imageUrl || (it as any).image_url || `/applications/5-${idx + 1}.svg`,
-          buttonText: 'Learn More',
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
+          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/5-${idx + 1}.svg`,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
         }))
       : howData
   ) as typeof howData;
@@ -226,10 +240,26 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
             };
             return <Hero {...heroProps} />;
           })()}
-          <Challenges items={challengeItemsFinal} />
+          <Challenges
+            items={challengeItemsFinal}
+            heading={cms?.challenges?.heading}
+            headingHighlight={cms?.challenges?.headingHighlight}
+          />
           <How howData={howDataFinal} />
-          <Benefits items={benefitItemsFinal} highlightedText={cms?.benefits?.highlightedText || 'Consumer Goods'} />
-          <Contact leadingText="The " highlightedText="Best Software" trailingText=" For Consumer Goods Brands" />
+          <Benefits
+            items={benefitItemsFinal}
+            heading={cms?.benefits?.heading}
+            headingHighlight={cms?.benefits?.headingHighlight}
+            highlightedText={cms?.benefits?.highlightedText || 'Consumer Goods'}
+          />
+          <Contact
+            leadingText="The "
+            highlightedText="Best Software"
+            trailingText=" For Consumer Goods Brands"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>

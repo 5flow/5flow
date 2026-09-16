@@ -15,6 +15,7 @@ import { features } from '@/lib/features';
 import { getApplication } from '@/lib/cms/application';
 import { Contact } from '@/components/layout';
 import InlineHighlight from '@/components/core/inline-highlight';
+import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/applications/Hero';
 import Workflow from '@/components/page/applications/Workflow';
@@ -43,18 +44,7 @@ function resolveIconComponent(iconKey?: string) {
 }
 
 function renderWorkflowTitle(title: string, highlight?: string) {
-  if (!highlight) return title;
-  const parts = title.split(highlight);
-  return (
-    <>
-      {parts.map((part, i) => (
-        <span key={i}>
-          {part}
-          {i < parts.length - 1 && <InlineHighlight>{highlight}</InlineHighlight>}
-        </span>
-      ))}
-    </>
-  );
+  return highlight ? <HighlightedCmsText text={title} highlightedText={highlight} /> : title;
 }
 
 // Fallback data in case CMS is unavailable
@@ -172,8 +162,15 @@ export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsS
           desc: it.subtitle || '',
           sub: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
           icon: resolveIconComponent((it as any).iconKey || (it as any).icon_key) || SquareStack,
-          buttonText: 'Learn More',
-          buttonLink: (it as any).linkUrl || (it as any).link_url || undefined,
+          buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
+          buttonLink:
+            (it as any).linkUrl ||
+            (it as any).link_url ||
+            (it as any).buttonLink ||
+            (it as any).button_link ||
+            (it as any).buttonUrl ||
+            (it as any).button_url ||
+            undefined,
         }))
       : challengeItems
   ) as typeof challengeItems;
@@ -208,8 +205,17 @@ export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsS
             };
             return <Hero {...heroProps} />;
           })()}
-          <Challenges items={challengeItemsFinal} />
-          <Benefits items={benefitItemsFinal} highlightedText={cms?.benefits?.highlightedText || 'Creative Studios'} />
+          <Challenges
+            items={challengeItemsFinal}
+            heading={cms?.challenges?.heading}
+            headingHighlight={cms?.challenges?.headingHighlight}
+          />
+          <Benefits
+            items={benefitItemsFinal}
+            heading={cms?.benefits?.heading}
+            headingHighlight={cms?.benefits?.headingHighlight}
+            highlightedText={cms?.benefits?.highlightedText || 'Creative Studios'}
+          />
           <Workflow
             title={
               cms?.workflow?.title
@@ -219,7 +225,13 @@ export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsS
             subtitle={cms?.workflow?.subtitle || workflowFallback.subtitle}
             statsData={cms?.workflow?.stats?.length ? cms.workflow.stats : workflowFallback.statsData}
           />
-          <Contact leadingText="Trusted by Top Creative and Design Studios " highlightedText="Worldwide" />
+          <Contact
+            leadingText="Trusted by Top Creative and Design Studios "
+            highlightedText="Worldwide"
+            cmsHeading={cms?.contact?.heading}
+            cmsHeadingHighlight={cms?.contact?.highlight}
+            formTitle={cms?.contact?.formTitle}
+          />
         </div>
       </div>
     </div>

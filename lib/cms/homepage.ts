@@ -164,9 +164,15 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     },
     contact: {
       heading: meta.contact_heading || meta.contact_title || acf.contact_heading,
-      highlight: meta.contact_heading_highlight || meta.contact_highlight || acf.contact_heading_highlight,
+      highlight:
+        meta.contact_heading_highlight ||
+        meta.contact_title_highlight ||
+        meta.contact_highlight ||
+        acf.contact_heading_highlight ||
+        acf.contact_title_highlight ||
+        acf.contact_highlight,
       subtitle: meta.contact_subtitel || meta.contact_subtitle || acf.contact_subtitel || acf.contact_subtitle,
-      formTitle: meta.contact_form_heading || meta.contact_form_title || acf.contact_form_heading,
+      formTitle: meta.contact_form_heading || meta.contact_form_title || acf.contact_form_heading || acf.contact_form_title,
     },
   };
 }

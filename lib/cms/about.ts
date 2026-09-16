@@ -66,7 +66,12 @@ function parseJsonArray<T>(value: unknown): T[] {
     const parsed = JSON.parse(value);
     return Array.isArray(parsed) ? (parsed as T[]) : [];
   } catch {
-    return [];
+    try {
+      const parsed = JSON.parse(value.replace(/'/g, '"'));
+      return Array.isArray(parsed) ? (parsed as T[]) : [];
+    } catch {
+      return [];
+    }
   }
 }
 

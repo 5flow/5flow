@@ -21,7 +21,7 @@ const Why = ({ whyData, sectionTitle }: WhyProps) => {
   return (
     <div className="font-heading flex w-full flex-col gap-6 px-4 sm:gap-8 sm:px-6 md:px-0">
       <FullBleedLines className="flex flex-1 items-center justify-between sm:flex-row sm:items-start">
-        <div className="relative h-auto w-full max-w-full text-left sm:h-32 sm:max-w-lg">
+        <div className="relative w-full max-w-full pb-4 text-left sm:min-h-32 sm:max-w-xl sm:pb-0">
           <b className="font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none">
             {sectionTitle ? <HighlightedCmsText text={sectionTitle} highlightFirstWord /> : headingTopic}
             <br className="sm:hidden" />

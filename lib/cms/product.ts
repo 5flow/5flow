@@ -176,8 +176,18 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
     who,
     contact: {
       heading: meta.contact_heading || meta.contact_title || page.acf?.contact_heading,
-      highlight: meta.contact_heading_highlight || meta.contact_highlight || page.acf?.contact_heading_highlight,
-      formTitle: meta.contact_form_heading || meta.contact_form_title || page.acf?.contact_form_heading,
+      highlight:
+        meta.contact_heading_highlight ||
+        meta.contact_title_highlight ||
+        meta.contact_highlight ||
+        page.acf?.contact_heading_highlight ||
+        page.acf?.contact_title_highlight ||
+        page.acf?.contact_highlight,
+      formTitle:
+        meta.contact_form_heading ||
+        meta.contact_form_title ||
+        page.acf?.contact_form_heading ||
+        page.acf?.contact_form_title,
     },
   };
 }

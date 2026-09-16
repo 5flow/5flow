@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   description:
     'Learn how 5Flow helps brands streamline artwork collaboration, automate workflows, maintain compliance and centralize creative assets across teams.',
 };
-export default async function About() {
+export async function AboutPage({ cmsSlug = 'about' }: { cmsSlug?: string } = {}) {
   let cms = null as Awaited<ReturnType<typeof getAbout>> | null;
   if (features.enabled) {
-    cms = await getAbout('about').catch(() => null);
+    cms = await getAbout(cmsSlug).catch(() => null);
   }
 
   const apartItems = cms?.apart?.items?.map(item => ({
@@ -79,4 +79,8 @@ export default async function About() {
       </div>
     </div>
   );
+}
+
+export default async function About() {
+  return <AboutPage />;
 }
