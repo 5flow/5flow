@@ -1,5 +1,6 @@
 import InlineCmsText from '@/components/core/inline-cms-text';
 import InlineHighlight from '@/components/core/inline-highlight';
+import type { ReactNode } from 'react';
 
 type HighlightedCmsTextProps = {
   text: string;
@@ -74,6 +75,40 @@ function getOriginalMatchLength(text: string, index: number, target: string) {
   return target.length;
 }
 
+function getFallbackTargets(target: string) {
+  const separatedTargets = target
+    .split(/[,;\n|]+/)
+    .map(part => part.trim())
+    .filter(Boolean);
+
+  const targets = separatedTargets.length > 1 ? separatedTargets : target.split(/\s+/).filter(Boolean);
+
+  return Array.from(new Set(targets)).sort((a, b) => b.length - a.length);
+}
+
+function findHighlightRanges(text: string, target: string) {
+  const directIndex = findHighlightIndex(text, target);
+  if (directIndex >= 0) {
+    return [{ index: directIndex, length: getOriginalMatchLength(text, directIndex, target) }];
+  }
+
+  const ranges = getFallbackTargets(target)
+    .map(part => {
+      const index = findHighlightIndex(text, part);
+      if (index < 0) return null;
+      return { index, length: getOriginalMatchLength(text, index, part) };
+    })
+    .filter((range): range is { index: number; length: number } => Boolean(range))
+    .sort((a, b) => a.index - b.index);
+
+  return ranges.reduce<{ index: number; length: number }[]>((validRanges, range) => {
+    const previous = validRanges[validRanges.length - 1];
+    if (previous && range.index < previous.index + previous.length) return validRanges;
+    validRanges.push(range);
+    return validRanges;
+  }, []);
+}
+
 export default function HighlightedCmsText({
   text,
   highlightedText,
@@ -84,17 +119,29 @@ export default function HighlightedCmsText({
 
   if (!target) return <InlineCmsText value={text} />;
 
-  const index = findHighlightIndex(text, target);
-  if (index < 0) return <InlineCmsText value={text} />;
-  const matchLength = getOriginalMatchLength(text, index, target);
+  const ranges = findHighlightRanges(text, target);
+  if (!ranges.length) return <InlineCmsText value={text} />;
 
-  return (
-    <>
-      <InlineCmsText value={text.slice(0, index)} />
-      <InlineHighlight className={highlightClassName}>
-        <InlineCmsText value={text.slice(index, index + matchLength)} />
-      </InlineHighlight>
-      <InlineCmsText value={text.slice(index + matchLength)} />
-    </>
-  );
+  const parts: ReactNode[] = [];
+  let cursor = 0;
+
+  ranges.forEach((range, rangeIndex) => {
+    if (range.index > cursor) {
+      parts.push(<InlineCmsText key={`text-${rangeIndex}`} value={text.slice(cursor, range.index)} />);
+    }
+
+    parts.push(
+      <InlineHighlight key={`highlight-${rangeIndex}`} className={highlightClassName}>
+        <InlineCmsText value={text.slice(range.index, range.index + range.length)} />
+      </InlineHighlight>,
+    );
+
+    cursor = range.index + range.length;
+  });
+
+  if (cursor < text.length) {
+    parts.push(<InlineCmsText key="text-tail" value={text.slice(cursor)} />);
+  }
+
+  return <>{parts}</>;
 }
