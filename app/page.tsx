@@ -15,27 +15,27 @@ export const metadata: Metadata = {
   description:
     "Streamline packaging and creative operations with 5Flow's artwork workflow automation platform, enabling faster approvals, compliance tracking and collaboration.",
 };
-export default async function Home() {
-  const cms = await getHomepage('home').catch(() => null);
+export async function HomePage({ cmsSlug = 'home' }: { cmsSlug?: string } = {}) {
+  const cms = await getHomepage(cmsSlug).catch(() => null);
   const whatItems = cms?.what?.items.map(item => ({
     title: item.title || '',
-    desc: item.body_html || item.bodyHtml || '',
+    desc: item.bodyHtml || item.body_html || item.description || item.desc || '',
     sub: item.subtitle,
     iconKey: item.icon_key || item.iconKey,
   }));
   const howItems = cms?.how?.items.map(item => ({
     title: item.title || '',
     lead: item.subtitle,
-    desc: item.body_html || item.bodyHtml || '',
-    link: item.link_url || item.linkUrl || item.link || item.button_url || item.buttonUrl,
+    desc: item.bodyHtml || item.body_html || item.description || item.desc || '',
+    link: item.buttonLink || item.button_link || item.link_url || item.linkUrl || item.link || item.button_url || item.buttonUrl,
     iconKey: item.icon_key || item.iconKey,
   }));
   const whyCards = cms?.why?.items.map(item => ({
     title: item.title || '',
     subtitle: item.subtitle,
-    bodyHtml: item.body_html || item.bodyHtml,
-    buttonText: item.button_text || item.buttonText,
-    link: item.link_url || item.linkUrl || '/ai-solutions',
+    bodyHtml: item.bodyHtml || item.body_html || item.description || item.desc,
+    buttonText: item.buttonText || item.button_text,
+    link: item.buttonLink || item.button_link || item.link_url || item.linkUrl || '/ai-solutions',
     iconKey: item.icon_key || item.iconKey,
   }));
 
@@ -105,4 +105,8 @@ export default async function Home() {
       </div>
     </div>
   );
+}
+
+export default async function Home() {
+  return <HomePage />;
 }

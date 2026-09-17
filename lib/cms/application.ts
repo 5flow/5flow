@@ -68,22 +68,58 @@ function parseJsonArray(value: unknown): ApplicationItemRaw[] {
         ...item,
         subtitle: item.subtitle || raw.desc,
         bodyHtml: item.bodyHtml || item.body_html || item.description || raw.sub,
-        buttonText: item.buttonText || item.button_text,
-        buttonLink: item.buttonLink || item.button_link || item.buttonUrl || item.button_url || item.linkUrl || item.link_url,
+        buttonText:
+          item.buttonText ||
+          item.button_text ||
+          raw.buttonLabel ||
+          raw.button_label ||
+          raw.ctaText ||
+          raw.cta_text,
+        buttonLink:
+          item.buttonLink ||
+          item.button_link ||
+          item.buttonUrl ||
+          item.button_url ||
+          item.linkUrl ||
+          item.link_url ||
+          raw.url ||
+          raw.href,
         imageUrl: item.imageUrl || item.image_url || item.imageSrc,
         iconKey: item.iconKey || item.icon_key || item.iconName,
       };
     });
 
+  const parseValue = (rawValue: string) => {
+    const normalized = rawValue
+      .trim()
+      .replace(/[“”]/g, '"')
+      .replace(/[‘’]/g, "'")
+      .replace(/,\s*([}\]])/g, '$1');
+    const candidates = [
+      normalized,
+      normalized.replace(/'/g, '"'),
+      normalized.startsWith('[') && !normalized.endsWith(']') ? `${normalized}]` : '',
+      normalized.startsWith('{') && !normalized.endsWith('}') ? `${normalized}}` : '',
+      !normalized.startsWith('[') && /}\s*,\s*{/.test(normalized) ? `[${normalized}]` : '',
+    ].filter(Boolean);
+
+    for (const candidate of candidates) {
+      try {
+        return JSON.parse(candidate);
+      } catch {}
+    }
+
+    return null;
+  };
+
   if (Array.isArray(value)) return normalizeItems(value as ApplicationItemRaw[]);
+  if (value && typeof value === 'object') return normalizeItems([value as ApplicationItemRaw]);
   if (typeof value !== 'string') return [];
-  try {
-    const parsed = JSON.parse(value);
-    if (Array.isArray(parsed)) return normalizeItems(parsed as ApplicationItemRaw[]);
-    return [];
-  } catch {
-    return [];
-  }
+
+  const parsed = parseValue(value);
+  if (Array.isArray(parsed)) return normalizeItems(parsed as ApplicationItemRaw[]);
+  if (parsed && typeof parsed === 'object') return normalizeItems([parsed as ApplicationItemRaw]);
+  return [];
 }
 
 function pickField(source: Record<string, any>, keys: string[]) {
