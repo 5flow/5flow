@@ -62,6 +62,13 @@ Design principle: interfaces reflect front-end consumption shape, not necessaril
 
 ## 4. CMS Adapter Layer
 
+### Application and homepage JSON textareas
+
+- Application challenges and benefits use `challenges_items_json` and `benefits_items_json` in page meta or ACF. Both snake_case and camelCase item properties are normalized by the adapter.
+- Homepage cards use `how_items_json` (or `how_items`). The field labeled **How Body JSON** is also supported as `how_body_html` or `how_body_json`; parsed items become cards rather than section description text. `how_description` supplies the section description, and each item's `subtitle` supplies its card lead.
+- `lib/cms/json.ts` parses valid JSON first to preserve punctuation and German text. It also recovers a missing closing quote before a comma at the end of a string property line when the next line is another property. Other unparseable content continues to use the existing fallback behavior. Editors should still save valid JSON in WordPress.
+- Run `node scripts/test-cms-json.cjs` to check German content recovery, valid-text preservation, homepage field aliases, and existing HTML descriptions.
+
 Directory: `lib/cms/`
 Files:
 

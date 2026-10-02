@@ -1,4 +1,5 @@
 import { wpFetch } from './client';
+import { parseCmsJson } from './json';
 
 export interface ApplicationItemRaw {
   id?: string | number;
@@ -89,34 +90,12 @@ function parseJsonArray(value: unknown): ApplicationItemRaw[] {
       };
     });
 
-  const parseValue = (rawValue: string) => {
-    const normalized = rawValue
-      .trim()
-      .replace(/[“”]/g, '"')
-      .replace(/[‘’]/g, "'")
-      .replace(/,\s*([}\]])/g, '$1');
-    const candidates = [
-      normalized,
-      normalized.replace(/'/g, '"'),
-      normalized.startsWith('[') && !normalized.endsWith(']') ? `${normalized}]` : '',
-      normalized.startsWith('{') && !normalized.endsWith('}') ? `${normalized}}` : '',
-      !normalized.startsWith('[') && /}\s*,\s*{/.test(normalized) ? `[${normalized}]` : '',
-    ].filter(Boolean);
-
-    for (const candidate of candidates) {
-      try {
-        return JSON.parse(candidate);
-      } catch {}
-    }
-
-    return null;
-  };
 
   if (Array.isArray(value)) return normalizeItems(value as ApplicationItemRaw[]);
   if (value && typeof value === 'object') return normalizeItems([value as ApplicationItemRaw]);
   if (typeof value !== 'string') return [];
 
-  const parsed = parseValue(value);
+  const parsed = parseCmsJson(value);
   if (Array.isArray(parsed)) return normalizeItems(parsed as ApplicationItemRaw[]);
   if (parsed && typeof parsed === 'object') return normalizeItems([parsed as ApplicationItemRaw]);
   return [];

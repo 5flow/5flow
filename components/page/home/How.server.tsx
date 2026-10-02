@@ -83,6 +83,7 @@ export default async function ServerHow({ slug }: ServerHowProps) {
     if (homepage?.how?.items?.length) {
       const items = homepage.how.items.map((i, index) => ({
         title: i.title || '',
+        lead: i.subtitle,
         desc: i.body_html || i.bodyHtml || '',
         link: resolveHowLink(i, index),
         iconKey: i.icon_key || i.iconKey,

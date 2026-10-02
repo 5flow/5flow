@@ -1,4 +1,5 @@
 import { wpFetch } from './client';
+import { parseCmsJson } from './json';
 
 export interface HomepageItemRaw {
   title?: string;
@@ -95,34 +96,12 @@ function parseJsonArray<T = HomepageItemRaw>(value: unknown): T[] {
       };
     });
 
-  const parseValue = (rawValue: string) => {
-    const normalized = rawValue
-      .trim()
-      .replace(/[“”]/g, '"')
-      .replace(/[‘’]/g, "'")
-      .replace(/,\s*([}\]])/g, '$1');
-    const candidates = [
-      normalized,
-      normalized.replace(/'/g, '"'),
-      normalized.startsWith('[') && !normalized.endsWith(']') ? `${normalized}]` : '',
-      normalized.startsWith('{') && !normalized.endsWith('}') ? `${normalized}}` : '',
-      !normalized.startsWith('[') && /}\s*,\s*{/.test(normalized) ? `[${normalized}]` : '',
-    ].filter(Boolean);
-
-    for (const candidate of candidates) {
-      try {
-        return JSON.parse(candidate);
-      } catch {}
-    }
-
-    return null;
-  };
 
   if (Array.isArray(value)) return normalizeItems(value as HomepageItemRaw[]) as T[];
   if (value && typeof value === 'object') return normalizeItems([value as HomepageItemRaw]) as T[];
   if (typeof value !== 'string') return [];
 
-  const parsed = parseValue(value);
+  const parsed = parseCmsJson(value);
   if (Array.isArray(parsed)) return normalizeItems(parsed as HomepageItemRaw[]) as T[];
   if (parsed && typeof parsed === 'object') return normalizeItems([parsed as HomepageItemRaw]) as T[];
   return [];
@@ -181,6 +160,8 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
 
   const acf: Record<string, any> = page.acf || {};
   const whatItems = parseJsonArray<HomepageItemRaw>(pickField(meta, ['what_items_json', 'what_items']) || pickField(acf, ['what_items_json', 'what_items']));
+  const howBody = pickField(meta, ['how_body_json', 'how_body_html']) || pickField(acf, ['how_body_json', 'how_body_html']);
+  const howBodyItems = parseJsonArray<HomepageItemRaw>(howBody);
   const howItems = parseJsonArray<HomepageItemRaw>(pickField(meta, ['how_items_json', 'how_items']) || pickField(acf, ['how_items_json', 'how_items']));
   const whoItems = parseJsonArray<HomepageItemRaw | string>(pickField(meta, ['who_items_json', 'who_items']) || pickField(acf, ['who_items_json', 'who_items']));
   const whyItems = parseJsonArray<HomepageItemRaw>(pickField(meta, ['why_items_json', 'why_items']) || pickField(acf, ['why_items_json', 'why_items']));
@@ -199,8 +180,10 @@ export async function getHomepage(slug = 'home'): Promise<HomepageData | null> {
     how: {
       title: meta.how_title || meta.how_h1 || acf.how_title || acf.how_h1,
       subtitle: meta.how_subtitle || meta.how_h2 || acf.how_subtitle || acf.how_h2,
-      bodyHtml: meta.how_description || meta.how_body_html || meta.how_p || acf.how_description || acf.how_body_html || acf.how_p,
-      items: howItems,
+      bodyHtml: meta.how_description || acf.how_description ||
+        (howBodyItems.length === 0 && typeof howBody === 'string' ? howBody : undefined) ||
+        meta.how_p || acf.how_p,
+      items: howItems.length ? howItems : howBodyItems,
     },
     who: {
       title: meta.who_title || acf.who_title,
