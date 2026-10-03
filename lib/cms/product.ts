@@ -23,6 +23,11 @@ export interface ProductItemRaw {
 }
 
 export interface ProductData {
+  video?: {
+    heading?: string;
+    subtitle?: string;
+    subtitleHighlight?: string;
+  };
   hero?: {
     title?: string;
     subtitle?: string;
@@ -158,6 +163,11 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
   };
 
   return {
+    video: {
+      heading: meta.video_heading || page.acf?.video_heading,
+      subtitle: meta.video_subtitle || page.acf?.video_subtitle,
+      subtitleHighlight: meta.video_subtitle_highlight || page.acf?.video_subtitle_highlight,
+    },
     hero,
     what: {
       title: meta.what_title || page.acf?.what_title,

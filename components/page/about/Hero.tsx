@@ -2,9 +2,9 @@ import Image from 'next/image';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineCmsText from '@/components/core/inline-cms-text';
 
-type HeroProps = { description?: string; images?: string[] };
+type HeroProps = { heading?: string; description?: string; images?: string[] };
 
-const Hero = ({ description, images }: HeroProps) => {
+const Hero = ({ heading, description, images }: HeroProps) => {
   const defaultTopRowImages = ['/about/about1.png', '/about/about2.png', '/about/about3.png'];
   const defaultBottomRowImages = ['/about/about5.png', '/about/about6.png'];
   const defaultSideImage = '/about/about4.png';
@@ -54,7 +54,7 @@ const Hero = ({ description, images }: HeroProps) => {
               <div className="relative h-48 w-full sm:col-span-2 sm:h-74">
                 <div className="text-background flex h-full w-full flex-col justify-center gap-6 px-4 py-6 sm:w-140 sm:px-6 md:py-0">
                   <div className="font-heading text-4xl leading-snug font-semibold tracking-tight sm:leading-none">
-                    We are 5Flow.
+                    <InlineCmsText value={heading || 'We are 5Flow.'} />
                   </div>
 
                   <div className="text-lg leading-snug tracking-tighter sm:text-xl sm:leading-tight">

@@ -13,20 +13,23 @@ interface WhyProps {
   sectionTitle: React.ReactNode;
   sectionTitleText?: string;
   whyData: WhyCard[];
+  singleLine?: boolean;
 }
 
-const Why = ({ sectionTitle, sectionTitleText, whyData }: WhyProps) => {
+const Why = ({ sectionTitle, sectionTitleText, whyData, singleLine }: WhyProps) => {
   return (
     <div className="font-heading flex w-full flex-col gap-6 px-4 sm:gap-8 sm:px-6 md:px-0">
       <FullBleedLines className="flex flex-1 items-center justify-between sm:flex-row sm:items-start">
-        <div className="relative h-auto w-full max-w-full text-left sm:h-32 sm:max-w-lg">
-          <b className="font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none">
+        <div className={`relative h-auto min-w-0 flex-1 text-left ${singleLine ? '' : 'sm:h-32 sm:max-w-lg'}`}>
+          <b
+            className={`font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none ${singleLine ? 'lg:whitespace-nowrap' : ''}`}
+          >
             {sectionTitleText ? (
               <HighlightedCmsText text={sectionTitleText} highlightFirstWord highlightClassName="text-background" />
             ) : (
               sectionTitle
             )}
-            <br className="sm:hidden" />
+            {!singleLine && <br className="sm:hidden" />}
           </b>
         </div>
         <ArrowDownLeft className="text-accent1 size-24 sm:size-32" strokeWidth={1.5} />

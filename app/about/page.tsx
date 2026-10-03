@@ -38,10 +38,22 @@ export async function AboutPage({ cmsSlug = 'about' }: { cmsSlug?: string } = {}
       <div className="container mx-auto">
         <PageHeader title={cms?.pageHeaderTitle || 'we. are.'} />
         <div className="mt-0 flex flex-col gap-16 md:mt-8 md:gap-32">
-          <Hero description={cms?.hero?.description} images={cms?.hero?.images} />
+          <Hero
+            heading={cms?.hero?.heading || (cmsSlug === 'about-2' ? 'Wir sind 5Flow.' : undefined)}
+            description={cms?.hero?.description}
+            images={cms?.hero?.images}
+          />
           <div className="flex flex-col gap-8 md:gap-16">
-            <Vision visionTitle={cms?.vision?.title} visionText={cms?.vision?.text} />
-            <Mission missionTitle={cms?.mission?.title} missionText={cms?.mission?.text} />
+            <Vision
+              heading={cms?.vision?.heading || (cmsSlug === 'about-2' ? 'Die<br />Vision' : undefined)}
+              visionTitle={cms?.vision?.title}
+              visionText={cms?.vision?.text}
+            />
+            <Mission
+              heading={cms?.mission?.heading || (cmsSlug === 'about-2' ? 'Die<br />Mission' : undefined)}
+              missionTitle={cms?.mission?.title}
+              missionText={cms?.mission?.text}
+            />
           </div>
           <Propelis
             title={cms?.propelis?.title}

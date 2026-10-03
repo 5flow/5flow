@@ -3,11 +3,12 @@ import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineCmsText from '@/components/core/inline-cms-text';
 
 type MissionProps = {
+  heading?: string;
   missionTitle?: string;
   missionText?: string;
 };
 
-const Mission = ({ missionTitle, missionText }: MissionProps) => {
+const Mission = ({ heading, missionTitle, missionText }: MissionProps) => {
   return (
     <FullBleedLines>
       <div className="flex w-full flex-col gap-0 sm:flex-row">
@@ -34,9 +35,7 @@ const Mission = ({ missionTitle, missionText }: MissionProps) => {
             strokeWidth={1}
           />
           <h2 className="font-heading text-foreground text-right text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
-            The
-            <br />
-            Mission
+            <InlineCmsText value={heading || 'The<br />Mission'} />
           </h2>
         </div>
       </div>

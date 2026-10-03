@@ -320,8 +320,8 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
-          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
+          <What german={cmsSlug.endsWith('-2')} sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How german={cmsSlug.endsWith('-2')} sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
             sectionTitleText={cms?.why?.title}
             sectionTitle={

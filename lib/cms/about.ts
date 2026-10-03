@@ -15,14 +15,17 @@ type AboutStat = {
 export interface AboutData {
   pageHeaderTitle?: string;
   hero?: {
+    heading?: string;
     description?: string;
     images: string[];
   };
   vision?: {
+    heading?: string;
     title?: string;
     text?: string;
   };
   mission?: {
+    heading?: string;
     title?: string;
     text?: string;
   };
@@ -86,14 +89,17 @@ export async function getAbout(slug = 'about'): Promise<AboutData | null> {
   return {
     pageHeaderTitle: meta.page_header_title || acf.page_header_title,
     hero: {
+      heading: meta.hero_heading || acf.hero_heading,
       description: meta.hero_description || acf.hero_description,
       images: parseJsonArray<string>(meta.hero_images_json || acf.hero_images_json),
     },
     vision: {
+      heading: meta.vision_heading || acf.vision_heading,
       title: meta.vision_title || acf.vision_title,
       text: meta.vision_text || acf.vision_text,
     },
     mission: {
+      heading: meta.mission_heading || acf.mission_heading,
       title: meta.mission_title || acf.mission_title,
       text: meta.mission_text || acf.mission_text,
     },

@@ -328,9 +328,10 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />
-          <What sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
-          <How sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
+          <What german={cmsSlug.endsWith('-2')} sectionTitle={cms?.what?.title} whatData={whatDataFinal as any} />
+          <How german={cmsSlug.endsWith('-2')} sectionTitle={cms?.how?.title} howData={howDataFinal as any} />
           <Why
+            singleLine={cmsSlug.endsWith('-2')}
             sectionTitleText={cms?.why?.title}
             sectionTitle={
               <>
@@ -359,9 +360,15 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
           })()}
           <Workflow title={workflowTitleFinal} subtitle={workflowSubtitleFinal} statsData={workflowStatsFinal} />
           <VideoShowcase
-            title="EXPLORE THE DRAGONFLY SOFTWARE."
-            subtitle="There's nothing soft about it."
-            highlightedWord="soft"
+            title={
+              cms?.video?.heading ||
+              (cmsSlug.endsWith('-2') ? 'ENTDECKEN SIE DIE DRAGONFLY SOFTWARE.' : 'EXPLORE THE DRAGONFLY SOFTWARE.')
+            }
+            subtitle={
+              cms?.video?.subtitle ||
+              (cmsSlug.endsWith('-2') ? 'Software, die Ihre Projekte voranbringt.' : "There's nothing soft about it.")
+            }
+            highlightedWord={cms?.video?.subtitleHighlight || (cmsSlug.endsWith('-2') ? undefined : 'soft')}
             videoUrl="https://cms.5flowtech.com/wp-content/uploads/2025/12/Dragonfly-Animation.mp4"
           />
           <Contact

@@ -23,9 +23,10 @@ interface HowFeature {
 interface HowProps {
   howData: HowFeature[];
   sectionTitle?: string;
+  german?: boolean;
 }
 
-const How = ({ howData, sectionTitle }: HowProps) => {
+const How = ({ howData, sectionTitle, german }: HowProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLarge, setIsLarge] = useState(false);
   const sectionRefs = useRef<Array<HTMLElement | null>>([]);
@@ -138,9 +139,15 @@ const How = ({ howData, sectionTitle }: HowProps) => {
     <div className="font-heading relative flex w-full flex-col gap-4 md:gap-14">
       <div className="bg-background/70 supports-[backdrop-filter]:bg-background/60 z-20 backdrop-blur lg:sticky lg:top-22">
         <FullBleedLines className="flex w-full items-center justify-between p-4">
-          <div className="relative flex h-32 w-full max-w-sm items-center pr-4 md:pr-0">
-            <b className="font-heading text-4xl leading-none tracking-tighter lg:text-6xl">
-              {sectionTitle ? (
+          <div className="relative flex min-h-32 min-w-0 flex-1 items-center pr-4 md:pr-0">
+            <b
+              className={`font-heading leading-none tracking-tighter md:text-[64px] md:leading-[64px] ${german ? 'text-[28px] sm:text-4xl' : 'text-4xl'}`}
+            >
+              {german ? (
+                <span className="whitespace-nowrap">
+                  <InlineHighlight className="text-background">Wie</InlineHighlight> funktioniert‘s?
+                </span>
+              ) : sectionTitle ? (
                 <HighlightedCmsText text={sectionTitle} highlightFirstWord highlightClassName="text-background" />
               ) : (
                 <>
@@ -150,7 +157,7 @@ const How = ({ howData, sectionTitle }: HowProps) => {
               )}
             </b>
           </div>
-          <ArrowDownLeft className="text-accent1 size-24 sm:size-32" strokeWidth={1.5} />
+          <ArrowDownLeft className="text-accent1 size-12 shrink-0 sm:size-24 md:size-32" strokeWidth={1.5} />
         </FullBleedLines>
       </div>
 
@@ -180,7 +187,7 @@ const How = ({ howData, sectionTitle }: HowProps) => {
                 </div>
               </div>
               <div className="flex flex-col gap-6 p-6 text-base lg:text-xl">
-                <p className="relative leading-snug tracking-tight">{feature.description}</p>
+                <p className="relative leading-[28px] tracking-tight">{feature.description}</p>
                 <div>
                   <Button
                     asChild

@@ -17,15 +17,25 @@ interface Problem {
 interface WhatProps {
   whatData: Problem[][];
   sectionTitle?: string;
+  german?: boolean;
 }
 
-const What = ({ whatData, sectionTitle }: WhatProps) => {
+const What = ({ whatData, sectionTitle, german }: WhatProps) => {
   return (
     <div className="relative flex w-full flex-col gap-12 px-4 sm:gap-14 sm:px-6 md:px-0">
       <FullBleedLines className="flex w-full items-center justify-between sm:flex-row">
-        <div className="relative h-auto w-full max-w-full text-left sm:h-32 sm:max-w-sm">
-          <b className="font-heading text-4xl leading-tight tracking-tighter sm:text-6xl sm:leading-none">
-            {sectionTitle ? (
+        <div className="relative h-auto min-w-0 flex-1 text-left">
+          <b
+            className={`font-heading leading-tight tracking-tighter md:text-[64px] md:leading-[64px] ${german ? 'text-[32px] sm:text-4xl' : 'text-4xl'}`}
+          >
+            {german ? (
+              <>
+                <span className="block whitespace-nowrap">
+                  <InlineHighlight className="text-background">Welche</InlineHighlight> Probleme
+                </span>
+                <span className="block whitespace-nowrap">lösen wir?</span>
+              </>
+            ) : sectionTitle ? (
               <HighlightedCmsText text={sectionTitle} highlightFirstWord highlightClassName="text-background" />
             ) : (
               <>
@@ -37,7 +47,7 @@ const What = ({ whatData, sectionTitle }: WhatProps) => {
             )}
           </b>
         </div>
-        <ArrowDownLeft className="text-accent1 size-24 sm:size-32" strokeWidth={1.5} />
+        <ArrowDownLeft className="text-accent1 size-12 shrink-0 sm:size-24 md:size-32" strokeWidth={1.5} />
       </FullBleedLines>
 
       <FullBleedLines className="flex w-full flex-col gap-12 sm:gap-8">
@@ -48,7 +58,7 @@ const What = ({ whatData, sectionTitle }: WhatProps) => {
                 {problem.icon && <problem.icon className="text-primary h-8 w-8 sm:h-12 sm:w-12" strokeWidth={1.5} />}
                 <b className="text-2xl leading-tight tracking-tight sm:text-4xl sm:leading-none">{problem.title}</b>
                 <div className="flex flex-col justify-between gap-4 text-base sm:flex-row sm:gap-0 sm:text-xl">
-                  <p className="max-w-full leading-tight tracking-tight sm:max-w-md sm:leading-none">
+                  <p className="max-w-full leading-[28px] tracking-tight sm:max-w-md">
                     {problem.subtitle}
                     {'.'}
                     {problem.description}

@@ -3,11 +3,12 @@ import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineCmsText from '@/components/core/inline-cms-text';
 
 type VisionProps = {
+  heading?: string;
   visionTitle?: string;
   visionText?: string;
 };
 
-const Vision = ({ visionTitle, visionText }: VisionProps) => {
+const Vision = ({ heading, visionTitle, visionText }: VisionProps) => {
   return (
     <FullBleedLines>
       <div className="flex w-full flex-col gap-0 sm:flex-row">
@@ -17,9 +18,7 @@ const Vision = ({ visionTitle, visionText }: VisionProps) => {
         >
           <div className="flex items-end gap-4 md:gap-6">
             <h2 className="font-heading text-foreground text-4xl leading-none font-bold tracking-tight md:max-w-5xl md:text-left md:text-[64px]">
-              The
-              <br />
-              Vision
+              <InlineCmsText value={heading || 'The<br />Vision'} />
             </h2>
             <ArrowUpRight
               className="text-foreground h-16 w-16 translate-x-10 translate-y-2 md:h-24 md:w-24 md:translate-x-7 md:translate-y-3 lg:h-28 lg:w-28"

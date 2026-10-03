@@ -15,7 +15,7 @@ const VideoShowcase = ({ title, subtitle, highlightedWord, videoUrl }: VideoShow
   const renderSubtitle = () => {
     if (!subtitle) return null;
 
-    if (typeof subtitle === 'string' && highlightedWord) {
+    if (typeof subtitle === 'string' && highlightedWord && subtitle.includes(highlightedWord)) {
       const parts = subtitle.split(highlightedWord);
       return (
         <>
