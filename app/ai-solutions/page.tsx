@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     'QC Assist uses AI-assisted quality checks to help packaging teams identify potential artwork, barcode, spelling and compliance issues earlier.',
 };
 
-export default async function AiSolutions() {
-  const cms = await getAiSolutions('ai-solutions').catch(() => null);
+export async function AiSolutionsPage({ cmsSlug = 'ai-solutions' }: { cmsSlug?: string } = {}) {
+  const cms = await getAiSolutions(cmsSlug).catch(() => null);
 
   return (
     <div className="relative overflow-x-clip">
@@ -28,9 +28,16 @@ export default async function AiSolutions() {
           <Build {...cms?.build} />
           <What {...cms?.what} />
           <Ready {...cms?.ready} />
-          <Contact headingWrapperClassName="hidden" formTitle="Book a demo" />
+          <Contact
+            headingWrapperClassName="hidden"
+            formTitle={cmsSlug.endsWith('-2') ? 'Demo buchen' : 'Book a demo'}
+          />
         </div>
       </div>
     </div>
   );
+}
+
+export default async function AiSolutions() {
+  return <AiSolutionsPage />;
 }

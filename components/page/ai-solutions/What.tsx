@@ -1,3 +1,4 @@
+import { solutionTypography } from '@/components/page/solutions/typography';
 import { BadgeCheck, CircleAlert, Languages, ScanBarcode } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
@@ -96,7 +97,7 @@ export default function What({
     <section className="flex w-full flex-col gap-20 px-4 sm:px-6 md:px-0">
       <div>
         <FullBleedLines>
-          <h2 className="font-heading text-center text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+          <h2 className={`${solutionTypography.sectionHeading} text-center`}>
             {renderHighlightedTitle(title, highlight)}
           </h2>
         </FullBleedLines>
@@ -108,12 +109,12 @@ export default function What({
               className="bg-background min-h-[196px] rounded-lg p-6 text-left shadow-[0px_4px_6px_-4px_rgba(0,0,0,0.102),0px_10px_15px_-3px_rgba(0,0,0,0.102)]"
             >
               <div className="flex items-start justify-between gap-5">
-                <h3 className="font-heading min-w-0 text-2xl leading-[1.08] font-bold tracking-normal text-[#262626]">
+                <h3 className={`${solutionTypography.itemHeading}`}>
                   <InlineCmsText value={title} />
                 </h3>
                 <Icon className="text-primary mt-0.5 h-8 w-8 shrink-0" strokeWidth={1.8} />
               </div>
-              <p className="mt-10 max-w-[440px] text-base leading-[1.6] font-semibold tracking-normal text-[#303030]">
+              <p className={`${solutionTypography.description} mt-10 max-w-[440px] text-[#303030]`}>
                 <InlineCmsText value={desc} />
               </p>
             </article>
@@ -123,7 +124,7 @@ export default function What({
 
       <div>
         <FullBleedLines>
-          <h2 className="font-heading text-center text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+          <h2 className={`${solutionTypography.sectionHeading} text-center`}>
             <InlineCmsText value={changesTitle} />
           </h2>
         </FullBleedLines>
@@ -131,10 +132,10 @@ export default function What({
         <FullBleedLines className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {displayChangeCards.map(item => (
             <article key={item.title} className="bg-primary flex min-h-[250px] flex-col rounded-lg p-7 text-left">
-              <h3 className="text-success min-h-[112px] max-w-[220px] text-[30px] leading-[1.15] font-bold tracking-normal">
+              <h3 className={`${solutionTypography.itemHeading} text-success min-h-[112px] max-w-[220px]`}>
                 <InlineCmsText value={item.title} />
               </h3>
-              <p className="text-primary-foreground max-w-[230px] text-base leading-5 font-bold tracking-normal">
+              <p className={`${solutionTypography.description} text-primary-foreground max-w-[230px]`}>
                 <InlineCmsText value={item.desc} />
               </p>
             </article>

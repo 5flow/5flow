@@ -195,7 +195,8 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
-          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/2-${idx + 1}.svg`,
+          imageSrc:
+            (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/2-${idx + 1}.svg`,
           buttonLink:
             (it as any).linkUrl ||
             (it as any).link_url ||
@@ -244,7 +245,11 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
             heading={cms?.challenges?.heading}
             headingHighlight={cms?.challenges?.headingHighlight}
           />
-          <How howData={howDataFinal} />
+          <How
+            sectionTitle={cms?.how?.title || (cmsSlug.endsWith('-2') ? 'Wie funktioniert?s?' : undefined)}
+            headingHighlight={cms?.how?.headingHighlight}
+            howData={howDataFinal}
+          />
           <Benefits
             items={benefitItemsFinal}
             heading={cms?.benefits?.heading}

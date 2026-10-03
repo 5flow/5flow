@@ -59,6 +59,7 @@ function parseJson<T>(value: unknown, fallback: T): T {
 
 function mapItems(value: unknown): AiSolutionItem[] {
   const items = parseJson<Array<Record<string, unknown>>>(value, []);
+  if (!Array.isArray(items)) return [];
   return items.map(item => ({
     title: typeof item.title === 'string' ? item.title : undefined,
     bodyHtml:
@@ -86,7 +87,7 @@ export async function getAiSolutions(slug = 'ai-solutions'): Promise<AiSolutions
   const page = raw[0] as Record<string, any>;
   const acf = (page.acf || {}) as Record<string, any>;
   const meta = (page.meta || {}) as Record<string, any>;
-  const field = (key: string) => meta[key] ?? acf[key];
+  const field = (key: string) => meta[key] || acf[key];
   const whatContent = parseJson<Record<string, any>>(field('what_content_json'), {});
   const readyContent = parseJson<Record<string, any>>(field('ready_content_json'), {});
 
@@ -123,10 +124,10 @@ export async function getAiSolutions(slug = 'ai-solutions'): Promise<AiSolutions
       title: field('ready_title'),
       description: readyContent.description,
       items: parseJson<string[]>(readyContent.items, []),
-      humanTitle: readyContent.human_title,
-      humanDescription: readyContent.human_description,
-      finalTitle: readyContent.final_title,
-      finalDescription: readyContent.final_description,
+      humanTitle: field('ready_human_title') || readyContent.human_title,
+      humanDescription: field('ready_human_description') || readyContent.human_description,
+      finalTitle: field('ready_final_title') || readyContent.final_title,
+      finalDescription: field('ready_final_description') || readyContent.final_description,
       highlights: parseJson<string[]>(field('ready_highlights_json'), []),
     },
   };

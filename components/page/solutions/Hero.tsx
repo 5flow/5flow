@@ -1,3 +1,4 @@
+import { solutionTypography } from './typography';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -32,19 +33,19 @@ const Hero = ({
       <div className="flex w-full flex-col gap-4 sm:flex-row md:gap-14">
         {/* Product heading */}
         <div className="font-heading flex flex-1 justify-center sm:justify-start">
-          <b className="max-w-full text-4xl leading-tight tracking-tighter sm:text-8xl sm:leading-none">
+          <b className={`${solutionTypography.heroHeading} max-w-full`}>
             <InlineCmsText value={title} />
           </b>
         </div>
 
         {/* Product details */}
         <div className="flex h-auto flex-1 flex-col items-center gap-8 sm:items-start sm:justify-between sm:gap-16">
-          <p className="text-primary font-heading text-2xl leading-tight tracking-tighter sm:text-5xl sm:leading-none">
+          <p className={solutionTypography.subtitle}>
             <InlineCmsText value={subtitle} />
           </p>
 
           <div className="flex flex-col gap-6 sm:gap-8">
-            <p className="relative text-sm leading-[150%] tracking-tight sm:text-base">
+            <p className={`${solutionTypography.heroDescription} relative`}>
               <InlineCmsText value={description} />
             </p>
             <Link href={buttonUrl}>

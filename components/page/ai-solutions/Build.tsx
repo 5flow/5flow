@@ -1,3 +1,4 @@
+import { solutionTypography } from '@/components/page/solutions/typography';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Check, MoveUpRight } from 'lucide-react';
@@ -48,13 +49,13 @@ export default function Build({
   return (
     <section className="flex w-full flex-col items-center gap-10 px-4 text-center sm:px-6 md:px-0">
       <FullBleedLines>
-        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+        <h2 className={`${solutionTypography.sectionHeading}`}>
           <InlineCmsText value={title} />
         </h2>
-        <p className="text-primary mt-6 text-[34px] leading-tight tracking-normal md:text-[44px]">
+        <p className={`${solutionTypography.subtitle} mt-6`}>
           <InlineCmsText value={subtitle} />
         </p>
-        <div className="mx-auto mt-6 max-w-4xl text-base leading-6 tracking-normal text-[#262626] md:text-xl md:leading-7">
+        <div className={`${solutionTypography.description} mx-auto mt-6 max-w-4xl text-[#262626]`}>
           {bodyHtml ? (
             <HtmlContent html={bodyHtml} />
           ) : (
@@ -82,10 +83,10 @@ export default function Build({
             <div key={item.title} className="flex gap-5">
               <Check className="text-success mt-1 h-9 w-9 shrink-0" strokeWidth={2.2} />
               <div>
-                <h3 className="text-primary text-2xl leading-tight font-bold tracking-normal">
+                <h3 className={`${solutionTypography.itemHeading} text-primary`}>
                   <InlineCmsText value={item.title} />
                 </h3>
-                <p className="mt-1 text-xl leading-7 tracking-normal text-[#262626]">
+                <p className={`${solutionTypography.description} mt-1 text-[#262626]`}>
                   <InlineCmsText value={item.desc} />
                 </p>
               </div>

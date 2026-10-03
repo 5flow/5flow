@@ -1,4 +1,5 @@
 import { wpFetch } from './client';
+import { parseCmsJson } from './json';
 
 export interface SolutionItemRaw {
   title?: string;
@@ -54,14 +55,17 @@ export interface SolutionData {
 }
 
 function parseJsonArray(value: unknown): SolutionItemRaw[] {
-  if (typeof value !== 'string') return [];
-  try {
-    const parsed = JSON.parse(value);
-    if (Array.isArray(parsed)) return parsed as SolutionItemRaw[];
-    return [];
-  } catch {
-    return [];
-  }
+  const parsed = typeof value === 'string' ? parseCmsJson(value) : value;
+  if (!Array.isArray(parsed)) return [];
+  return parsed
+    .filter((item): item is SolutionItemRaw => Boolean(item) && typeof item === 'object')
+    .map(item => ({
+      ...item,
+      bodyHtml: item.bodyHtml || item.body_html || item.description,
+      imageUrl: item.imageUrl || item.image_url || item.imageSrc,
+      iconKey: item.iconKey || item.icon_key || item.iconName,
+      linkUrl: item.linkUrl || item.link_url || item.buttonLink,
+    }));
 }
 
 function parseStatsArray(value: unknown): { value: string; label: string }[] {

@@ -195,7 +195,8 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
       ? cms.how.items.map((it, idx) => ({
           title: it.title || '',
           description: (it.bodyHtml || (it as any).body_html || (it as any).description || '') as string,
-          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/${idx + 1}.svg`,
+          imageSrc:
+            (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/${idx + 1}.svg`,
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
@@ -236,7 +237,11 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
             heading={cms?.challenges?.heading}
             headingHighlight={cms?.challenges?.headingHighlight}
           />
-          <How howData={howDataFinal} />
+          <How
+            sectionTitle={cms?.how?.title || (cmsSlug.endsWith('-2') ? 'Wie funktioniert?s?' : undefined)}
+            headingHighlight={cms?.how?.headingHighlight}
+            howData={howDataFinal}
+          />
           <Benefits
             items={benefitItemsFinal}
             heading={cms?.benefits?.heading}

@@ -196,7 +196,8 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
           iconName: toPascalCase(
             ((it as any).iconName || (it as any).iconKey || (it as any).icon_key || 'BadgeCheck') as string
           ),
-          imageSrc: (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/5-${idx + 1}.svg`,
+          imageSrc:
+            (it as any).imageUrl || (it as any).image_url || (it as any).imageSrc || `/applications/5-${idx + 1}.svg`,
           buttonText: (it as any).buttonText || (it as any).button_text || 'Learn More',
           buttonLink:
             (it as any).linkUrl ||
@@ -245,7 +246,11 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
             heading={cms?.challenges?.heading}
             headingHighlight={cms?.challenges?.headingHighlight}
           />
-          <How howData={howDataFinal} />
+          <How
+            sectionTitle={cms?.how?.title || (cmsSlug.endsWith('-2') ? 'Wie funktioniert?s?' : undefined)}
+            headingHighlight={cms?.how?.headingHighlight}
+            howData={howDataFinal}
+          />
           <Benefits
             items={benefitItemsFinal}
             heading={cms?.benefits?.heading}

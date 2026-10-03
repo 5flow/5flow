@@ -40,6 +40,8 @@ export interface ApplicationData {
     items: ApplicationItemRaw[];
   } | null;
   how?: {
+    title?: string;
+    headingHighlight?: string;
     items: ApplicationItemRaw[];
   } | null;
   benefits?: {
@@ -70,12 +72,7 @@ function parseJsonArray(value: unknown): ApplicationItemRaw[] {
         subtitle: item.subtitle || raw.desc,
         bodyHtml: item.bodyHtml || item.body_html || item.description || raw.sub,
         buttonText:
-          item.buttonText ||
-          item.button_text ||
-          raw.buttonLabel ||
-          raw.button_label ||
-          raw.ctaText ||
-          raw.cta_text,
+          item.buttonText || item.button_text || raw.buttonLabel || raw.button_label || raw.ctaText || raw.cta_text,
         buttonLink:
           item.buttonLink ||
           item.button_link ||
@@ -89,7 +86,6 @@ function parseJsonArray(value: unknown): ApplicationItemRaw[] {
         iconKey: item.iconKey || item.icon_key || item.iconName,
       };
     });
-
 
   if (Array.isArray(value)) return normalizeItems(value as ApplicationItemRaw[]);
   if (value && typeof value === 'object') return normalizeItems([value as ApplicationItemRaw]);
@@ -130,7 +126,9 @@ export async function getApplication(slug: string): Promise<ApplicationData | nu
     pickField(meta, ['challenges_items_json', 'challenge_items_json', 'challenges_items', 'challenge_items']) ||
       pickField(acf, ['challenges_items_json', 'challenge_items_json', 'challenges_items', 'challenge_items'])
   );
-  const howItems = parseJsonArray(pickField(meta, ['how_items_json', 'how_items']) || pickField(acf, ['how_items_json', 'how_items']));
+  const howItems = parseJsonArray(
+    pickField(meta, ['how_items_json', 'how_items']) || pickField(acf, ['how_items_json', 'how_items'])
+  );
   const benefitsItems = parseJsonArray(
     pickField(meta, ['benefits_items_json', 'benefit_items_json', 'benefits_items', 'benefit_items']) ||
       pickField(acf, ['benefits_items_json', 'benefit_items_json', 'benefits_items', 'benefit_items'])
@@ -142,7 +140,8 @@ export async function getApplication(slug: string): Promise<ApplicationData | nu
     acf.benefits_highlight;
 
   const workflowStats = parseJsonArray(
-    pickField(meta, ['workflow_stats_json', 'workflow_stats']) || pickField(acf, ['workflow_stats_json', 'workflow_stats'])
+    pickField(meta, ['workflow_stats_json', 'workflow_stats']) ||
+      pickField(acf, ['workflow_stats_json', 'workflow_stats'])
   );
   const workflowTitle = meta.workflow_title || acf.workflow_title;
   const workflowSubtitle = meta.workflow_subtitle || acf.workflow_subtitle;
@@ -161,7 +160,11 @@ export async function getApplication(slug: string): Promise<ApplicationData | nu
       headingHighlight: meta.challenges_heading_highlight || acf.challenges_heading_highlight,
       items: challengesItems,
     },
-    how: { items: howItems },
+    how: {
+      title: meta.how_title || meta.how_heading || acf.how_title || acf.how_heading,
+      headingHighlight: meta.how_heading_highlight || acf.how_heading_highlight,
+      items: howItems,
+    },
     benefits: {
       heading: meta.benefits_heading || acf.benefits_heading,
       headingHighlight: meta.benefits_heading_highlight || acf.benefits_heading_highlight,
@@ -187,10 +190,7 @@ export async function getApplication(slug: string): Promise<ApplicationData | nu
         acf.contact_title_highlight ||
         acf.contact_highlight,
       formTitle:
-        meta.contact_form_heading ||
-        meta.contact_form_title ||
-        acf.contact_form_heading ||
-        acf.contact_form_title,
+        meta.contact_form_heading || meta.contact_form_title || acf.contact_form_heading || acf.contact_form_title,
     },
   };
 }

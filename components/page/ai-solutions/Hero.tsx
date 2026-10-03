@@ -1,3 +1,4 @@
+import { solutionTypography } from '@/components/page/solutions/typography';
 import Link from 'next/link';
 import { MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,17 +25,17 @@ export default function Hero({
     <section className="relative mt-32 flex w-full flex-col gap-14 px-4 sm:px-6 md:px-0">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-start">
         <FullBleedLines>
-          <h2 className="font-heading max-w-xl text-[44px] leading-[1.12] font-bold tracking-normal md:text-[56px]">
+          <h2 className={`${solutionTypography.heroHeading} max-w-xl`}>
             <InlineCmsText value={title} />
           </h2>
         </FullBleedLines>
 
         <FullBleedLines>
           <div className="flex max-w-xl flex-col items-start">
-            <p className="font-heading text-primary text-[34px] leading-[1.15] tracking-normal md:text-[42px]">
+            <p className={`${solutionTypography.subtitle}`}>
               <InlineCmsText value={subtitle} />
             </p>
-            <div className="mt-4 text-xl leading-7 tracking-normal text-[#262626]">
+            <div className={`${solutionTypography.heroDescription} mt-4 text-[#262626] [&_p]:leading-[inherit]`}>
               {bodyHtml ? (
                 <HtmlContent html={bodyHtml} />
               ) : (

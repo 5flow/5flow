@@ -8,13 +8,17 @@ function load(file, dependencies = {}) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2017 },
   }).outputText;
   const exports = {};
-  vm.runInNewContext(source, {
-    exports,
-    require: name => {
-      assert.ok(name in dependencies, `Unexpected dependency: ${name}`);
-      return dependencies[name];
+  vm.runInNewContext(
+    source,
+    {
+      exports,
+      require: name => {
+        assert.ok(name in dependencies, `Unexpected dependency: ${name}`);
+        return dependencies[name];
+      },
     },
-  }, { filename: file });
+    { filename: file }
+  );
   return exports;
 }
 
@@ -46,10 +50,17 @@ async function run() {
 
   const application = load('lib/cms/application.ts', {
     './json': json,
-    './client': { wpFetch: async () => [{ meta: {}, acf: {
-      challenges_items_json: brokenChallenges.replace(/\n/g, '\r\n'),
-      benefits_items_json: brokenBenefits,
-    } }] },
+    './client': {
+      wpFetch: async () => [
+        {
+          meta: {},
+          acf: {
+            challenges_items_json: brokenChallenges.replace(/\n/g, '\r\n'),
+            benefits_items_json: brokenBenefits,
+          },
+        },
+      ],
+    },
   });
   const app = await application.getApplication('test-de');
   assert.equal(app.challenges.items[0].buttonText, 'Jetzt Demo buchen');
@@ -57,7 +68,15 @@ async function run() {
   assert.equal(app.benefits.items.length, 2);
   assert.equal(app.benefits.items[1].title, 'Gleichbleibende Qualität');
 
-  const cards = [{ title: 'Individuelle Lösungen', subtitle: 'Für Ihr Team', body_html: 'Maßgeschneiderte Lösungen.', link_url: '/products/mediabox', icon_key: 'puzzle' }];
+  const cards = [
+    {
+      title: 'Individuelle Lösungen',
+      subtitle: 'Für Ihr Team',
+      body_html: 'Maßgeschneiderte Lösungen.',
+      link_url: '/products/mediabox',
+      icon_key: 'puzzle',
+    },
+  ];
   let acf = { how_body_html: JSON.stringify(cards), how_description: 'Ein Partner. Drei Wege.' };
   const homepage = load('lib/cms/homepage.ts', {
     './json': json,
@@ -74,6 +93,73 @@ async function run() {
   assert.equal((await homepage.getHomepage()).how.bodyHtml, acf.how_body_html);
   acf = { how_items_json: JSON.stringify([{ title: 'Canonical cards' }]), how_body_html: JSON.stringify(cards) };
   assert.equal((await homepage.getHomepage()).how.items[0].title, 'Canonical cards');
+
+  const artworkItems = [
+    {
+      title: 'Zentrale Plattformen',
+      description: 'Ein Ort für Dateien.',
+      imageSrc: '/solutions/1.svg',
+      iconName: 'MonitorCog',
+    },
+    { title: 'Automatisierte Workflows', description: 'Freigaben bleiben im Zeitplan.' },
+    {
+      title: 'Klare Briefings',
+      description: 'Projekte starten mit vollständigen Informationen, zugeschnitten auf Ihre Vorgaben.',
+    },
+    { title: 'Dashboards', description: 'Sehen Sie alles, was gerade läuft.' },
+  ];
+  const brokenArtwork = JSON.stringify(artworkItems, null, 2).replace('Vorgaben.",', 'Vorgaben.,');
+  const solution = load('lib/cms/solution.ts', {
+    './json': json,
+    './client': { wpFetch: async () => [{ meta: {}, acf: { how_items_json: brokenArtwork } }] },
+  });
+  const artwork = await solution.getSolution('artwork-management-2');
+  assert.equal(artwork.how.items.length, 4);
+  assert.equal(artwork.how.items[2].bodyHtml, artworkItems[2].description);
+  assert.equal(artwork.how.items[0].imageUrl, '/solutions/1.svg');
+  assert.equal(artwork.how.items[0].iconKey, 'MonitorCog');
+
+  let aiPage = {
+    meta: {},
+    acf: {
+      ready_content_json: JSON.stringify({ human_title: 'Legacy human heading', final_title: 'Legacy final heading' }),
+      ready_human_title: 'KI unterstützt. Menschen entscheiden.',
+      ready_human_description: 'Ihr Team entscheidet.',
+      ready_final_title: 'Bereit für QC Assist?',
+      ready_final_description: 'QC Assist in Aktion erleben.',
+      ready_highlights_json: '["Bereit"]',
+    },
+  };
+  const aiSolutions = load('lib/cms/ai-solutions.ts', { './client': { wpFetch: async () => [aiPage] } });
+  const ai = await aiSolutions.getAiSolutions('ai-solutions-2');
+  assert.equal(ai.ready.humanTitle, aiPage.acf.ready_human_title);
+  assert.equal(ai.ready.humanDescription, aiPage.acf.ready_human_description);
+  assert.equal(ai.ready.finalTitle, aiPage.acf.ready_final_title);
+  assert.equal(ai.ready.finalDescription, aiPage.acf.ready_final_description);
+  assert.equal(ai.ready.highlights[0], 'Bereit');
+  aiPage = {
+    meta: {},
+    acf: { ready_content_json: '{"human_title":"Legacy human heading","final_title":"Legacy final heading"}' },
+  };
+  assert.equal((await aiSolutions.getAiSolutions()).ready.humanTitle, 'Legacy human heading');
+  assert.equal((await aiSolutions.getAiSolutions()).ready.finalTitle, 'Legacy final heading');
+
+  for (const source of ['meta', 'acf']) {
+    const page = { meta: {}, acf: {} };
+    page[source] = {
+      how_title: 'Wie funktioniert es?',
+      how_heading_highlight: 'Wie',
+      how_items_json: '[{"title":"CMS step","body_html":"Schrittbeschreibung"}]',
+    };
+    const industry = load('lib/cms/application.ts', { './json': json, './client': { wpFetch: async () => [page] } });
+    const data = await industry.getApplication('retail-2');
+    assert.equal(data.how.title, 'Wie funktioniert es?');
+    assert.equal(data.how.headingHighlight, 'Wie');
+    assert.equal(data.how.items[0].bodyHtml, 'Schrittbeschreibung');
+  }
   console.log('CMS JSON regression checks passed.');
 }
-run().catch(error => { console.error(error); process.exitCode = 1; });
+run().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

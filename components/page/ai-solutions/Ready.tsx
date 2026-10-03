@@ -1,3 +1,4 @@
+import { solutionTypography } from '@/components/page/solutions/typography';
 import { Check } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
@@ -47,10 +48,10 @@ export default function Ready({
         <div className="relative left-1/2 w-[100dvw] max-w-[100dvw] -translate-x-1/2 overflow-x-clip bg-[#F2F2F7]">
           <div className="container mx-auto grid gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1fr_1fr] md:px-0 md:py-16">
             <div>
-              <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+              <h2 className={`${solutionTypography.sectionHeading}`}>
                 <InlineCmsText value={title} />
               </h2>
-              <p className="mt-10 max-w-xl text-base leading-6 tracking-normal text-[#262626] md:text-xl md:leading-7">
+              <p className={`${solutionTypography.description} mt-10 max-w-xl text-[#262626]`}>
                 <InlineCmsText value={description} />
               </p>
             </div>
@@ -59,7 +60,7 @@ export default function Ready({
               {displayBullets.map(item => (
                 <div key={item} className="flex items-center gap-6">
                   <Check className="text-success h-9 w-9 shrink-0" strokeWidth={2.2} />
-                  <p className="text-primary text-2xl leading-tight font-bold tracking-normal">
+                  <p className={`${solutionTypography.itemHeading} text-primary font-bold`}>
                     <InlineCmsText value={item} />
                   </p>
                 </div>
@@ -70,19 +71,17 @@ export default function Ready({
       </FullBleedLines>
 
       <FullBleedLines className="text-center">
-        <h2 className="font-heading text-[42px] leading-tight font-bold tracking-normal md:text-[56px]">
+        <h2 className={`${solutionTypography.sectionHeading}`}>
           <InlineCmsText value={humanTitle} />
         </h2>
-        <p className="mx-auto mt-8 max-w-2xl text-base leading-6 tracking-normal text-[#262626] md:text-xl md:leading-7">
+        <p className={`${solutionTypography.description} mx-auto mt-8 max-w-2xl text-[#262626]`}>
           <InlineCmsText value={humanDescription} />
         </p>
       </FullBleedLines>
 
       <FullBleedLines className="text-center">
-        <h2 className="font-heading text-[40px] leading-tight font-bold tracking-normal md:text-[54px]">
-          {renderHighlights(finalTitle, highlights)}
-        </h2>
-        <p className="text-primary mx-auto mt-8 max-w-4xl text-xl leading-7 tracking-normal md:text-2xl md:leading-8">
+        <h2 className={`${solutionTypography.sectionHeading}`}>{renderHighlights(finalTitle, highlights)}</h2>
+        <p className={`${solutionTypography.description} text-primary mx-auto mt-8 max-w-4xl`}>
           <InlineCmsText value={finalDescription} />
         </p>
       </FullBleedLines>
