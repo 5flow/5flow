@@ -325,7 +325,7 @@ export async function WavePage({ cmsSlug = 'wave' }: { cmsSlug?: string } = {}) 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="wave" />
+        <PageHeader title={cms?.pageHeaderTitle || 'wave'} />
 
         <div className="mt-12 flex flex-col gap-16 md:gap-32">
           <Hero {...heroProps} />

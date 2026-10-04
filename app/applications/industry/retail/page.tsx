@@ -228,7 +228,7 @@ export async function RetailPage({ cmsSlug = 'retail' }: { cmsSlug?: string } = 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="retail" />
+        <PageHeader title={cms?.pageHeaderTitle || 'retail'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />

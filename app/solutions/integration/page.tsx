@@ -171,7 +171,7 @@ export async function IntegrationPage({ cmsSlug = 'integration' }: { cmsSlug?: s
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="integration" />
+        <PageHeader title={cms?.pageHeaderTitle || 'integration'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

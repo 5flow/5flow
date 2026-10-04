@@ -18,7 +18,7 @@ export default async function Webinars() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="webinars" />
+        <PageHeader cmsSlug="webinars" title="webinars" />
 
         <div className="flex flex-col gap-32">
           <Hero

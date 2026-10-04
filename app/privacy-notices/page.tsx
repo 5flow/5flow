@@ -23,7 +23,7 @@ export default async function PrivacyPolicyPage() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="privacy notices" />
+        <PageHeader cmsSlug="privacy-notices" title="privacy notices" />
         <div className="mt-10 max-w-5xl md:mt-16">
           <Markdown content={md} />
         </div>

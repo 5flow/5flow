@@ -174,7 +174,7 @@ export async function ContentManagementPage({ cmsSlug = 'content-management' }: 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="content management" />
+        <PageHeader title={cms?.pageHeaderTitle || 'content management'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

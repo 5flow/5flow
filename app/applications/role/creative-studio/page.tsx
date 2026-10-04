@@ -190,7 +190,7 @@ export async function CreativeStudioPage({ cmsSlug = 'creative-studio' }: { cmsS
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="creative studio" />
+        <PageHeader title={cms?.pageHeaderTitle || 'creative studio'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {

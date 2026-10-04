@@ -30,7 +30,7 @@ export default async function QualityPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="quality" />
+          <PageHeader cmsSlug="quality" title="quality" />
           <div className="mt-10 max-w-5xl md:mt-16">
             <HtmlContent html={page.bodyHtml} />
           </div>
@@ -42,7 +42,7 @@ export default async function QualityPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="quality" />
+          <PageHeader cmsSlug="quality" title="quality" />
           <div className="mt-10 max-w-5xl md:mt-16">
             <Markdown content={md} />
           </div>

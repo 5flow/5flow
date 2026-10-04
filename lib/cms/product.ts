@@ -1,3 +1,4 @@
+import { resolvePageHeaderTitle } from './page-header';
 import { wpFetch } from './client';
 import { inferAltTextFromUrl } from './homepage';
 
@@ -23,6 +24,7 @@ export interface ProductItemRaw {
 }
 
 export interface ProductData {
+  pageHeaderTitle?: string;
   video?: {
     heading?: string;
     subtitle?: string;
@@ -151,6 +153,7 @@ export async function getProduct(slug: string): Promise<ProductData | null> {
     clients: whoItems.map(ci => {
       if (typeof ci === 'string') {
         return {
+          pageHeaderTitle: resolvePageHeaderTitle(page),
           imageUrl: ci,
           altText: inferAltTextFromUrl(ci) || 'Client Logo',
         };

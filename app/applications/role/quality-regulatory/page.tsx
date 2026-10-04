@@ -195,7 +195,7 @@ export async function QualityRegulatoryPage({ cmsSlug = 'quality-regulatory' }: 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="quality regulatory" />
+        <PageHeader title={cms?.pageHeaderTitle || 'quality regulatory'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {

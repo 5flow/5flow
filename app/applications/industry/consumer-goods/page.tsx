@@ -226,7 +226,7 @@ export async function ConsumerGoodsPage({ cmsSlug = 'consumer-goods' }: { cmsSlu
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="consumer goods" />
+        <PageHeader title={cms?.pageHeaderTitle || 'consumer goods'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {

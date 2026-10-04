@@ -173,7 +173,7 @@ export async function DataAnalysisPage({ cmsSlug = 'data-analysis' }: { cmsSlug?
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="data analysis" />
+        <PageHeader title={cms?.pageHeaderTitle || 'data analysis'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

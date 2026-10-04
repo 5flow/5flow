@@ -18,7 +18,7 @@ export default async function Downloads() {
   return (
     <div className="font-heading relative">
       <div className="container mx-auto">
-        <PageHeader title="downloads" />
+        <PageHeader cmsSlug="downloads" title="downloads" />
 
         <div className="flex flex-col gap-32">
           <Hero

@@ -28,7 +28,7 @@ export default async function Contact() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title={copy.title} />
+        <PageHeader cmsSlug="contact" title={copy.title} />
         <div className="mt-8 flex flex-col gap-14 md:mt-0">
           <Hero headline={copy.heroHeadline} highlightWords={copy.heroHighlightWords} />
           <Form />

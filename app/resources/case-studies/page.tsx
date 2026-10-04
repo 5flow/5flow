@@ -17,7 +17,7 @@ export default async function CaseStudies() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="case studies" />
+        <PageHeader cmsSlug="case-studies" title="case studies" />
 
         <div className="flex flex-col gap-32">
           <Hero

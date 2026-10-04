@@ -195,7 +195,7 @@ export async function ProcurementSourcingPage({ cmsSlug = 'procurement-sourcing'
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="procurement sourcing" />
+        <PageHeader title={cms?.pageHeaderTitle || 'procurement sourcing'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {

@@ -171,7 +171,7 @@ export async function AssetLibraryPage({ cmsSlug = 'asset-library' }: { cmsSlug?
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="asset library" />
+        <PageHeader title={cms?.pageHeaderTitle || 'asset library'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

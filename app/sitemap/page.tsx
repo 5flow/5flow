@@ -59,7 +59,7 @@ export default async function SitemapPage() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="sitemap" />
+        <PageHeader cmsSlug="sitemap" title="sitemap" />
         <div className="mt-10 grid max-w-4xl gap-3 md:mt-16">
           {routes.map(route => (
             <div key={route}>

@@ -13,6 +13,7 @@ function load(file, dependencies = {}) {
     {
       exports,
       require: name => {
+        if (name === './page-header') return pageHeader;
         assert.ok(name in dependencies, `Unexpected dependency: ${name}`);
         return dependencies[name];
       },
@@ -22,6 +23,7 @@ function load(file, dependencies = {}) {
   return exports;
 }
 
+const pageHeader = load('lib/cms/page-header.ts', { './client': { wpFetch: async () => [] } });
 const json = load('lib/cms/json.ts');
 const brokenChallenges = `[
   {
@@ -42,6 +44,27 @@ const brokenBenefits = `[
 ]`;
 
 async function run() {
+  assert.equal(
+    pageHeader.resolvePageHeaderTitle({ acf: { page_header_title: ' Lebensmittel & Getränke ' } }),
+    'Lebensmittel & Getränke'
+  );
+  assert.equal(
+    pageHeader.resolvePageHeaderTitle({ meta: { page_header_title: ' ' }, acf: { page_header_title: 'Deutsch' } }),
+    'Deutsch'
+  );
+  assert.equal(pageHeader.resolvePageHeaderTitle({ title: { rendered: 'CMS editor title' } }), undefined);
+  assert.equal(pageHeader.resolvePageHeaderTitle(null), undefined);
+  let requestedSlug;
+  const headers = load('lib/cms/page-header.ts', {
+    './client': {
+      wpFetch: async endpoint => {
+        requestedSlug = endpoint;
+        return [{ acf: { page_header_title: 'Lebensmittel & Getränke' } }];
+      },
+    },
+  });
+  assert.equal(await headers.getPageHeaderTitle('food-beverages-2'), 'Lebensmittel & Getränke');
+  assert.equal(requestedSlug, '/wp-json/wp/v2/pages?slug=food-beverages-2');
   const valid = [{ title: 'Größe, Qualität', bodyHtml: '„Freigaben“, apostrophe’s, comma, } and escaped "quotes"' }];
   assert.equal(JSON.stringify(json.parseCmsJson(JSON.stringify(valid))), JSON.stringify(valid));
   assert.equal(json.parseCmsJson('fragmented-documentation'), null);
@@ -55,6 +78,7 @@ async function run() {
         {
           meta: {},
           acf: {
+            page_header_title: 'Anwendungen',
             challenges_items_json: brokenChallenges.replace(/\n/g, '\r\n'),
             benefits_items_json: brokenBenefits,
           },
@@ -63,6 +87,7 @@ async function run() {
     },
   });
   const app = await application.getApplication('test-de');
+  assert.equal(app.pageHeaderTitle, 'Anwendungen');
   assert.equal(app.challenges.items[0].buttonText, 'Jetzt Demo buchen');
   assert.equal(app.challenges.items[0].buttonLink, '/solutions/artwork-management');
   assert.equal(app.benefits.items.length, 2);

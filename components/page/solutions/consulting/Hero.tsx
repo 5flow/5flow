@@ -24,7 +24,7 @@ export default function Hero({
 }: HeroProps) {
   return (
     <section className="px-4 sm:px-6 md:px-0">
-      <PageHeader title="consulting" />
+      <PageHeader cmsSlug="consulting" title="consulting" />
 
       <FullBleedLines className="font-heading mt-8 py-12 md:mt-16 md:py-16 lg:py-20">
         <div className="max-w-none">

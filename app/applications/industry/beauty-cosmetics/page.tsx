@@ -225,7 +225,7 @@ export async function BeautyCosmeticsPage({ cmsSlug = 'beauty-cosmetics' }: { cm
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="beauty cosmetics" />
+        <PageHeader title={cms?.pageHeaderTitle || 'beauty cosmetics'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {

@@ -20,7 +20,7 @@ export async function AiSolutionsPage({ cmsSlug = 'ai-solutions' }: { cmsSlug?: 
   return (
     <div className="relative overflow-x-clip">
       <div className="container mx-auto mb-32">
-        <PageHeader title="QC Assist" />
+        <PageHeader title={cms?.pageHeaderTitle || 'QC Assist'} />
 
         <div className="flex flex-col gap-28 md:gap-36">
           <Hero {...cms?.hero} />

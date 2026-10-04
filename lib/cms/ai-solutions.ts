@@ -1,3 +1,4 @@
+import { resolvePageHeaderTitle } from './page-header';
 import { wpFetch } from './client';
 
 export type AiSolutionItem = {
@@ -7,6 +8,7 @@ export type AiSolutionItem = {
 };
 
 export type AiSolutionsData = {
+  pageHeaderTitle?: string;
   hero?: {
     title?: string;
     subtitle?: string;
@@ -92,6 +94,7 @@ export async function getAiSolutions(slug = 'ai-solutions'): Promise<AiSolutions
   const readyContent = parseJson<Record<string, any>>(field('ready_content_json'), {});
 
   return {
+    pageHeaderTitle: resolvePageHeaderTitle(page),
     hero: {
       title: field('hero_title'),
       subtitle: field('hero_subtitle'),

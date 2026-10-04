@@ -1,3 +1,4 @@
+import { resolvePageHeaderTitle } from './page-header';
 import { wpFetch } from './client';
 import { parseCmsJson } from './json';
 
@@ -24,6 +25,7 @@ export interface SolutionItemRaw {
 }
 
 export interface SolutionData {
+  pageHeaderTitle?: string;
   hero?: {
     title?: string;
     subtitle?: string;
@@ -118,6 +120,7 @@ export async function getSolution(slug: string): Promise<SolutionData | null> {
   };
 
   return {
+    pageHeaderTitle: resolvePageHeaderTitle(page),
     hero,
     how: { title: meta.how_title || page.acf?.how_title, items: howItems },
     why: { title: meta.why_title || page.acf?.why_title, items: whyItems },

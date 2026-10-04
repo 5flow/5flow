@@ -1,3 +1,4 @@
+import { resolvePageHeaderTitle } from './page-header';
 import { wpFetch } from './client';
 import { parseCmsJson } from './json';
 
@@ -25,6 +26,7 @@ export interface ApplicationItemRaw {
 }
 
 export interface ApplicationData {
+  pageHeaderTitle?: string;
   hero?: {
     title?: string;
     subtitle?: string;
@@ -154,6 +156,7 @@ export async function getApplication(slug: string): Promise<ApplicationData | nu
     acf.workflow_highlight;
 
   return {
+    pageHeaderTitle: resolvePageHeaderTitle(page),
     hero,
     challenges: {
       heading: meta.challenges_heading || acf.challenges_heading,

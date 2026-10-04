@@ -115,7 +115,7 @@ export default function Guides() {
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="guides" />
+        <PageHeader cmsSlug="guides" title="guides" />
 
         <div className="flex flex-col gap-32">
           <Hero

@@ -316,7 +316,7 @@ export async function MediaboxPage({ cmsSlug = 'mediabox' }: { cmsSlug?: string 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="mediabox" />
+        <PageHeader title={cms?.pageHeaderTitle || 'mediabox'} />
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />

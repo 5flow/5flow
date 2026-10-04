@@ -324,7 +324,7 @@ export async function DragonflyPage({ cmsSlug = 'dragonfly' }: { cmsSlug?: strin
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="dragonfly" />
+        <PageHeader title={cms?.pageHeaderTitle || 'dragonfly'} />
 
         <div className="mt-12 flex flex-col gap-10 md:gap-32">
           <Hero {...heroProps} />

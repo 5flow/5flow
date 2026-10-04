@@ -30,7 +30,7 @@ export default async function DisclaimerPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="disclaimer" />
+          <PageHeader cmsSlug="disclaimer" title="disclaimer" />
           <div className="mt-10 max-w-5xl md:mt-16">
             <HtmlContent html={page.bodyHtml} />
           </div>
@@ -42,7 +42,7 @@ export default async function DisclaimerPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="disclaimer" />
+          <PageHeader cmsSlug="disclaimer" title="disclaimer" />
           <div className="mt-10 max-w-5xl md:mt-16">
             <Markdown content={md} />
           </div>

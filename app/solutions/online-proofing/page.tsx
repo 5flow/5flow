@@ -173,7 +173,7 @@ export async function OnlineProofingPage({ cmsSlug = 'online-proofing' }: { cmsS
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="online proofing" />
+        <PageHeader title={cms?.pageHeaderTitle || 'online proofing'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

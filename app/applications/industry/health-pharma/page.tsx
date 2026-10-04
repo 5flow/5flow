@@ -225,7 +225,7 @@ export async function HealthPharmaPage({ cmsSlug = 'health-pharma' }: { cmsSlug?
   return (
     <div className="relative">
       <div className="container mx-auto gap-10 md:gap-32">
-        <PageHeader title="health pharma" />
+        <PageHeader title={cms?.pageHeaderTitle || 'health pharma'} />
 
         <div className="flex flex-col gap-32">
           {(() => {

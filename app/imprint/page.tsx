@@ -29,7 +29,7 @@ export default async function ImprintPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="imprint" />
+          <PageHeader cmsSlug="imprint" title="imprint" />
           <div className="mt-10 max-w-5xl md:mt-16">
             <HtmlContent html={page.bodyHtml} />
           </div>
@@ -41,7 +41,7 @@ export default async function ImprintPage() {
     return (
       <div className="relative">
         <div className="container mx-auto mb-32">
-          <PageHeader title="imprint" />
+          <PageHeader cmsSlug="imprint" title="imprint" />
           <div className="text-foreground/80 mt-10 max-w-5xl leading-7 whitespace-pre-wrap md:mt-16">{content}</div>
         </div>
       </div>

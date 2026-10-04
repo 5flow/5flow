@@ -169,7 +169,7 @@ export async function ArtworkManagementPage({ cmsSlug = 'artwork-management' }: 
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="artwork management" />
+        <PageHeader title={cms?.pageHeaderTitle || 'artwork management'} />
 
         <div className="flex flex-col gap-32">
           <Hero {...heroProps} />

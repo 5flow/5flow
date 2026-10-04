@@ -190,7 +190,7 @@ export async function BrandManagerPage({ cmsSlug = 'brand-manager' }: { cmsSlug?
   return (
     <div className="relative">
       <div className="container mx-auto mb-32">
-        <PageHeader title="brand manager" />
+        <PageHeader title={cms?.pageHeaderTitle || 'brand manager'} />
 
         <div className="flex flex-col gap-10 md:gap-32">
           {(() => {
