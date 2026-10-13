@@ -4,9 +4,11 @@ The header selector switches between English and German before the demo button
 on desktop and beside the menu button on mobile. Selecting a language writes the
 essential `5flow-language` preference cookie for one year.
 
-The footer quick-link group headings also follow the selected language. Link
+The footer quick-link group headings also follow the selected language. Header
+dropdown links (desktop and mobile) and footer links share the same CMS labels. Link
 labels read the target page's existing `page_header_title` ACF field, fetched
-for both languages in one REST request. Changing a label never changes its route
+for both languages in one REST request, memoized per server render so header and
+footer share the request. Changing a label never changes its route
 or WordPress slug. German links continue to use the existing `/de/...` paths.
 Empty CMS fields use the existing product name or a German fallback label.
 

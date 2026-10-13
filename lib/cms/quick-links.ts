@@ -1,11 +1,12 @@
 import { wpFetch } from './client';
+import { cache } from 'react';
 import { resolvePageHeaderTitle } from './page-header';
 import { QUICK_LINK_GROUPS } from '../quick-links';
 import { GERMAN_PATHS } from '../i18n';
 
 export type QuickLinkLabels = { en: Record<string, string>; de: Record<string, string> };
 
-export async function getQuickLinkLabels(): Promise<QuickLinkLabels> {
+export const getQuickLinkLabels = cache(async (): Promise<QuickLinkLabels> => {
   const labels: QuickLinkLabels = { en: {}, de: {} };
   const targets = QUICK_LINK_GROUPS.flatMap(group => group.links).flatMap(({ href }) => {
     const slug = href.split('/').pop()!;
@@ -27,4 +28,4 @@ export async function getQuickLinkLabels(): Promise<QuickLinkLabels> {
     if (title) labels[target.language][target.href] = title;
   }
   return labels;
-}
+});

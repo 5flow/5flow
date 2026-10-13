@@ -4,7 +4,7 @@ import Link from '@/components/core/localized-link';
 import { ArrowUp } from 'lucide-react';
 import CtaPixelGrid from '@/components/core/cta-pixel-grid';
 import { useSiteLanguage } from '@/components/core/site-language';
-import { QUICK_LINK_GROUPS } from '@/lib/quick-links';
+import { QUICK_LINK_GROUPS, GERMAN_LINK_LABELS } from '@/lib/quick-links';
 import type { QuickLinkLabels } from '@/lib/cms/quick-links';
 import InlineCmsText from '@/components/core/inline-cms-text';
 
@@ -15,34 +15,6 @@ const GERMAN_GROUP_TITLES: Record<string, string> = {
   Application: 'Anwendungen',
   Industry: 'Branchen',
   Resources: 'Ressourcen',
-};
-
-const GERMAN_LINK_LABELS: Record<string, string> = {
-  '/about': 'Über uns',
-  '/contact': 'Kontakt',
-  '/solutions/artwork-management': 'Artwork-Management',
-  '/solutions/online-proofing': 'Online-Proofing',
-  '/solutions/content-management': 'Content-Management',
-  '/solutions/asset-library': 'Asset-Bibliothek',
-  '/solutions/automated-artwork': 'Automatisiertes Artwork',
-  '/solutions/integration': 'Integration',
-  '/solutions/data-analysis': 'Datenanalyse',
-  '/ai-solutions': 'KI-Lösungen',
-  '/solutions/consulting': 'Beratung',
-  '/applications/role/brand-manager': 'Brand Manager',
-  '/applications/role/quality-regulatory': 'Qualität & Regulatory',
-  '/applications/role/creative-studio': 'Kreativstudio',
-  '/applications/role/procurement-sourcing': 'Einkauf & Beschaffung',
-  '/applications/industry/retail': 'Einzelhandel',
-  '/applications/industry/health-pharma': 'Gesundheit & Pharma',
-  '/applications/industry/food-beverages': 'Lebensmittel & Getränke',
-  '/applications/industry/beauty-cosmetics': 'Beauty & Kosmetik',
-  '/applications/industry/consumer-goods': 'Konsumgüter',
-  '/resources/blogs': 'Blog',
-  '/resources/case-studies': 'Fallstudien',
-  '/resources/webinars': 'Webinare',
-  '/resources/downloads': 'Downloads',
-  '/resources/podcast': 'Podcast',
 };
 
 export function CtaV2({ labels }: { labels?: QuickLinkLabels }) {

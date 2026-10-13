@@ -8,6 +8,9 @@ import { ArrowRight, ArrowUpRight, Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { englishPath, localizedHref } from '@/lib/i18n';
 import { LanguageSelector, useSiteLanguage } from '@/components/core/site-language';
+import type { QuickLinkLabels } from '@/lib/cms/quick-links';
+import InlineCmsText from '@/components/core/inline-cms-text';
+import { GERMAN_LINK_LABELS } from '@/lib/quick-links';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -46,6 +49,7 @@ type NavItem = NavItemLink | NavItemDropdown;
 
 export type NavigationProps = {
   labels?: Record<string, string>;
+  pageLabels?: QuickLinkLabels;
 };
 
 // Fallback navigation items
@@ -163,10 +167,16 @@ function isActive(pathname: string, item: NavItem): boolean {
   return false;
 }
 
-export function Navigation({ labels }: NavigationProps) {
+export function Navigation({ labels, pageLabels }: NavigationProps) {
   const pathname = usePathname();
   const { language } = useSiteLanguage();
   const hrefFor = (href: string) => localizedHref(href, language);
+  const linkLabelFor = (href: string, fallback: string) =>
+    pageLabels?.[language]?.[href] || (language === 'de' ? GERMAN_LINK_LABELS[href] : undefined) || fallback;
+  const groupHeadingFor = (heading: string) =>
+    language === 'de'
+      ? ({ ROLE: 'ROLLEN', INDUSTRY: 'BRANCHEN' } as Record<string, string>)[heading] || heading
+      : heading;
   const displayLabelFor = (item: NavItem) => {
     const germanLabels: Record<string, string> = {
       about: 'ÜBER UNS',
@@ -305,7 +315,7 @@ export function Navigation({ labels }: NavigationProps) {
                           <div className="border-accent1 mb-4 border-l-4 bg-[#F4F4F5] p-2">
                             <div className="bg-background">
                               <DropdownMenuLabel className="text-accent1 text-base font-semibold tracking-tight">
-                                {group.heading}
+                                {groupHeadingFor(group.heading)}
                               </DropdownMenuLabel>
                             </div>
                           </div>
@@ -324,7 +334,7 @@ export function Navigation({ labels }: NavigationProps) {
                                     <ArrowUpRight className="text-background !h-8 !w-8" strokeWidth={2} />
                                   </div>
                                   <span className="text-foreground bg-background flex h-full min-w-0 flex-1 items-center justify-start px-3 text-left font-semibold tracking-tight">
-                                    {label}
+                                    <InlineCmsText value={linkLabelFor(href, label)} />
                                   </span>
                                 </Link>
                               </DropdownMenuItem>
@@ -345,7 +355,7 @@ export function Navigation({ labels }: NavigationProps) {
                               <ArrowUpRight className="text-background !h-8 !w-8" strokeWidth={2} />
                             </div>
                             <span className="text-foreground bg-background flex h-full min-w-0 flex-1 items-center justify-start px-3 text-left font-semibold tracking-tight">
-                              {label}
+                              <InlineCmsText value={linkLabelFor(href, label)} />
                             </span>
                           </Link>
                         </DropdownMenuItem>
@@ -443,7 +453,7 @@ export function Navigation({ labels }: NavigationProps) {
                               onClick={() => setMobileOpen(false)}
                               className="text-foreground/90 block rounded-md px-3 py-2 text-sm no-underline"
                             >
-                              {label}
+                              <InlineCmsText value={linkLabelFor(href, label)} />
                             </Link>
                           ))}
                         </div>
@@ -452,8 +462,8 @@ export function Navigation({ labels }: NavigationProps) {
                       {/* grouped items */}
                       {menu.groups &&
                         menu.groups.map(group => (
-                          <div key={group.heading} className="flex flex-col gap-1">
-                            <div className="text-accent1 text-xs font-semibold">{group.heading}</div>
+                          <div key={groupHeadingFor(group.heading)} className="flex flex-col gap-1">
+                            <div className="text-accent1 text-xs font-semibold">{groupHeadingFor(group.heading)}</div>
                             {group.items.map(({ href, label }) => (
                               <Link
                                 key={href}
@@ -461,7 +471,7 @@ export function Navigation({ labels }: NavigationProps) {
                                 onClick={() => setMobileOpen(false)}
                                 className="text-foreground/90 block rounded-md px-3 py-2 text-sm no-underline"
                               >
-                                {label}
+                                <InlineCmsText value={linkLabelFor(href, label)} />
                               </Link>
                             ))}
                           </div>
