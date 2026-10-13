@@ -8,7 +8,7 @@ import { hideTranslationWidget, customizeAccessibilityWidget } from '@/lib/acces
 import { Toaster } from '@/components/ui/sonner';
 import { HubSpotPageTracker } from '@/components/core/hubspot-page-tracker';
 import { Footer } from '@/components/layout';
-import { CtaV2 } from '@/components/layout/cta-v2';
+import { ServerCtaV2 } from '@/components/layout/cta-v2.server';
 import { ServerNavigation } from '@/components/layout/navigation.server';
 import PageTransition from '@/components/layout/page-transition';
 import FixedActions from '@/components/layout/fixed-actions';
@@ -89,7 +89,7 @@ export default async function RootLayout({
             {/* <PatternOverlay side="both" margin="container" containerAlign="outside" /> */}
             <PageTransition>{children}</PageTransition>
           </main>
-          <CtaV2 />
+          <ServerCtaV2 />
           <Footer />
 
           {/* Fixed */}
