@@ -1,4 +1,4 @@
-import { ContentManagementPage, metadata } from '@/app/solutions/content-management/page';
+import { ContentManagementPage, metadata } from '@/app/solutions/content-management/content';
 
 export { metadata };
 

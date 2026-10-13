@@ -7,7 +7,7 @@ import * as LucideIcons from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import HighlightedCmsText from '@/components/core/highlighted-cms-text';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { Button } from '@/components/ui/button';
 
 interface HowFeature {

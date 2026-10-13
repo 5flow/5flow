@@ -1,4 +1,4 @@
-import { BeautyCosmeticsPage, metadata } from '@/app/applications/industry/beauty-cosmetics/page';
+import { BeautyCosmeticsPage, metadata } from '@/app/applications/industry/beauty-cosmetics/content';
 
 export { metadata };
 

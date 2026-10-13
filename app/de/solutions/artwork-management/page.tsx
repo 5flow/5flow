@@ -1,4 +1,4 @@
-import { ArtworkManagementPage, metadata } from '@/app/solutions/artwork-management/page';
+import { ArtworkManagementPage, metadata } from '@/app/solutions/artwork-management/content';
 
 export { metadata };
 

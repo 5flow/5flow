@@ -1,4 +1,4 @@
-import { HomePage } from '@/app/page';
+import { HomePage } from '@/app/content';
 import type { Metadata } from 'next';
 
 const GERMAN_HOME_SLUG = 'home-3';

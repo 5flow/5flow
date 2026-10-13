@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from 'react';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import HighlightedCmsText from '@/components/core/highlighted-cms-text';
 import InlineHighlight from '@/components/core/inline-highlight';

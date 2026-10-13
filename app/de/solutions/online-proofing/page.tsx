@@ -1,4 +1,4 @@
-import { OnlineProofingPage, metadata } from '@/app/solutions/online-proofing/page';
+import { OnlineProofingPage, metadata } from '@/app/solutions/online-proofing/content';
 
 export { metadata };
 

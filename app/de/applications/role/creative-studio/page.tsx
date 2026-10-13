@@ -1,4 +1,4 @@
-import { CreativeStudioPage, metadata } from '@/app/applications/role/creative-studio/page';
+import { CreativeStudioPage, metadata } from '@/app/applications/role/creative-studio/content';
 
 export { metadata };
 

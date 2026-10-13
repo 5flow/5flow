@@ -1,4 +1,4 @@
-import { AboutPage, metadata } from '@/app/about/page';
+import { AboutPage, metadata } from '@/app/about/content';
 
 export { metadata };
 

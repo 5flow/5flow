@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, ArrowUpRight, Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { englishPath, localizedHref } from '@/lib/i18n';
+import { LanguageSelector, useSiteLanguage } from '@/components/core/site-language';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -163,10 +165,23 @@ function isActive(pathname: string, item: NavItem): boolean {
 
 export function Navigation({ labels }: NavigationProps) {
   const pathname = usePathname();
+  const { language } = useSiteLanguage();
+  const hrefFor = (href: string) => localizedHref(href, language);
+  const displayLabelFor = (item: NavItem) => {
+    const germanLabels: Record<string, string> = {
+      about: 'ÜBER UNS',
+      products: 'PRODUKTE',
+      solutions: 'LÖSUNGEN',
+      applications: 'ANWENDUNGEN',
+      resources: 'RESSOURCEN',
+    };
+    if (language === 'de' && item.keyId) return germanLabels[item.keyId] || item.label;
+    return item.keyId && labels?.[item.keyId] ? labels[item.keyId] : item.label;
+  };
   const activeMap = useMemo(() => {
     const map = new Map<string, boolean>();
     for (const item of NAV_ITEMS) {
-      map.set(item.href, isActive(pathname, item));
+      map.set(item.href, isActive(englishPath(pathname), item));
     }
     return map;
   }, [pathname]);
@@ -225,17 +240,18 @@ export function Navigation({ labels }: NavigationProps) {
       className={cn(
         'bg-background border-border fixed top-0 z-[999] flex w-full items-center justify-between border-[1px] border-b border-solid transition-transform duration-500 ease-[var(--easing-smooth)]',
         footerVisible ? '-translate-y-[120%]' : 'translate-y-0',
-        'h-16 px-4 py-2 sm:h-20 sm:px-6 md:h-[88px] md:px-28 md:py-4'
+        'h-16 px-4 py-2 sm:h-20 sm:px-6 md:h-[88px] md:px-8 md:py-4 xl:px-12 2xl:px-28'
       )}
       aria-hidden={footerVisible}
     >
       {/* Logo */}
-      <Link href="/" className="cursor-pointer">
+      <Link href={hrefFor('/')} className="cursor-pointer">
         <Image src="/brand.svg" width={103} height={24} alt="5Flow Brand Logo" />
       </Link>
 
       {/* Mobile menu button (visible on small screens) */}
-      <div className="md:hidden">
+      <div className="flex items-center gap-3 xl:hidden">
+        <LanguageSelector />
         <button
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
@@ -247,7 +263,7 @@ export function Navigation({ labels }: NavigationProps) {
       </div>
 
       {/* Nav links - hidden on small screens */}
-      <div className="hidden gap-6 md:flex">
+      <div className="hidden gap-1 xl:flex 2xl:gap-6">
         {NAV_ITEMS.map(item => {
           const itemActive = activeMap.get(item.href) ?? false;
 
@@ -261,13 +277,13 @@ export function Navigation({ labels }: NavigationProps) {
                 : 'flex flex-col';
             const offsetClass = menu.offsetClass ?? '';
             const itemWidthClass = menu.itemWidthClass ?? '';
-            const displayLabel = item.keyId && labels && labels[item.keyId] ? labels[item.keyId] : item.label;
+            const displayLabel = displayLabelFor(item);
 
             return (
               <DropdownMenu key={item.href}>
                 <DropdownMenuTrigger asChild>
                   <Link
-                    href={item.href}
+                    href={hrefFor(item.href)}
                     className={cn('nav-pill px-4', itemActive && 'nav-pill--active')}
                     aria-current={itemActive ? 'page' : undefined}
                   >
@@ -298,7 +314,7 @@ export function Navigation({ labels }: NavigationProps) {
                             {group.items.map(({ href, label }) => (
                               <DropdownMenuItem asChild key={href}>
                                 <Link
-                                  href={href}
+                                  href={hrefFor(href)}
                                   className={cn(
                                     'group/item active:ring-primary/50 active:ring-offset-background flex h-12 cursor-pointer items-stretch overflow-hidden bg-[#F4F4F5] p-0 no-underline transition-all duration-200 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.98] active:ring-2 active:ring-offset-2 active:outline-none',
                                     itemWidthClass
@@ -319,7 +335,7 @@ export function Navigation({ labels }: NavigationProps) {
                     : (menu.items ?? []).map(({ href, label }) => (
                         <DropdownMenuItem asChild key={href}>
                           <Link
-                            href={href}
+                            href={hrefFor(href)}
                             className={cn(
                               'group/item active:ring-primary/50 active:ring-offset-background flex h-12 cursor-pointer items-stretch overflow-hidden bg-[#F4F4F5] p-0 no-underline transition-all duration-200 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.98] active:ring-2 active:ring-offset-2 active:outline-none',
                               itemWidthClass
@@ -339,11 +355,11 @@ export function Navigation({ labels }: NavigationProps) {
             );
           }
 
-          const displayLabel = item.keyId && labels && labels[item.keyId] ? labels[item.keyId] : item.label;
+          const displayLabel = displayLabelFor(item);
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={hrefFor(item.href)}
               className={cn('nav-pill px-4', itemActive && 'nav-pill--active')}
               aria-current={itemActive ? 'page' : undefined}
             >
@@ -354,14 +370,15 @@ export function Navigation({ labels }: NavigationProps) {
       </div>
 
       {/* Cta - hidden on small screens */}
-      <div className="hidden md:inline-flex">
+      <div className="hidden items-center gap-4 xl:inline-flex">
+        <LanguageSelector />
         <Button
           asChild
           className="group/cta active:ring-primary/50 active:ring-offset-background inline-flex origin-left items-center justify-start gap-0 rounded-none !bg-transparent px-0 py-0 font-semibold tracking-tight transition-all duration-150 ease-[var(--easing-smooth)] active:translate-x-[1px] active:scale-[0.99] active:ring-2 active:ring-offset-2 has-[>svg]:px-0"
         >
-          <Link href="/contact" aria-label="Book a demo">
+          <Link href={hrefFor('/contact')} aria-label="Book a demo">
             <span className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 inline-flex h-9 items-center px-4 transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:px-3">
-              Book A Demo
+              {language === 'de' ? 'Demo buchen' : 'Book A Demo'}
             </span>
             <span
               className="bg-success text-success-foreground group-hover/cta:bg-success/90 group-active/cta:bg-success/80 ml-0 inline-flex h-9 w-9 items-center justify-center transition-all duration-300 ease-[var(--easing-smooth)] group-hover/cta:ml-2"
@@ -376,17 +393,17 @@ export function Navigation({ labels }: NavigationProps) {
       {/* Mobile menu panel */}
       {mobileOpen && (
         <div
-          className="border-border bg-background fixed inset-x-0 top-16 z-[998] max-h-[calc(100vh-4rem)] overflow-auto border-t p-4 md:top-[88px] md:hidden"
+          className="border-border bg-background fixed inset-x-0 top-16 z-[998] max-h-[calc(100vh-4rem)] overflow-auto border-t p-4 sm:top-20 md:top-[88px] xl:hidden"
           role="menu"
         >
           <nav className="flex flex-col gap-3">
             {NAV_ITEMS.map(item => {
               if (item.type === 'link') {
-                const displayLabel = item.keyId && labels && labels[item.keyId] ? labels[item.keyId] : item.label;
+                const displayLabel = displayLabelFor(item);
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={hrefFor(item.href)}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
                       'block rounded-md px-3 py-2 text-base font-semibold no-underline',
@@ -401,7 +418,7 @@ export function Navigation({ labels }: NavigationProps) {
               // For dropdowns: show a toggle button; children hidden until expanded
               const menu = item.menu;
               const isExpanded = !!expanded[item.href];
-              const displayLabel = item.keyId && labels && labels[item.keyId] ? labels[item.keyId] : item.label;
+              const displayLabel = displayLabelFor(item);
 
               return (
                 <div key={item.href} className="flex flex-col gap-2">
@@ -422,7 +439,7 @@ export function Navigation({ labels }: NavigationProps) {
                           {menu.items.map(({ href, label }) => (
                             <Link
                               key={href}
-                              href={href}
+                              href={hrefFor(href)}
                               onClick={() => setMobileOpen(false)}
                               className="text-foreground/90 block rounded-md px-3 py-2 text-sm no-underline"
                             >
@@ -440,7 +457,7 @@ export function Navigation({ labels }: NavigationProps) {
                             {group.items.map(({ href, label }) => (
                               <Link
                                 key={href}
-                                href={href}
+                                href={hrefFor(href)}
                                 onClick={() => setMobileOpen(false)}
                                 className="text-foreground/90 block rounded-md px-3 py-2 text-sm no-underline"
                               >
@@ -457,11 +474,11 @@ export function Navigation({ labels }: NavigationProps) {
 
             <div className="mt-3">
               <Link
-                href="/contact"
+                href={hrefFor('/contact')}
                 onClick={() => setMobileOpen(false)}
                 className="bg-success text-success-foreground inline-flex w-full items-center justify-center rounded px-4 py-2 text-sm font-semibold"
               >
-                Book A Demo
+                {language === 'de' ? 'Demo buchen' : 'Book A Demo'}
               </Link>
             </div>
           </nav>

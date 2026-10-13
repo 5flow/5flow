@@ -1,6 +1,6 @@
 import { solutionTypography } from '@/components/page/solutions/typography';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { Check, MoveUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import FullBleedLines from '@/components/core/full-bleed-lines';

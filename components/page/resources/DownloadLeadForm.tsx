@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { useState } from 'react';
 import { MoveLeftIcon, MoveRightIcon, XIcon } from 'lucide-react';
 import { toast } from 'sonner';

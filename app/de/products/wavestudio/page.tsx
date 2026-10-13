@@ -1,4 +1,4 @@
-import { WavestudioPage, metadata } from '@/app/products/wavestudio/page';
+import { WavestudioPage, metadata } from '@/app/products/wavestudio/content';
 
 export { metadata };
 

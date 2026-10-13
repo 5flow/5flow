@@ -1,4 +1,4 @@
-import { AiSolutionsPage, metadata } from '@/app/ai-solutions/page';
+import { AiSolutionsPage, metadata } from '@/app/ai-solutions/content';
 
 export { metadata };
 

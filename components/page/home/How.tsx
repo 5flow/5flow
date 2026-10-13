@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { ArrowUpRight, Cloud, MessageSquare, Puzzle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import HtmlContent from '@/components/core/html-content';

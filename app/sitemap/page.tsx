@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import PageHeader from '@/components/core/page-header';
 
 export const metadata: Metadata = {

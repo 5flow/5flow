@@ -1,4 +1,4 @@
-import { DragonflyPage, metadata } from '@/app/products/dragonfly/page';
+import { DragonflyPage, metadata } from '@/app/products/dragonfly/content';
 
 export { metadata };
 

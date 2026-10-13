@@ -1,4 +1,4 @@
-import { FoodBeveragesPage, metadata } from '@/app/applications/industry/food-beverages/page';
+import { FoodBeveragesPage, metadata } from '@/app/applications/industry/food-beverages/content';
 
 export { metadata };
 

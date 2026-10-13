@@ -1,4 +1,4 @@
-import { MediaboxPage, metadata } from '@/app/products/mediabox/page';
+import { MediaboxPage, metadata } from '@/app/products/mediabox/content';
 
 export { metadata };
 

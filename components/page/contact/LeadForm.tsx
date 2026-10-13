@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDownIcon, MoveRightIcon } from 'lucide-react';
 import Lottie from 'lottie-react';

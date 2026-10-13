@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import Image from 'next/image';
 import {
   MoveUpRight,

@@ -1,4 +1,4 @@
-import { AssetLibraryPage, metadata } from '@/app/solutions/asset-library/page';
+import { AssetLibraryPage, metadata } from '@/app/solutions/asset-library/content';
 
 export { metadata };
 

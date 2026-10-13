@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { headers } from 'next/headers';
+import { SiteLanguageProvider } from '@/components/core/site-language';
 import { ReactLenis } from 'lenis/react';
 import { centuryGothic, metropolis } from '@/lib/fonts';
 import { hideTranslationWidget, customizeAccessibilityWidget } from '@/lib/accessibility-widget';
@@ -18,15 +20,18 @@ export const metadata: Metadata = {
     'Your top service provider for artwork management solutions in Germany. Streamline tasks with brand and artwork management.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const hubSpotPortalId = process.env.HUBSPOT_PORTAL_ID;
+  const requestHeaders = await headers();
+  const initialLanguage = requestHeaders.get('x-site-language') === 'de' ? 'de' : 'en';
+  const contentLanguage = requestHeaders.get('x-site-content-language') === 'de' ? 'de' : 'en';
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={contentLanguage} suppressHydrationWarning>
       <head>
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">{`
@@ -76,19 +81,21 @@ export default function RootLayout({
           {customizeAccessibilityWidget}
         </Script>
 
-        <ReactLenis root />
-        <HubSpotPageTracker />
-        <ServerNavigation />
-        <main className="relative flex-1">
-          {/* <PatternOverlay side="both" margin="container" containerAlign="outside" /> */}
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <CtaV2 />
-        <Footer />
+        <SiteLanguageProvider initialLanguage={initialLanguage}>
+          <ReactLenis root />
+          <HubSpotPageTracker />
+          <ServerNavigation />
+          <main className="relative flex-1">
+            {/* <PatternOverlay side="both" margin="container" containerAlign="outside" /> */}
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <CtaV2 />
+          <Footer />
 
-        {/* Fixed */}
-        <Toaster />
-        <FixedActions />
+          {/* Fixed */}
+          <Toaster />
+          <FixedActions />
+        </SiteLanguageProvider>
       </body>
     </html>
   );

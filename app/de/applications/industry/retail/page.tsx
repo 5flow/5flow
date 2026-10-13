@@ -1,4 +1,4 @@
-import { RetailPage, metadata } from '@/app/applications/industry/retail/page';
+import { RetailPage, metadata } from '@/app/applications/industry/retail/content';
 
 export { metadata };
 

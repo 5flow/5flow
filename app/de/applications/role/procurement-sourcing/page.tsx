@@ -1,4 +1,4 @@
-import { ProcurementSourcingPage, metadata } from '@/app/applications/role/procurement-sourcing/page';
+import { ProcurementSourcingPage, metadata } from '@/app/applications/role/procurement-sourcing/content';
 
 export { metadata };
 

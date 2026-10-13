@@ -1,4 +1,4 @@
-import { QualityRegulatoryPage, metadata } from '@/app/applications/role/quality-regulatory/page';
+import { QualityRegulatoryPage, metadata } from '@/app/applications/role/quality-regulatory/content';
 
 export { metadata };
 

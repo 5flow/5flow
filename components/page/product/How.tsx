@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import * as LucideIcons from 'lucide-react';
 import { ArrowDownLeft, ArrowUpRight, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import { Button } from '@/components/ui/button';

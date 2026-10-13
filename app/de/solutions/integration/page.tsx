@@ -1,4 +1,4 @@
-import { IntegrationPage, metadata } from '@/app/solutions/integration/page';
+import { IntegrationPage, metadata } from '@/app/solutions/integration/content';
 
 export { metadata };
 

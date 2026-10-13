@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { ArrowDown, ArrowUpRight, ChevronDown } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import {

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { Mail, ArrowUp, PersonStanding } from 'lucide-react';
 import { useLenis } from 'lenis/react';
 import { Button } from '@/components/ui/button';

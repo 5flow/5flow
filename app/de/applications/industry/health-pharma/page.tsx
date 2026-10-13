@@ -1,4 +1,4 @@
-import { HealthPharmaPage, metadata } from '@/app/applications/industry/health-pharma/page';
+import { HealthPharmaPage, metadata } from '@/app/applications/industry/health-pharma/content';
 
 export { metadata };
 

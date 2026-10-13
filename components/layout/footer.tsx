@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import Image from 'next/image';
 const LinkedinIcon = () => (
   <svg

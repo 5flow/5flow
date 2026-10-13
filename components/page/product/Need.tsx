@@ -2,7 +2,7 @@ import { ArrowUpRight, MoveUpRight } from 'lucide-react';
 import FullBleedLines from '@/components/core/full-bleed-lines';
 import InlineHighlight from '@/components/core/inline-highlight';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import InlineCmsText from '@/components/core/inline-cms-text';
 
 interface NeedProps {

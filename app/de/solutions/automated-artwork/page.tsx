@@ -1,4 +1,4 @@
-import { AutomatedArtworkPage, metadata } from '@/app/solutions/automated-artwork/page';
+import { AutomatedArtworkPage, metadata } from '@/app/solutions/automated-artwork/content';
 
 export { metadata };
 

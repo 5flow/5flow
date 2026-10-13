@@ -1,4 +1,4 @@
-import { DataAnalysisPage, metadata } from '@/app/solutions/data-analysis/page';
+import { DataAnalysisPage, metadata } from '@/app/solutions/data-analysis/content';
 
 export { metadata };
 

@@ -1,4 +1,4 @@
-import { ConsumerGoodsPage, metadata } from '@/app/applications/industry/consumer-goods/page';
+import { ConsumerGoodsPage, metadata } from '@/app/applications/industry/consumer-goods/content';
 
 export { metadata };
 

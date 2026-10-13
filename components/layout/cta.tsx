@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/core/localized-link';
 import { ArrowDown, ArrowRight, ArrowUp, ArrowUpRight } from 'lucide-react';
 import CtaPixelGrid from '@/components/core/cta-pixel-grid';
 import { Button } from '@/components/ui/button';
