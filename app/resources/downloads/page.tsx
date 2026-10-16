@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import type { Metadata } from 'next';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
@@ -7,7 +8,7 @@ import { getDownloadCards } from '@/lib/resources/downloads';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Artwork Workflow Downloads & Guides | 5Flow',
   description: 'Download practical guides, templates, and in-depth resources from 5Flow.',
 };
@@ -31,4 +32,8 @@ export default async function Downloads() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('downloads', fallbackMetadata, 'en');
 }

@@ -1,10 +1,11 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Metadata } from 'next';
 import PageHeader from '@/components/core/page-header';
 import Markdown from '@/components/core/markdown';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Privacy Notices | 5Flow',
   description: "Read 5Flow's privacy notices.",
 };
@@ -30,4 +31,8 @@ export default async function PrivacyPolicyPage() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('privacy-notices', fallbackMetadata, 'en');
 }

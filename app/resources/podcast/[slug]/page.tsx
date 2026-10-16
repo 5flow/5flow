@@ -1,3 +1,4 @@
+import { getPostMetadata } from '@/lib/cms/seo';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import EpisodeOnePage from '@/components/page/resources/EpisodeOnePage';
@@ -10,7 +11,7 @@ type PodcastEpisodeRouteProps = {
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: PodcastEpisodeRouteProps): Promise<Metadata> {
+async function getFallbackMetadata({ params }: PodcastEpisodeRouteProps): Promise<Metadata> {
   const { slug } = await params;
   const episode = await getCmsPodcastEpisodeBySlug(slug);
 
@@ -35,4 +36,9 @@ export default async function PodcastEpisodeRoute({ params }: PodcastEpisodeRout
   if (episode) return <PodcastEpisodeCmsPage episode={episode} />;
   if (slug === 'episode-1') return <EpisodeOnePage />;
   notFound();
+}
+
+export async function generateMetadata(props: PodcastEpisodeRouteProps): Promise<Metadata> {
+  const { slug } = await props.params;
+  return getPostMetadata(slug, await getFallbackMetadata(props));
 }

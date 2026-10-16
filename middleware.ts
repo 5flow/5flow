@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LANGUAGE_COOKIE, isGermanPath, localizedHref } from './lib/i18n';
+import { getPathLanguage } from './lib/cms/language';
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -16,7 +17,7 @@ export function middleware(request: NextRequest) {
 
   const headers = new Headers(request.headers);
   headers.set('x-site-language', german || preferred === 'de' ? 'de' : 'en');
-  headers.set('x-site-content-language', german ? 'de' : 'en');
+  headers.set('x-site-content-language', getPathLanguage(pathname));
   const response = NextResponse.next({ request: { headers } });
   if (german && preferred !== 'de') {
     response.cookies.set(LANGUAGE_COOKIE, 'de', {

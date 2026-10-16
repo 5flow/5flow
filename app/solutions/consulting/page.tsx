@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import type { Metadata } from 'next';
 import * as LucideIcons from 'lucide-react';
 import { getConsulting } from '@/lib/cms/consulting';
@@ -12,7 +13,7 @@ import DeliverySection from '@/components/page/solutions/consulting/DeliverySect
 import MetricsSection from '@/components/page/solutions/consulting/MetricsSection';
 import ValueQuestions from '@/components/page/solutions/consulting/ValueQuestions';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Marketing Operations Consulting | 5Flow',
   description:
     '5Flow consulting helps marketing operations teams simplify workflows, scale content operations, and turn strategy into measurable execution.',
@@ -85,4 +86,8 @@ export default async function Consulting() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('consulting', fallbackMetadata, 'en');
 }

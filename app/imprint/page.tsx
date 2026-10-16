@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Metadata } from 'next';
@@ -7,7 +8,7 @@ import { getDraftLegalPage, getLegalPage } from '@/lib/cms/legal';
 import PageHeader from '@/components/core/page-header';
 import HtmlContent from '@/components/core/html-content';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Imprint | 5Flow',
   description: 'Company imprint and legal disclosure for 5Flow GmbH.',
 };
@@ -47,4 +48,8 @@ export default async function ImprintPage() {
       </div>
     );
   }
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('imprint', fallbackMetadata, 'en');
 }

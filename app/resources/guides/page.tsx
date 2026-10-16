@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
@@ -130,4 +131,8 @@ export default function Guides() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('guides', {}, 'en');
 }

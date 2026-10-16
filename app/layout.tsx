@@ -28,7 +28,7 @@ export default async function RootLayout({
   const hubSpotPortalId = process.env.HUBSPOT_PORTAL_ID;
   const requestHeaders = await headers();
   const initialLanguage = requestHeaders.get('x-site-language') === 'de' ? 'de' : 'en';
-  const contentLanguage = requestHeaders.get('x-site-content-language') === 'de' ? 'de' : 'en';
+  const contentLanguage = requestHeaders.get('x-site-content-language') || 'en';
 
   return (
     <html lang={contentLanguage} suppressHydrationWarning>

@@ -1,7 +1,12 @@
-import { MediaboxPage, metadata } from '@/app/products/mediabox/content';
+import { getPageMetadata } from '@/lib/cms/seo';
+import { MediaboxPage, metadata as fallbackMetadata } from '@/app/products/mediabox/content';
 
-export { metadata };
+
 
 export default function GermanMediabox() {
   return <MediaboxPage cmsSlug="mediabox-2" />;
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('mediabox-2', fallbackMetadata, 'de');
 }

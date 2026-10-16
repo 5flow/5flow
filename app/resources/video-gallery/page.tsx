@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
 import Hero from '@/components/page/resources/Hero';
@@ -130,4 +131,8 @@ export default function VideoGallery() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('video-gallery', {}, 'en');
 }

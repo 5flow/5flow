@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import PageHeader from '@/components/core/page-header';
 import Form from '@/components/page/contact/Form';
 import Hero from '@/components/page/contact/Hero';
@@ -109,4 +110,8 @@ function extractHeroHeadline(html: string): string | null {
   const text = match[1].replace(/<br\s*\/?>(\s*)/gi, ' ').replace(/<[^>]+>/g, ' ');
   const normalized = decodeEntities(text).replace(/\s+/g, ' ').trim();
   return normalized || null;
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('contact', {}, 'en');
 }

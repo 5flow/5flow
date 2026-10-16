@@ -1,3 +1,4 @@
+import { getPostMetadata } from '@/lib/cms/seo';
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import HtmlContent from '@/components/core/html-content';
@@ -48,3 +49,8 @@ export async function generateStaticParams() {
 
 
 
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  return getPostMetadata(slug);
+}

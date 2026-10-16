@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import type { Metadata } from 'next';
 import { Contact } from '@/components/layout';
 import PageHeader from '@/components/core/page-header';
@@ -7,7 +8,7 @@ import { getWebinarCards } from '@/lib/resources/webinars';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Industry Expert Webinars | 5Flow',
   description: 'Explore 5Flow webinars and expert sessions.',
 };
@@ -32,4 +33,8 @@ export default async function Webinars() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('webinars', fallbackMetadata, 'en');
 }

@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import { Contact } from '@/components/layout';
 import ServerHero from '@/components/page/home/Hero.server';
 import ServerWhat from '@/components/page/home/What.server';
@@ -8,7 +9,7 @@ import type { Metadata } from 'next';
 
 const FRENCH_HOME_SLUG = 'home-2';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: '5Flow | Accueil',
   description:
     "French homepage preview powered by the WordPress translation entry for 5Flow's home page.",
@@ -39,4 +40,8 @@ export default function FrenchHome() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('home-2', fallbackMetadata, 'fr');
 }

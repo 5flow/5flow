@@ -1,3 +1,4 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Metadata } from 'next';
@@ -8,7 +9,7 @@ import PageHeader from '@/components/core/page-header';
 import Markdown from '@/components/core/markdown';
 import HtmlContent from '@/components/core/html-content';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Privacy Policy | 5Flow',
   description: "Read 5Flow's privacy policy, including information about data collection, processing, and your rights.",
 };
@@ -50,4 +51,8 @@ export default async function PrivacyPolicyPage() {
       </div>
     );
   }
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('privacy', fallbackMetadata, 'en');
 }

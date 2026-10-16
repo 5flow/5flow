@@ -1,7 +1,12 @@
-import { IntegrationPage, metadata } from '@/app/solutions/integration/content';
+import { getPageMetadata } from '@/lib/cms/seo';
+import { IntegrationPage, metadata as fallbackMetadata } from '@/app/solutions/integration/content';
 
-export { metadata };
+
 
 export default function GermanIntegration() {
   return <IntegrationPage cmsSlug="integration-2" />;
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('integration-2', fallbackMetadata, 'de');
 }

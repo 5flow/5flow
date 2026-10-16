@@ -1,10 +1,11 @@
+import { getPageMetadata } from '@/lib/cms/seo';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Metadata } from 'next';
 import Link from '@/components/core/localized-link';
 import PageHeader from '@/components/core/page-header';
 
-export const metadata: Metadata = {
+const fallbackMetadata: Metadata = {
   title: 'Sitemap | 5Flow',
   description: 'Browse all public pages of the 5Flow website.',
 };
@@ -72,4 +73,8 @@ export default async function SitemapPage() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata() {
+  return getPageMetadata('sitemap', fallbackMetadata, 'en');
 }
