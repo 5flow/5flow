@@ -50,7 +50,12 @@ async function findRoutes() {
   } catch {}
 
   // Filter out special utility routes we don't want to show
-  const filtered = Array.from(new Set(routes)).filter(r => r !== '/_not-found');
+  const excludedRoutes = new Set([
+    '/_not-found',
+    '/products/wavestudio',
+    '/de/products/wavestudio',
+  ]);
+  const filtered = Array.from(new Set(routes)).filter(r => !excludedRoutes.has(r));
 
   return filtered.sort((a, b) => a.localeCompare(b));
 }

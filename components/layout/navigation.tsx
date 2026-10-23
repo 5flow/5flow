@@ -65,7 +65,6 @@ const NAV_ITEMS: NavItem[] = [
         { href: '/products/wave', label: 'WAVE' },
         { href: '/products/dragonfly', label: 'DRAGONFLY' },
         { href: '/products/mediabox', label: 'MEDIABOX' },
-        { href: '/products/wavestudio', label: 'WAVESTUDIO' },
       ],
       offsetClass: 'ml-36',
       itemWidthClass: 'w-72',

@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/products/wavestudio',
+        destination: '/products/wave',
+        permanent: true,
+      },
+      {
+        source: '/de/products/wavestudio',
+        destination: '/de/products/wave',
+        permanent: true,
+      },
+      {
         source: '/videos/product-demos/1',
         destination: 'https://www.5flowtech.com',
         permanent: true,

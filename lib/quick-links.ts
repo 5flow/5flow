@@ -12,7 +12,6 @@ export const QUICK_LINK_GROUPS = [
       { href: '/products/wave', label: 'Wave' },
       { href: '/products/dragonfly', label: 'Dragonfly' },
       { href: '/products/mediabox', label: 'Mediabox' },
-      { href: '/products/wavestudio', label: 'Wave Studio' },
     ],
   },
   {
